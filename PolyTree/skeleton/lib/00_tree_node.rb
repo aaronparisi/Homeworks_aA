@@ -17,15 +17,23 @@ class PolyTreeNode
         self.parent.remove_child(self) if parent && node != nil
         @parent = node
         node.children.push(self) if node && ! node.children.include?(self)
+        # don't push self IF it's already in the parent's children list
+        # in their code, they only get to this point if we have a new parent
+        # whereas mine does it all anyway
     end
 
     def add_child(child)
         @children << child
+        # this is redundant, as child.parent = self should do this adding for us
         child.parent = self
     end
 
     def remove_child(child)
         @children.delete_at(children.index(child))
+        # their parent= function uses array.delete, so the deletion can all happen
+        # inside parent= (avoiding the issue where parent= calls remove_child)
+        # => remove_child in the solution doesn't actually do any deletion, it just calls
+        # => parent= in such a way as to force it to do deletion rather than addition
         child.parent = nil
     end
 
@@ -46,6 +54,7 @@ class PolyTreeNode
             cur_node = nodes.shift
             return cur_node if cur_node.value == tgt
             cur_node.children.each {|child| nodes << child}
+            # use the concat method!!!!
             #nodes += cur_node.children
         end
         nil
