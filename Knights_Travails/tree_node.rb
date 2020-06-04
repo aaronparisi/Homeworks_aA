@@ -1,4 +1,4 @@
-Class TreeNode
+class TreeNode
 
     attr_accessor :value
     attr_reader :parent
