@@ -78,6 +78,24 @@ class TreeNode
         nil
     end
 
+    def get_final_nodes(dest)
+        # this should return every single node from move_tree
+        # whose value == dest
+        # it should return an ARRAY of nodes
+        return [self] if dest == value
+
+        ret = []
+        children.each {|child| ret += child.get_final_nodes(dest)}
+
+        ret
+    end
+
+    def gen_path_to()
+        return [self.value] if parent == nil
+
+        parent.gen_path_to + [self.value]
+    end
+
     def pretty_print(num_tabs = 0)
         puts ("\t" * num_tabs) + "#{value}"
         _children.each {|child| child.pretty_print(num_tabs+1)}

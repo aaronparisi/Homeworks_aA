@@ -72,15 +72,39 @@ class PathFinder
         end
     end
 
-    def find_path
+    def generate_path(node)
         
+    end
+
+    def find_paths(dest)
+        # given a destination [x, y]
+        # returns an array of paths from self's starting position to dest,
+        # or nil of no such path exists
+        # a path is a series of values
+        final_nodes = move_tree.get_final_nodes(dest)
+        # an array of nodes, found by traversing self's move_tree,
+        # whose values == dest
+        paths = []
+        final_nodes.each do |fnode|
+            paths << fnode.gen_path_to
+        end
+        #debugger
+        paths
     end
 
 end
 
-pf1 = PathFinder.new([0,0])
+start = [2, 3]
+pf1 = PathFinder.new(start)
 pf1.build_move_tree() # this is all moves until the ends of the board
-pf1.move_tree.pretty_print
+#pf1.move_tree.pretty_print
+dest = [7,0]
+paths = pf1.find_paths(dest)
+puts "printing out all paths from #{start} to #{dest}"
+paths.each do |path|
+    print path
+    puts
+end
 
     # def build_move_tree
     #     # will perform a breadth-first-build starting with the root node
