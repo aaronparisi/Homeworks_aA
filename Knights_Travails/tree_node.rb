@@ -12,7 +12,7 @@ class TreeNode
     end
 
     def parent=(node)
-        return self if self.parent = node
+        return self if self.parent == node
 
         if self.parent
             self.parent._children.delete(self)
@@ -40,6 +40,21 @@ class TreeNode
         # again, parent= will delete the child from the old parent's children
     end
 
+    def grandma?(node)
+        # returns true if node is one of self's children's values
+        #debugger
+        children.any? {|child| child.value == node}
+    end
+
+    def in_lineage?(parent)
+        if parent != nil
+            return true if self.value == parent.value
+        else
+            return false
+        end
+        self.in_lineage?(parent.parent)
+    end
+
     def bfs(tgt = nil)
         nodes = self
         until nodes.empty?
@@ -61,6 +76,15 @@ class TreeNode
         end
 
         nil
+    end
+
+    def pretty_print(num_tabs = 0)
+        puts ("\t" * num_tabs) + "#{value}"
+        _children.each {|child| child.pretty_print(num_tabs+1)}
+    end
+
+    def inspect
+        "val = #{value}"
     end
 
     protected
