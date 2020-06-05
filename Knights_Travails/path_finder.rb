@@ -17,7 +17,7 @@ class PathFinder
         shifters.each do |shift|
             ret << [posx + shift[0], posy + shift[1]]
         end
-        ret.filter {|rpos| rpos.all? {|i| i.between?(0, 8)}}
+        ret.filter {|rpos| rpos.all? {|i| i.between?(0, 7)}}
     end
 
     attr_reader :considered, :move_tree
@@ -94,17 +94,17 @@ class PathFinder
 
 end
 
-start = [2, 3]
-pf1 = PathFinder.new(start)
-pf1.build_move_tree() # this is all moves until the ends of the board
-#pf1.move_tree.pretty_print
-dest = [7,0]
-paths = pf1.find_paths(dest)
-puts "printing out all paths from #{start} to #{dest}"
-paths.each do |path|
-    print path
-    puts
-end
+# start = [2, 3]
+# pf1 = PathFinder.new(start)
+# pf1.build_move_tree() # this is all moves until the ends of the board
+# #pf1.move_tree.pretty_print
+# dest = [7,0]
+# paths = pf1.find_paths(dest)
+# puts "printing out all paths from #{start} to #{dest}"
+# paths.each do |path|
+#     print path
+#     puts
+# end
 
     # def build_move_tree
     #     # will perform a breadth-first-build starting with the root node
