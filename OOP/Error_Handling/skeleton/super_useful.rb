@@ -3,20 +3,32 @@ def convert_to_int(str)
   begin
     Integer(str)
   rescue ArgumentError
-    return nil
+    puts "you can put a message here b/c that will return nil while also giving info"
   end
 end
 
 # PHASE 3
 FRUITS = ["apple", "banana", "orange"]
 
+class CoffeeError < StandardError
+  def message
+    "I really like coffee"
+  end
+end
+
+class NotAFruitError < StandardError
+  def message
+    "That is not a fruit!"
+  end
+end
+
 def reaction(maybe_fruit)
   if FRUITS.include? maybe_fruit
     puts "OMG, thanks so much for the #{maybe_fruit}!"
   elsif maybe_fruit == "coffee"
-    raise ArgumentError
+    raise CoffeeError
   else
-    raise StandardError 
+    raise NotAFruitError 
   end 
 end
 
@@ -27,11 +39,11 @@ def feed_me_a_fruit
   puts "Feed me a fruit! (Enter the name of a fruit:)"
   maybe_fruit = gets.chomp
     reaction(maybe_fruit)
-  rescue ArgumentError
-    puts "I like coffee a lot!  But it's not a fruit, try again please."
+  rescue CoffeeError => e
+    puts e.message
     retry
-  rescue StandardError
-    puts "that's not a fruit I like."
+  rescue NotAFruitError => e
+    puts e.message
   end
 end  
 
