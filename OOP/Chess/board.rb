@@ -26,7 +26,8 @@ class Board
     end
 
     def []=(pos, val)
-        @rows[pos] = val
+        x, y = pos
+        @rows[x][y] = val
     end
 
     def setup_board
@@ -58,6 +59,9 @@ class Board
     def move_piece(orig, dest)
         raise EmptySquareError if self[orig].is_a?(NullPiece)
         raise InvalidMoveError if ! self[orig].valid_move?
+
+        self[dest] = self[orig]
+        self[orig] = NullPiece.new
 
         puts "successfully moved!"
     end
