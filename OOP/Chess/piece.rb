@@ -3,7 +3,13 @@ class Piece
         @color = color
     end
 
-    def valid_moves
-        
+    def valid_move?
+        true
+    end
+end
+
+class NullPiece < Piece
+    def initialize()
+        super(nil)
     end
 end
