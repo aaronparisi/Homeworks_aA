@@ -78,10 +78,6 @@ class Piece
         
     end
 
-    def valid_moves
-       
-    end
-
     def pos=(val)
         x, y = val
         pos[x][y] = val
@@ -193,18 +189,36 @@ class Pawn < Piece
         :P
     end
 
-    def move_dirs
-        
+    def moves
+        fwd = forward_dir
+
+        ret = []
+        first_move = [2*fwd, 0]
+        non_first = [1*fwd, 0]
+        side_attacks = [[1*fwd, 1], [1*fwd, -1]]
+
+        if at_start_now?
+            ret << first_move
+        else
+            ret << non_first if board[non_first].nil?
+            # Board#valid_pos? returns true when an opposite color piece is there
+            # but that doesn't work for Pawns
+            side_attacks.each do |sa|
+                ret << sa if board.valid_pos?(sa, color)
+            end
+        end
+        ret
     end
 
     private
 
     def at_start_now?
-        pos[0] == 1 || pos[0] == 6
+        return pos[0] == 1 if color == :black
+        return pos[0] == 6 if color == :white
     end
 
     def forward_dir
-        
+        color == :white ? -1 : 1
     end
 
     def forward_steps
