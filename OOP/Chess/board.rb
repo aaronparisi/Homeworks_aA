@@ -31,34 +31,43 @@ class Board
     end
 
     def setup_board
-        ret = Array.new(8)
-
-        ret[0] = back_row(:black)
-        ret[1] = front_row(:black)
-
-        (2..5).each {|row| ret[row] = Array.new(8) {NullPiece.new}}
-
-        ret[6] = front_row(:white)
-        ret[7] = back_row(:white)
-
-        ret
+        (0..7).each do |row|
+            (0..7).each do |col|
+                case row
+                when 0
+                    return back_row(:black, [row, col])
+                when 1
+                    return front_row(:black, [row, col])
+                when 6
+                    return front_row(:white, [row, col])
+                when 7
+                    return back_row(:white, [row, col])
+                else
+                    return middle_row([row, col])
+                end
+            end
+        end
     end
 
-    def back_row(color)
-        row = Array.new(8) {Piece.new(color)}
+    def middle_row(pos)
+        ret = Array.new(8) {NullPiece.new()}
+    end
+
+    def back_row(color, pos)
+        row = Array.new(8) {Piece.new(color, self, pos)}
         ## we'll flesh this out later
         row
     end
 
-    def front_row(color)
-        row = Array.new(8) {Piece.new(color)}
+    def front_row(color, pos)
+        row = Array.new(8) {Piece.new(color, self, pos)}
         ## this will be all pawns
         row
     end
 
     def move_piece(orig, dest)
         raise EmptySquareError if self[orig].is_a?(NullPiece)
-        raise InvalidMoveError if ! self[orig].valid_move?
+        raise InvalidMoveError if ! self[orig].valid_moves.include?(dest)?
 
         self[dest] = self[orig]
         self[orig] = NullPiece.new
