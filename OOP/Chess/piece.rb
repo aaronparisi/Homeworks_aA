@@ -1,14 +1,8 @@
+require 'singleton'
+
 module Slideable
     HORIZONTAL_DIRS = [[1, 0], [-1, 0], [0, 1], [0, -1]]
     DIAGONAL_DIRS = [[1, 1], [1, -1], [-1, 1] , [-1, -1]]
-
-    def horizontal_dirs
-        HORIZONTAL_DIRS.map {|delta| [(delta[0]+pos[0]), (delta[1]+pos[1])]}
-    end
-
-    def diagonal_dirs
-        DIAGONAL_DIRS.map {|delta| [(delta[0]+pos[0]), (delta[1]+pos[1])]}
-    end
 
     def moves
         dirs = move_dirs
@@ -21,7 +15,7 @@ module Slideable
             all_deltas = HORIZONTAL_DIRS + DIAGONAL_DIRS
         end
 
-        ret = []
+        
         all_deltas.each do |dx, dy|
             ret += grow_unblocked_moves_in_dir(dx, dy)
         end
@@ -39,21 +33,31 @@ module Slideable
         ret = []
 
         i = 1
-        until ! board[dx*i, dy*i].piece.is_a(NullPiece)
-            ret << [dx*i, dy*i]
+        until ! board.valid_pos(pos + [dx*i, dy*i], color)
+            ret << pos + [dx*i, dy*i]
             i += 1
         end
+
+        ret
     end
 end
 
 module Stepable
 
     def moves
-        
+        diffs = move_diffs
+
+        ret = []
+        diffs.each do |dx, dy|
+            new = [pos[0] + dx, pos[1] + dy]
+            ret << new unless ! board.valid_pos?(new, color)
+        end
+
+        ret
     end
 
     def move_diffs
-        
+        # implemented by class including Stepable
     end
     
 end
@@ -79,7 +83,8 @@ class Piece
     end
 
     def pos=(val)
-        
+        x, y = val
+        pos[x][y] = val
     end
 
     def symbol()
@@ -145,7 +150,7 @@ class Queen < Piece
 end
 
 class Knight < Piece
-    include Slideable
+    include Stepable
     def initialize(color, board, pos)
         super(color, board, pos)
     end
@@ -156,13 +161,13 @@ class Knight < Piece
 
     protected
 
-    def move_dirs
-        
+    def move_diffs
+        [[2, 1], [2, -1], [1, 2], [1, -2], [-2, 1], [-2, -1], [-1, 2], [-1, -2]]
     end
 end
 
 class King < Piece
-    include Slideable
+    include Stepable
     def initialize(color, board, pos)
         super(color, board, pos)
     end
@@ -173,8 +178,8 @@ class King < Piece
 
     protected
 
-    def move_dirs
-        
+    def move_diffs
+        [[1, 0], [1, 1], [0, 1], [-1, 1], [-1 , 0], [-1, -1], [0, -1], [1, -1]]
     end
 end
 
@@ -195,7 +200,7 @@ class Pawn < Piece
     private
 
     def at_start_now?
-        
+        pos[0] == 1 || pos[0] == 6
     end
 
     def forward_dir

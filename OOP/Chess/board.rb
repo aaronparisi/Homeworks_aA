@@ -17,7 +17,7 @@ class Board
     attr_reader :rows
 
     def initialize()
-        @rows = setup_board
+        @rows = Array.new(8) {Array.new(8) {nil}}
     end
 
     def [](pos)
@@ -31,48 +31,81 @@ class Board
     end
 
     def setup_board
-        (0..7).each do |row|
-            (0..7).each do |col|
-                case row
-                when 0
-                    return back_row(:black, [row, col])
-                when 1
-                    return front_row(:black, [row, col])
-                when 6
-                    return front_row(:white, [row, col])
-                when 7
-                    return back_row(:white, [row, col])
-                else
-                    return middle_row([row, col])
-                end
-            end
-        end
+        @rows[0] = back_row(:black, 0)
+        @rows[1] = front_row(:black, 1)
+
+        @rows[6] = front_row(:white, 6)
+        @rows[7] = back_row(:white, 7)
     end
 
     def middle_row(pos)
         ret = Array.new(8) {NullPiece.new()}
     end
 
-    def back_row(color, pos)
-        row = Array.new(8) {Piece.new(color, self, pos)}
-        ## we'll flesh this out later
-        row
+    def back_row(color, row)
+        ret = Array.new(8) {nil}
+        [0, 7].each {|col| ret[col] = Rook.new(color, self, [row, col])}
+        [1, 6].each {|col| ret[col] = Knight.new(color, self, [row, col])}
+        [2, 5].each {|col| ret[col] = Bishop.new(color, self, [row, col])}
+        ret[3] = Queen.new(color, self, [row, 3])
+        ret[4] = King.new(color, self, [row, 4])
+
+        ret
     end
 
-    def front_row(color, pos)
-        row = Array.new(8) {Piece.new(color, self, pos)}
-        ## this will be all pawns
-        row
+    def front_row(color, row)
+        ret = Array.new(8) {nil}
+        (0..7).to_a.each {|col| ret[col] = Pawn.new(color, self, [row, col])}
+        ret
     end
 
     def move_piece(orig, dest)
         raise EmptySquareError if self[orig].is_a?(NullPiece)
-        raise InvalidMoveError if ! self[orig].valid_moves.include?(dest)?
+
+        moves = self[orig].moves
+        raise InvalidMoveError if ! moves.include?(dest)
 
         self[dest] = self[orig]
-        self[orig] = NullPiece.new
+        self[orig] = nil
 
         puts "successfully moved!"
+    end
+
+    def valid_pos?(pos, color)
+        x, y = pos
+        if ! x.between?(0, 7) || ! y.between?(0, 7)
+            return false
+        elsif self[pos].nil?
+            return true
+        elsif self[pos].color == color
+            return false
+        else
+            return true
+        end
+    end
+
+    def add_piece(piece, pos)
+        
+    end
+
+    def checkmate?(color)
+        
+    end
+
+    def in_check?(color)
+        
+    end
+
+    def find_king(color)
+        
+    end
+
+    def pieces
+        
+    end
+
+    def dup
+        
     end
 
 end
