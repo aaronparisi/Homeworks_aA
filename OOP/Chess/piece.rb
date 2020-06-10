@@ -67,10 +67,11 @@ end
 
 class Piece
 
-    attr_reader :color, :board, :pos
+    attr_reader :color, :board, :pos, :selected
 
     def initialize(color, board, pos)
         @color, @board, @pos = color, board, pos
+        @selected = false
     end
 
     def to_s

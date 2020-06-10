@@ -6,6 +6,8 @@ require_relative "piece"
 
 class Display
 
+    attr_reader :board
+
   def initialize(board)
     @board = board
     @cursor = Cursor.new([0, 0], board)
@@ -27,8 +29,10 @@ class Display
   def colors_for(apiece)
     i, j = apiece.pos
     #debugger
-    if [i, j] == @cursor.cursor_pos
-      bg = @cursor.selected ? :red : :light_red
+    if board.selected == [i, j]
+        bg = :red
+    elsif [i, j] == @cursor.cursor_pos
+      bg = :light_red
     elsif (i+j).odd?
       bg = :light_black
     else

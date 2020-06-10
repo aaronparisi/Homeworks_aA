@@ -14,10 +14,11 @@ end
 
 class Board
     
-    attr_reader :rows
+    attr_reader :rows, :selected
 
     def initialize()
         @rows = Array.new(8) {nil}
+        selected = nil
     end
 
     def [](pos)
@@ -65,6 +66,14 @@ class Board
         ret = Array.new(8) {nil}
         (0..7).to_a.each {|col| ret[col] = Pawn.new(color, self, [row, col])}
         ret
+    end
+
+    def toggle_selected(pos)
+        if selected
+            @selected = nil
+        else
+            @selected = pos
+        end
     end
 
     def move_piece(orig, dest)
