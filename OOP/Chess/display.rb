@@ -28,7 +28,7 @@ class Display
     i, j = apiece.pos
     #debugger
     if [i, j] == @cursor.cursor_pos
-      bg = :light_red
+      bg = @cursor.selected ? :red : :light_red
     elsif (i+j).odd?
       bg = :light_black
     else
