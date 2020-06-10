@@ -74,7 +74,7 @@ class Piece
     end
 
     def to_s
-        symbol.to_s
+        " " + symbol.to_s + " "
     end
 
     def empty?
@@ -240,17 +240,17 @@ end
 
 class NullPiece < Piece
     
-    include Singleton
+    #include Singleton
 
-    def initialize()
-        super(nil, nil, nil) # ??????
+    def initialize(pos)
+        super(:black, nil, pos) # ??????
     end
 
     def moves
         
     end
 
-    def symbol
-        
+    def to_s
+        "   "
     end
 end
