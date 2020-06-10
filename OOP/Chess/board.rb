@@ -17,7 +17,7 @@ class Board
     attr_reader :rows
 
     def initialize()
-        @rows = Array.new(8) {Array.new(8) {nil}}
+        @rows = Array.new(8) {nil}
     end
 
     def [](pos)
@@ -34,12 +34,20 @@ class Board
         @rows[0] = back_row(:black, 0)
         @rows[1] = front_row(:black, 1)
 
+        @rows[2] = middle_row(2)
+        @rows[3] = middle_row(3)
+        @rows[4] = middle_row(4)
+        @rows[5] = middle_row(5)
+        
+
         @rows[6] = front_row(:white, 6)
         @rows[7] = back_row(:white, 7)
     end
 
-    def middle_row(pos)
-        ret = Array.new(8) {NullPiece.new()}
+    def middle_row(row)
+        ret = Array.new(8) {nil}
+        (0..7).to_a.each {|col| ret[col] = NullPiece.new([row, col])}
+        ret
     end
 
     def back_row(color, row)

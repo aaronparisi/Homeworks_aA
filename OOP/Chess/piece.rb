@@ -104,7 +104,7 @@ class Bishop < Piece
     end
 
     def symbol
-        :B
+        color == :white ? '♗' : '♝'
     end
 
     protected
@@ -121,7 +121,7 @@ class Rook < Piece
     end
 
     def symbol
-        :R
+        color == :white ? '♖' : '♜'
     end
 
     protected
@@ -138,7 +138,7 @@ class Queen < Piece
     end
 
     def symbol
-        :Q
+        color == :white ? '♕' : '♛'
     end
 
     protected
@@ -155,7 +155,7 @@ class Knight < Piece
     end
 
     def symbol
-        :H
+        color == :white ? '♘' : '♞'
     end
 
     protected
@@ -172,7 +172,7 @@ class King < Piece
     end
 
     def symbol
-        :K
+        color == :white ? '♔' : '♚'
     end
 
     protected
@@ -189,7 +189,7 @@ class Pawn < Piece
     end
 
     def symbol
-        :P
+        color == :white ? '♙' : '♟︎'
     end
 
     def moves
