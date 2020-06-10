@@ -65,8 +65,14 @@ class Board
         moves = self[orig].moves
         raise InvalidMoveError if ! moves.include?(dest)
 
+        dest_piece = self[dest]
+
+        puts "about to take a #{dest.symbol.to_s}" if ! dest_piece.nil?
+
         self[dest] = self[orig]
         self[orig] = nil
+        # there should be something here indicating that a piece was taken
+        # if it was?
 
         puts "successfully moved!"
     end

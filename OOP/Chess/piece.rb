@@ -5,6 +5,7 @@ module Slideable
     DIAGONAL_DIRS = [[1, 1], [1, -1], [-1, 1] , [-1, -1]]
 
     def moves
+        ret = []
         dirs = move_dirs
         case dirs
         when :horizontal
@@ -32,9 +33,11 @@ module Slideable
     def grow_unblocked_moves_in_dir(dx, dy)
         ret = []
 
+        x, y = pos
+
         i = 1
-        until ! board.valid_pos(pos + [dx*i, dy*i], color)
-            ret << pos + [dx*i, dy*i]
+        until ! board.valid_pos?([x + dx*i, y + dy*i], color)
+            ret << [x+ dx*i, y+dy*i]
             i += 1
         end
 
@@ -191,14 +194,17 @@ class Pawn < Piece
 
     def moves
         fwd = forward_dir
+        x = pos[0]
+        y = pos[1]
 
         ret = []
-        first_move = [2*fwd, 0]
-        non_first = [1*fwd, 0]
-        side_attacks = [[1*fwd, 1], [1*fwd, -1]]
+        first_move = [2*fwd + x, y]
+        non_first = [1*fwd + x, y]
+        side_attacks = [[1*fwd + x, 1+y], [1*fwd + x, -1+y]]
 
         if at_start_now?
             ret << first_move
+            ret << non_first
         else
             ret << non_first if board[non_first].nil?
             # Board#valid_pos? returns true when an opposite color piece is there
