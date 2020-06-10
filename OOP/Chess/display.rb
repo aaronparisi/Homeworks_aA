@@ -1,6 +1,8 @@
 require "colorize"
 require 'byebug'
 require_relative "cursor"
+require_relative "board"
+require_relative "piece"
 
 class Display
 
@@ -37,9 +39,21 @@ class Display
     # and the text color is white?
   end
 
+  def looper()
+      while true
+        render
+        @cursor.get_input
+      end
+  end
+
   def render
     system("clear")
     build_grid.each { |row| puts row.join }
     nil
   end
 end
+
+b = Board.new
+b.setup_board
+d = Display.new(b)
+d.looper

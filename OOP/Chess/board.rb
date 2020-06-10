@@ -89,7 +89,7 @@ class Board
         x, y = pos
         if ! x.between?(0, 7) || ! y.between?(0, 7)
             return false
-        elsif self[pos].nil?
+        elsif self[pos].is_a?(NullPiece)
             return true
         elsif self[pos].color == color
             return false
