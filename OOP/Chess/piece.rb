@@ -21,6 +21,8 @@ module Slideable
             ret += grow_unblocked_moves_in_dir(dx, dy)
         end
 
+        #show_moves(ret)
+
         ret
     end
 
@@ -49,13 +51,14 @@ module Stepable
 
     def moves
         diffs = move_diffs
-
         ret = []
+
         diffs.each do |dx, dy|
             new = [pos[0] + dx, pos[1] + dy]
             ret << new unless ! board.valid_pos?(new, color)
         end
-
+        
+        #show_moves(ret)
         ret
     end
 
@@ -82,19 +85,45 @@ class Piece
         
     end
 
+    def show_moves(moves)
+        #debugger
+        puts "the #{color} #{self.class} has the following moves from #{pos}"
+        print moves
+        puts
+    end
+
     def pos=(val)
         x, y = val
-        pos[x][y] = val
+        @pos = [x, y]
     end
 
     def symbol()
         
     end
 
+    def valid_move?(amove)
+        ! move_into_check?(amove)
+    end
+
+    def valid_moves()
+        puts "checking if #{self.color} #{self.class} at #{self.pos} can move"
+        mvs = self.moves.filter {|amove| ! move_into_check?(amove)}
+        puts "that guy has #{mvs.length} moves"
+        mvs
+    end
+
+    def dup(aBoard)
+        # returns a deep copy of the piece
+        self.class.new(self.color, aBoard, self.pos)
+    end
+
     private
 
     def move_into_check?(end_pos)
-        
+        dupboard = board.dup
+        dupboard.move_piece(self.pos, end_pos, true)
+    
+        return dupboard.in_check?(self.color)
     end
 end
 
@@ -193,28 +222,42 @@ class Pawn < Piece
         color == :white ? '♙' : '♟︎'
     end
 
-    def moves
-        fwd = forward_dir
-        x = pos[0]
-        y = pos[1]
+    # make sure that when you dup the board, it dups the pieces
+    # I think the "duped" board ends up moving the original board's pawn
+    # so when we get back to the original method (not the force-try)
+    # the pawn isn't in the position it was when we started
+    # and then I think Pawn#moves calls slide attacks valid
+    # even if there isn't a piece there, so we get this weird
+    # thing where the valid moves are "slide moves from a phantom-moved pawn"
+    # and then we get an invalid move on the original call of move??
+    # def moves
+    #     fwd = forward_dir
+    #     x = pos[0]
+    #     y = pos[1]
 
-        ret = []
-        first_move = [2*fwd + x, y]
-        non_first = [1*fwd + x, y]
-        side_attacks = [[1*fwd + x, 1+y], [1*fwd + x, -1+y]]
+    #     ret = []
+    #     first_move = [2*fwd + x, y]
+    #     non_first = [1*fwd + x, y]
+    #     side_attacks = [[1*fwd + x, y+1], [1*fwd + x, y-1]]
+    #     if at_start_now?
+    #         ret << first_move if board[first_move].is_a?(NullPiece)
+    #         ret << non_first if 
+    #     else
+    #         ret << non_first if board[non_first].nil?
+    #         # Board#valid_pos? returns true when an opposite color piece is there
+    #         # but that doesn't work for Pawns
+    #         side_attacks.each do |sa|
+    #             ret << sa if board.valid_pos?(sa, color)
+    #             # There's a problem here
+    #             # side_attacks are only valid if there is an opponent there!!
+    #         end
+    #     end
+    #     #show_moves(ret)
+    #     ret
+    # end
 
-        if at_start_now?
-            ret << first_move
-            ret << non_first
-        else
-            ret << non_first if board[non_first].nil?
-            # Board#valid_pos? returns true when an opposite color piece is there
-            # but that doesn't work for Pawns
-            side_attacks.each do |sa|
-                ret << sa if board.valid_pos?(sa, color)
-            end
-        end
-        ret
+    def moves()
+        
     end
 
     private
@@ -243,7 +286,7 @@ class NullPiece < Piece
     
     #include Singleton
 
-    def initialize(pos)
+    def initialize(color = :black, board = nil, pos)
         super(:black, nil, pos) # ??????
     end
 

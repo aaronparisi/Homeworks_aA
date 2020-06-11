@@ -51,8 +51,9 @@ class Display
   end
 
   def render
-    system("clear")
-    build_grid.each { |row| puts row.join }
+    #system("clear")
+    puts "   0  1  2  3  4  5  6  7"
+    build_grid.each_with_index { |row, i| puts i.to_s + " " + row.join }
     nil
   end
 end
@@ -60,4 +61,11 @@ end
 b = Board.new
 b.setup_board
 d = Display.new(b)
-d.looper
+d.render
+b.four_move
+d.render
+# # b[[5, 5]].moves
+# # puts
+# # b[[0, 3]].moves
+# # puts
+puts "black is in checkmate? => #{b.checkmate?(:black)}"

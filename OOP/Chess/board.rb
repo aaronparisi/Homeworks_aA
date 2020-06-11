@@ -12,13 +12,21 @@ class InvalidMoveError < ArgumentError
     end
 end
 
+class CheckError < ArgumentError
+    def message
+        "You can't put yourself in check"
+    end
+end
+
 class Board
     
-    attr_reader :rows, :selected
+    attr_reader :rows, :selected, :white_pieces, :black_pieces
 
     def initialize()
-        @rows = Array.new(8) {nil}
-        selected = nil
+        @rows = Array.new(8) {Array.new(8) {nil}}
+        @selected = nil
+        @white_pieces = []
+        @black_pieces = []
     end
 
     def [](pos)
@@ -32,40 +40,48 @@ class Board
     end
 
     def setup_board
-        @rows[0] = back_row(:black, 0)
-        @rows[1] = front_row(:black, 1)
+        back_row(:black, 0)
+        front_row(:black, 1)
 
-        @rows[2] = middle_row(2)
-        @rows[3] = middle_row(3)
-        @rows[4] = middle_row(4)
-        @rows[5] = middle_row(5)
+        middle_row(2)
+        middle_row(3)
+        middle_row(4)
+        middle_row(5)
         
-
-        @rows[6] = front_row(:white, 6)
-        @rows[7] = back_row(:white, 7)
+        front_row(:white, 6)
+        back_row(:white, 7)
     end
 
     def middle_row(row)
-        ret = Array.new(8) {nil}
-        (0..7).to_a.each {|col| ret[col] = NullPiece.new([row, col])}
-        ret
+        (0..7).to_a.each do |col| 
+            add_piece(NullPiece.new([row, col]))
+        end
     end
 
     def back_row(color, row)
-        ret = Array.new(8) {nil}
-        [0, 7].each {|col| ret[col] = Rook.new(color, self, [row, col])}
-        [1, 6].each {|col| ret[col] = Knight.new(color, self, [row, col])}
-        [2, 5].each {|col| ret[col] = Bishop.new(color, self, [row, col])}
-        ret[3] = Queen.new(color, self, [row, 3])
-        ret[4] = King.new(color, self, [row, 4])
-
-        ret
+        [0, 7].each do |col| 
+            add_piece(Rook.new(color, self, [row, col]))
+        end
+        [1, 6].each do |col| 
+            add_piece(Knight.new(color, self, [row, col]))
+        end
+        [2, 5].each do |col| 
+            add_piece(Bishop.new(color, self, [row, col]))
+        end
+        add_piece(Queen.new(color, self, [row, 3]))
+        add_piece(King.new(color, self, [row, 4]))
     end
 
     def front_row(color, row)
-        ret = Array.new(8) {nil}
-        (0..7).to_a.each {|col| ret[col] = Pawn.new(color, self, [row, col])}
-        ret
+        (0..7).to_a.each do |col|
+            add_piece(Pawn.new(color, self, [row, col]))
+        end
+    end
+
+    def add_piece(piece)
+        pos = piece.pos
+        self[pos] = piece
+        add_to_pieces(piece) if ! piece.is_a?(NullPiece)
     end
 
     def toggle_selected(pos)
@@ -76,22 +92,28 @@ class Board
         end
     end
 
-    def move_piece(orig, dest)
-        raise EmptySquareError if self[orig].is_a?(NullPiece)
+    def move_piece(orig, dest, force = false)
+        
+        if force
+            self[dest] = self[orig]
+            self[orig] = NullPiece.new(orig)
+            
+            self[dest].pos = dest
 
+            return
+        end
+
+        raise EmptySquareError if self[orig].is_a?(NullPiece)
+        
+        raise CheckError if ! self[orig].valid_move?(dest)
+        
         moves = self[orig].moves
         raise InvalidMoveError if ! moves.include?(dest)
-
-        dest_piece = self[dest]
-
-        puts "about to take a #{dest.symbol.to_s}" if ! dest_piece.nil?
-
+        
         self[dest] = self[orig]
-        self[orig] = nil
-        # there should be something here indicating that a piece was taken
-        # if it was?
-
-        puts "successfully moved!"
+        self[orig] = NullPiece.new(orig)
+        self[dest].pos = dest
+    
     end
 
     def valid_pos?(pos, color)
@@ -107,20 +129,42 @@ class Board
         end
     end
 
-    def add_piece(piece, pos)
-        
+    def add_to_pieces(piece)
+        piece.color == :white ? @white_pieces << piece : @black_pieces << piece
     end
 
     def checkmate?(color)
-        
+        #debugger
+        puts "about to check if #{color} is in checkmate"
+        mine = (color == :black ? black_pieces : white_pieces)
+        if in_check?(color)
+            puts "ok, #{color} is in check, let's see if it's a mate!"
+            mine.all? {|m| m.valid_moves.empty?}
+        else
+            return false
+        end            
     end
 
     def in_check?(color)
+        king_loc = find_king(color)
         
+        opponents = (color == :white ? black_pieces : white_pieces)
+
+        opponents.each do |opp|
+            all_moves = opp.moves
+            return true if all_moves.include?(king_loc)
+        end
+
+        false
     end
 
     def find_king(color)
-        
+        if color == :black
+            king = black_pieces.filter {|piece| piece.is_a?(King)}[0]
+        else
+            king = white_pieces.filter {|piece| piece.is_a?(King)}[0]
+        end
+        return king.pos
     end
 
     def pieces
@@ -128,7 +172,25 @@ class Board
     end
 
     def dup
-        
+        # we need to return an instance of board with copies of all pieces
+        ret = Board.new
+        (0..7).each do |row|
+            (0..7).each do |col|
+                ret.add_piece(self[[row, col]].dup(ret))
+            end
+        end
+
+        ret
+    end
+
+    def four_move
+        move_piece([6, 4], [4, 4])
+        move_piece([1, 4], [3, 4])
+        move_piece([7, 5], [4, 2])
+        move_piece([0, 1], [2, 2])
+        move_piece([7, 3], [5, 5])
+        move_piece([1, 7], [2, 7])
+        move_piece([5, 5], [1, 5])
     end
 
 end
