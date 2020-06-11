@@ -20,13 +20,11 @@ end
 
 class Board
     
-    attr_reader :rows, :selected, :white_pieces, :black_pieces
+    attr_reader :rows, :selected
 
     def initialize()
         @rows = Array.new(8) {Array.new(8) {nil}}
         @selected = nil
-        @white_pieces = []
-        @black_pieces = []
     end
 
     def [](pos)
@@ -81,7 +79,7 @@ class Board
     def add_piece(piece)
         pos = piece.pos
         self[pos] = piece
-        add_to_pieces(piece) if ! piece.is_a?(NullPiece)
+        #add_to_pieces(piece) if ! piece.is_a?(NullPiece)
     end
 
     def toggle_selected(pos)
@@ -95,11 +93,7 @@ class Board
     def move_piece(orig, dest, force = false)
         
         if force
-            self[dest] = self[orig]
-            self[orig] = NullPiece.new(orig)
-            
-            self[dest].pos = dest
-
+            reassign(orig, dest)
             return
         end
 
@@ -109,22 +103,27 @@ class Board
         
         moves = self[orig].moves
         raise InvalidMoveError if ! moves.include?(dest)
-        old_piece = self[dest]
-        self[dest] = self[orig]
-        self[orig] = NullPiece.new(orig)
-        self[dest].pos = dest
 
-        delete_piece(old_piece) if ! old_piece.is_a?(NullPiece)
+        old_piece = self[dest]
+        reassign(orig, dest)
+
+        #delete_piece(old_piece) if ! old_piece.is_a?(NullPiece)
     
     end
 
-    def delete_piece(piece)
-        if piece.color == :black
-            @black_pieces.delete(piece)
-        else
-            @white_pieces.delete(piece)
-        end
+    def reassign(orig, dest)
+        self[dest] = self[orig]
+        self[orig] = NullPiece.new(orig)
+        self[dest].pos = dest
     end
+
+    # def delete_piece(piece)
+    #     if piece.color == :black
+    #         @black_pieces.delete(piece)
+    #     else
+    #         @white_pieces.delete(piece)
+    #     end
+    # end
 
     def valid_pos?(pos, color)
         if off_board?(pos)
@@ -138,22 +137,25 @@ class Board
         end
     end
 
+    def valid_pawn_pos?(pos, color)
+        ! off_board?(pos) &&
+        ! self[pos].is_a?(NullPiece) && 
+        self[pos].color != color
+    end
+
     def off_board?(pos)
         x, y = pos
         ! x.between?(0, 7) || ! y.between?(0, 7)
     end
 
-    def add_to_pieces(piece)
-        piece.color == :white ? @white_pieces << piece : @black_pieces << piece
-    end
+    # def add_to_pieces(piece)
+    #     piece.color == :white ? @white_pieces << piece : @black_pieces << piece
+    # end
 
     def checkmate?(color)
         #debugger
-        puts "about to check if #{color} is in checkmate"
-        mine = (color == :black ? black_pieces : white_pieces)
-        puts "ok, I have #{mine.length} pieces, let's see if any of them can move"
+        mine = pieces(color)
         if in_check?(color)
-            puts "!!!!ok, #{color} is in check-------------------------->"
             mine.all? {|m| m.valid_moves.empty?}
         else
             return false
@@ -163,8 +165,7 @@ class Board
     def in_check?(color)
         king_loc = find_king(color)
         
-        opponents = (color == :white ? black_pieces : white_pieces)
-
+        opponents = (color == :black ? white_pieces : black_pieces)
         opponents.each do |opp|
             all_moves = opp.moves
             return true if all_moves.include?(king_loc)
@@ -182,8 +183,23 @@ class Board
         return king.pos
     end
 
-    def pieces
-        
+    def black_pieces
+        pieces(:black)
+    end
+
+    def white_pieces
+        pieces(:white)
+    end
+
+    def pieces(color)
+        ret = []
+        @rows.each do |row|
+            row.each do |piece|
+                ret << piece if piece.color == color
+            end
+        end
+
+        ret
     end
 
     def dup

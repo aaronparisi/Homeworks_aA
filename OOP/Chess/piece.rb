@@ -106,15 +106,13 @@ class Piece
     end
 
     def valid_moves()
-        puts "checking if #{self.color} #{self.class} at #{self.pos} can move"
         mvs = self.moves.filter {|amove| ! move_into_check?(amove)}
-        puts "that guy has #{mvs.length} moves"
         mvs
     end
 
     def dup(aBoard)
         # returns a deep copy of the piece
-        self.class.new(self.color, aBoard, self.pos)
+        self.class.new(self.color, aBoard, [self.pos[0], self.pos[1]])
     end
 
     private
@@ -222,40 +220,6 @@ class Pawn < Piece
         color == :white ? '♙' : '♟︎'
     end
 
-    # make sure that when you dup the board, it dups the pieces
-    # I think the "duped" board ends up moving the original board's pawn
-    # so when we get back to the original method (not the force-try)
-    # the pawn isn't in the position it was when we started
-    # and then I think Pawn#moves calls slide attacks valid
-    # even if there isn't a piece there, so we get this weird
-    # thing where the valid moves are "slide moves from a phantom-moved pawn"
-    # and then we get an invalid move on the original call of move??
-    # def moves
-    #     fwd = forward_dir
-    #     x = pos[0]
-    #     y = pos[1]
-
-    #     ret = []
-    #     first_move = [2*fwd + x, y]
-    #     non_first = [1*fwd + x, y]
-    #     side_attacks = [[1*fwd + x, y+1], [1*fwd + x, y-1]]
-    #     if at_start_now?
-    #         ret << first_move if board[first_move].is_a?(NullPiece)
-    #         ret << non_first if 
-    #     else
-    #         ret << non_first if board[non_first].nil?
-    #         # Board#valid_pos? returns true when an opposite color piece is there
-    #         # but that doesn't work for Pawns
-    #         side_attacks.each do |sa|
-    #             ret << sa if board.valid_pos?(sa, color)
-    #             # There's a problem here
-    #             # side_attacks are only valid if there is an opponent there!!
-    #         end
-    #     end
-    #     #show_moves(ret)
-    #     ret
-    # end
-
     def moves()
         dir = forward_dir
         diffs = forward_steps(dir) + side_attacks(dir)
@@ -283,7 +247,9 @@ class Pawn < Piece
     def forward_steps(dir)
         one_away = [self.pos[0] + dir, self.pos[1]]
         two_away = [self.pos[0] + (2*dir), self.pos[1]]
+
         return [] if board.off_board?(one_away)
+        
         ret = []
         if board[one_away].is_a?(NullPiece)
             ret << [dir, 0]
@@ -301,10 +267,9 @@ class Pawn < Piece
     def side_attacks(dir)
         left_side = [self.pos[0] + dir, self.pos[1]-1]
         right_side = [self.pos[0] + dir, self.pos[1]+1]
+
         ret = [left_side, right_side].filter do |mov|
-            ! board.off_board?(mov) &&
-            ! board[mov].is_a?(NullPiece) && 
-            board[mov].color != self.color
+            board.valid_pawn_pos?(mov, self.color)
         end
     end
 end
@@ -315,8 +280,8 @@ class NullPiece < Piece
     
     #include Singleton
 
-    def initialize(color = :black, board = nil, pos)
-        super(:black, nil, pos) # ??????
+    def initialize(color = :clear, board = nil, pos)
+        super(color, nil, pos) # ??????
     end
 
     def moves
