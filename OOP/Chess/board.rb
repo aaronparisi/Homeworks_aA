@@ -109,16 +109,25 @@ class Board
         
         moves = self[orig].moves
         raise InvalidMoveError if ! moves.include?(dest)
-        
+        old_piece = self[dest]
         self[dest] = self[orig]
         self[orig] = NullPiece.new(orig)
         self[dest].pos = dest
+
+        delete_piece(old_piece) if ! old_piece.is_a?(NullPiece)
     
     end
 
+    def delete_piece(piece)
+        if piece.color == :black
+            @black_pieces.delete(piece)
+        else
+            @white_pieces.delete(piece)
+        end
+    end
+
     def valid_pos?(pos, color)
-        x, y = pos
-        if ! x.between?(0, 7) || ! y.between?(0, 7)
+        if off_board?(pos)
             return false
         elsif self[pos].is_a?(NullPiece)
             return true
@@ -129,6 +138,11 @@ class Board
         end
     end
 
+    def off_board?(pos)
+        x, y = pos
+        ! x.between?(0, 7) || ! y.between?(0, 7)
+    end
+
     def add_to_pieces(piece)
         piece.color == :white ? @white_pieces << piece : @black_pieces << piece
     end
@@ -137,8 +151,9 @@ class Board
         #debugger
         puts "about to check if #{color} is in checkmate"
         mine = (color == :black ? black_pieces : white_pieces)
+        puts "ok, I have #{mine.length} pieces, let's see if any of them can move"
         if in_check?(color)
-            puts "ok, #{color} is in check, let's see if it's a mate!"
+            puts "!!!!ok, #{color} is in check-------------------------->"
             mine.all? {|m| m.valid_moves.empty?}
         else
             return false

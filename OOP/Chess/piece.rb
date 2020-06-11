@@ -257,7 +257,16 @@ class Pawn < Piece
     # end
 
     def moves()
-        
+        dir = forward_dir
+        diffs = forward_steps(dir) + side_attacks(dir)
+
+        x, y = self.pos
+        ret = []
+        diffs.each do |dx, dy|
+            ret << [x + dx, y + dy]
+        end
+        #show_moves(ret)
+        ret
     end
 
     private
@@ -271,12 +280,32 @@ class Pawn < Piece
         color == :white ? -1 : 1
     end
 
-    def forward_steps
-        
+    def forward_steps(dir)
+        one_away = [self.pos[0] + dir, self.pos[1]]
+        two_away = [self.pos[0] + (2*dir), self.pos[1]]
+        return [] if board.off_board?(one_away)
+        ret = []
+        if board[one_away].is_a?(NullPiece)
+            ret << [dir, 0]
+            if at_start_now? &&
+                ! board.off_board?(two_away) &&
+                board[two_away].is_a?(NullPiece)
+
+                ret << [2*dir, 0]
+            end
+        end
+
+        ret
     end
 
-    def side_attacks
-        
+    def side_attacks(dir)
+        left_side = [self.pos[0] + dir, self.pos[1]-1]
+        right_side = [self.pos[0] + dir, self.pos[1]+1]
+        ret = [left_side, right_side].filter do |mov|
+            ! board.off_board?(mov) &&
+            ! board[mov].is_a?(NullPiece) && 
+            board[mov].color != self.color
+        end
     end
 end
 
