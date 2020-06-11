@@ -7,15 +7,7 @@ module Slideable
     def moves
         ret = []
         dirs = move_dirs
-        case dirs
-        when :horizontal
-            all_deltas = HORIZONTAL_DIRS
-        when :diagonal
-            all_deltas = DIAGONAL_DIRS
-        when :both
-            all_deltas = HORIZONTAL_DIRS + DIAGONAL_DIRS
-        end
-
+        all_deltas = get_deltas(dirs)
         
         all_deltas.each do |dx, dy|
             ret += grow_unblocked_moves_in_dir(dx, dy)
@@ -27,6 +19,17 @@ module Slideable
     end
 
     private
+
+    def get_deltas(dirs)
+        case dirs
+        when :horizontal
+            return HORIZONTAL_DIRS
+        when :diagonal
+            return DIAGONAL_DIRS
+        when :both
+            return HORIZONTAL_DIRS + DIAGONAL_DIRS
+        end
+    end
 
     def move_dirs
         # gets overwritten by the piece including the module?
@@ -40,6 +43,8 @@ module Slideable
         i = 1
         until ! board.valid_pos?([x + dx*i, y + dy*i], color)
             ret << [x+ dx*i, y+dy*i]
+            break if ! board[[x+ dx*i, y+dy*i]].nil?
+            # valid moves that hit a piece are captures, can't go further
             i += 1
         end
 
@@ -248,7 +253,7 @@ class Pawn < Piece
         one_away = [self.pos[0] + dir, self.pos[1]]
         two_away = [self.pos[0] + (2*dir), self.pos[1]]
 
-        return [] if board.off_board?(one_away) || board[one_away].is_a?(Piece)
+        return [] if board.off_board?(one_away) && board[one_away].is_a?(Piece)
         
         ret = [[dir, 0]]
         if at_start_now? &&
@@ -275,7 +280,7 @@ end
 
 class NullPiece < Piece
     
-    #include Singleton
+    include Singleton
 
     def initialize(color = :clear, board = nil, pos)
         super(color, nil, pos) # ??????

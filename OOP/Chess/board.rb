@@ -45,11 +45,11 @@ class Board
         back_row(:white, 7)
     end
 
-    def middle_row(row)
-        (0..7).to_a.each do |col| 
-            add_piece(NullPiece.new([row, col]))
-        end
-    end
+    # def middle_row(row)
+    #     (0..7).to_a.each do |col| 
+    #         add_piece(NullPiece.new([row, col]))
+    #     end
+    # end
 
     def back_row(color, row)
         [0, 7].each do |col| 
@@ -79,6 +79,8 @@ class Board
 
     def toggle_selected(pos)
         if selected
+            #puts "prev selection was #{selected}, moving it to #{pos}"
+            move_piece(selected, pos) if self[selected].is_a?(Piece)
             @selected = nil
         else
             @selected = pos
@@ -93,16 +95,11 @@ class Board
         end
 
         raise EmptySquareError if self[orig].nil?
-        
         raise CheckError if ! self[orig].valid_move?(dest)
         
         moves = self[orig].moves
         raise InvalidMoveError if ! moves.include?(dest)
-
-        old_piece = self[dest]
         reassign(orig, dest)
-
-        #delete_piece(old_piece) if ! old_piece.is_a?(NullPiece)
     
     end
 
@@ -148,10 +145,8 @@ class Board
     # end
 
     def checkmate?(color)
-        #debugger
-        mine = pieces(color)
         if in_check?(color)
-            mine.all? {|m| m.valid_moves.empty?}
+            pieces(color).all? {|m| m.valid_moves.empty?}
         else
             return false
         end            
@@ -162,8 +157,7 @@ class Board
         
         opponents = (color == :black ? white_pieces : black_pieces)
         opponents.each do |opp|
-            all_moves = opp.moves
-            return true if all_moves.include?(king_loc)
+            return true if opp.moves.include?(king_loc)
         end
 
         false
@@ -197,7 +191,8 @@ class Board
         ret = Board.new
         (0..7).each do |row|
             (0..7).each do |col|
-                ret.add_piece(self[[row, col]].dup(ret)) if ! self[[row, col]].nil?
+                cur = self[[row, col]]
+                ret.add_piece(cur.dup(ret)) if ! cur.nil?
             end
         end
 
@@ -211,7 +206,7 @@ class Board
         move_piece([0, 1], [2, 2])
         move_piece([7, 3], [5, 5])
         move_piece([1, 7], [2, 7])
-        #move_piece([5, 5], [1, 5])
+        move_piece([5, 5], [1, 5])
     end
 
 end

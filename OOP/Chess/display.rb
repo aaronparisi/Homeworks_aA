@@ -40,8 +40,6 @@ class Display
     end
     color = board[[i, j]].is_a?(Piece) ? board[[i, j]].color : :black
     { background: bg, color: color}
-    # the backgrounds of the pieces alternates light and dark blue
-    # and the text color is white?
   end
 
   def looper()
@@ -62,11 +60,8 @@ end
 b = Board.new
 b.setup_board
 d = Display.new(b)
-d.render
-b.four_move
-d.render
-# # b[[5, 5]].moves
-# # puts
-# # b[[0, 3]].moves
-# # puts
-puts "black is in checkmate? => #{b.checkmate?(:black)}"
+# d.render
+# b.four_move
+# d.render
+# puts "black is in checkmate? => #{b.checkmate?(:black)}"
+d.looper
