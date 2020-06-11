@@ -40,11 +40,6 @@ class Board
     def setup_board
         back_row(:black, 0)
         front_row(:black, 1)
-
-        middle_row(2)
-        middle_row(3)
-        middle_row(4)
-        middle_row(5)
         
         front_row(:white, 6)
         back_row(:white, 7)
@@ -97,7 +92,7 @@ class Board
             return
         end
 
-        raise EmptySquareError if self[orig].is_a?(NullPiece)
+        raise EmptySquareError if self[orig].nil?
         
         raise CheckError if ! self[orig].valid_move?(dest)
         
@@ -113,7 +108,7 @@ class Board
 
     def reassign(orig, dest)
         self[dest] = self[orig]
-        self[orig] = NullPiece.new(orig)
+        self[orig] = nil
         self[dest].pos = dest
     end
 
@@ -128,7 +123,7 @@ class Board
     def valid_pos?(pos, color)
         if off_board?(pos)
             return false
-        elsif self[pos].is_a?(NullPiece)
+        elsif self[pos].nil?
             return true
         elsif self[pos].color == color
             return false
@@ -137,9 +132,9 @@ class Board
         end
     end
 
-    def valid_pawn_pos?(pos, color)
+    def valid_pawn_attack?(pos, color)
         ! off_board?(pos) &&
-        ! self[pos].is_a?(NullPiece) && 
+        ! self[pos].nil? && 
         self[pos].color != color
     end
 
@@ -175,12 +170,7 @@ class Board
     end
 
     def find_king(color)
-        if color == :black
-            king = black_pieces.filter {|piece| piece.is_a?(King)}[0]
-        else
-            king = white_pieces.filter {|piece| piece.is_a?(King)}[0]
-        end
-        return king.pos
+        pieces(color).filter {|piece| piece.is_a?(King)}[0].pos
     end
 
     def black_pieces
@@ -195,7 +185,7 @@ class Board
         ret = []
         @rows.each do |row|
             row.each do |piece|
-                ret << piece if piece.color == color
+                ret << piece if ! piece.nil? && piece.color == color
             end
         end
 
@@ -207,7 +197,7 @@ class Board
         ret = Board.new
         (0..7).each do |row|
             (0..7).each do |col|
-                ret.add_piece(self[[row, col]].dup(ret))
+                ret.add_piece(self[[row, col]].dup(ret)) if ! self[[row, col]].nil?
             end
         end
 
@@ -221,7 +211,7 @@ class Board
         move_piece([0, 1], [2, 2])
         move_piece([7, 3], [5, 5])
         move_piece([1, 7], [2, 7])
-        move_piece([5, 5], [1, 5])
+        #move_piece([5, 5], [1, 5])
     end
 
 end

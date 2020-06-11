@@ -21,13 +21,13 @@ class Display
 
   def build_row(row, i)
     row.map.with_index do |piece, j|
-      color_options = colors_for(piece)
-      piece.to_s.colorize(color_options)
+      color_options = colors_for(i, j)
+      output = (piece.nil? ? "   " : piece.to_s)
+      output.colorize(color_options)
     end
   end
 
-  def colors_for(apiece)
-    i, j = apiece.pos
+  def colors_for(i, j)
     #debugger
     if board.selected == [i, j]
         bg = :red
@@ -38,7 +38,8 @@ class Display
     else
       bg = :blue
     end
-    { background: bg, color: apiece.color }
+    color = board[[i, j]].is_a?(Piece) ? board[[i, j]].color : :black
+    { background: bg, color: color}
     # the backgrounds of the pieces alternates light and dark blue
     # and the text color is white?
   end
