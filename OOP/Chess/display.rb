@@ -6,7 +6,7 @@ require_relative "piece"
 
 class Display
 
-    attr_reader :board
+    attr_reader :board, :cursor
 
   def initialize(board)
     @board = board
@@ -57,11 +57,11 @@ class Display
   end
 end
 
-b = Board.new
-b.setup_board
-d = Display.new(b)
-# d.render
-# b.four_move
-# d.render
-# puts "black is in checkmate? => #{b.checkmate?(:black)}"
-d.looper
+# b = Board.new
+# b.setup_board
+# d = Display.new(b)
+# # d.render
+# # b.four_move
+# # d.render
+# # puts "black is in checkmate? => #{b.checkmate?(:black)}"
+# d.looper

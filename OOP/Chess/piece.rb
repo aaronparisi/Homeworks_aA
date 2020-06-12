@@ -227,15 +227,7 @@ class Pawn < Piece
 
     def moves()
         dir = forward_dir
-        diffs = forward_steps(dir) + side_attacks(dir)
-        
-        x, y = self.pos
-        ret = []
-        diffs.each do |dx, dy|
-            ret << [x + dx, y + dy]
-        end
-        #show_moves(ret)
-        ret
+        return forward_steps(dir).concat(side_attacks(dir))
     end
 
     private
@@ -253,16 +245,16 @@ class Pawn < Piece
         one_away = [self.pos[0] + dir, self.pos[1]]
         two_away = [self.pos[0] + (2*dir), self.pos[1]]
 
-        return [] if board.off_board?(one_away) && board[one_away].is_a?(Piece)
+        return [] if board.off_board?(one_away) || board[one_away].is_a?(Piece)
         
-        ret = [[dir, 0]]
+        ret = [one_away]
         if at_start_now? &&
             ! board.off_board?(two_away) &&
             board[two_away].nil?
 
-            ret << [2*dir, 0]
+            ret << two_away
         end
-
+        #puts "returning the following fwd steps #{ret}"
         ret
     end
 
@@ -273,6 +265,7 @@ class Pawn < Piece
         ret = [left_side, right_side].filter do |mov|
             board.valid_pawn_attack?(mov, self.color)
         end
+        ret
     end
 end
 

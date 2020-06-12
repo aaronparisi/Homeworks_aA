@@ -18,6 +18,12 @@ class CheckError < ArgumentError
     end
 end
 
+class ThiefError < ArgumentError
+    def message
+        "You can't select your opponent's pieces"
+    end
+end
+
 class Board
     
     attr_reader :rows, :selected
@@ -80,15 +86,19 @@ class Board
     def toggle_selected(pos)
         if selected
             #puts "prev selection was #{selected}, moving it to #{pos}"
-            move_piece(selected, pos) if self[selected].is_a?(Piece)
+            move_piece(selected, pos) if time_to_move?(pos)
             @selected = nil
         else
+            raise EmptySquareError if self[pos].nil?
             @selected = pos
         end
     end
 
+    def time_to_move?(dest)
+        ! self[selected].nil? && selected != dest
+    end
+
     def move_piece(orig, dest, force = false)
-        
         if force
             reassign(orig, dest)
             return
@@ -143,6 +153,10 @@ class Board
     # def add_to_pieces(piece)
     #     piece.color == :white ? @white_pieces << piece : @black_pieces << piece
     # end
+
+    def game_over?
+        checkmate?(:black) || checkmate?(:white)
+    end
 
     def checkmate?(color)
         if in_check?(color)
