@@ -33,6 +33,12 @@ MOVES = {
 }
 # maps symbols to move deltas
 
+class ThiefError < ArgumentError
+  def message
+    "You can't select your opponent's piece"
+  end
+end
+
 class Cursor
 
   attr_reader :cursor_pos, :board
@@ -42,9 +48,9 @@ class Cursor
     @board = board
   end
 
-  def get_input
+  def get_input(color)
     key = KEYMAP[read_char]
-    handle_key(key)
+    handle_key(key, color)
   end
 
   private
@@ -78,16 +84,20 @@ class Cursor
     return input
   end
 
-  def handle_key(key)
+  def handle_key(key, color)
     case key
     when :return, :space
-      board.toggle_selected(cursor_pos)
-      return cursor_pos
+      raise ThiefError if thievery(color)
+      return board.toggle_selected(cursor_pos)
     when :left, :right, :up, :down
       update_pos(MOVES[key])
     when :ctrl_c
       Process.exit(0)
     end
+  end
+
+  def thievery(color)
+    return board.selected.nil? && board[cursor_pos].color != color
   end
 
   def update_pos(diff)

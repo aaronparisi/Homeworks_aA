@@ -49,10 +49,11 @@ class Display
       end
   end
 
-  def render
-    #system("clear")
+  def render(color = nil)
+    system("clear")
     puts "   0  1  2  3  4  5  6  7"
     build_grid.each_with_index { |row, i| puts i.to_s + " " + row.join }
+    puts "#{color}'s turn" if color
     nil
   end
 end
