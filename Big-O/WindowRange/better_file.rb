@@ -33,8 +33,8 @@ describe "windowed_max_range" do
     end
 end
 
-arr = Array.new(1_000_000_000) {rand 10_000_000}
-size = 1_000
+arr = Array.new(20_000_000) {rand 10_000_000}
+size = 100_000
 
 Benchmark.bm(10) do |x|
     x.report('Mine: ') {windowed_max_range(arr, size)}
