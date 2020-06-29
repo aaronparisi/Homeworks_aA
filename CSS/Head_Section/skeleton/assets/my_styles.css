@@ -1,0 +1,36 @@
+body {
+    font-family: Arial, sans-serif;
+}
+
+h1 {
+    font-size: 38px;
+}
+
+h2 {
+    font-size: 32px;
+}
+
+#reviews > h2 {
+    border-style: double;
+}
+
+.ingredients-list {
+    list-style: square inside;
+}
+
+ol {
+    color: blueviolet;
+}
+
+header > img {width: 100px;}
+
+ul li a {
+    text-decoration: none;
+    color: inherit;
+}
+
+html {background: cornsilk;}
+
+.user_review > p:nth-child(4) {
+    font-style: italic;
+}

@@ -1,0 +1,50 @@
+div {
+  padding: 50px;
+  border: 5px solid black;
+}
+
+#first-div, #second-div {
+  height: 200px;
+  width: 200px;
+}
+
+#first-div {
+  background-color: #39cccc;
+}
+
+#second-div {
+  box-sizing: border-box;
+  background-color: #ff4136;
+}
+
+#third-div {
+  width: 200px;
+  min-height: 10px;
+  height: auto;
+}
+
+p {
+  background-color: #e9ff7f;
+}
+
+.image-1-container {
+  height: 600px;
+  width: 200px;
+  background-color: #00ff31;
+}
+
+.image-1-container img {
+  width: 100%;
+}
+
+.image-2-container {
+  display: inline-block;
+  height: 600px;
+  width: auto;
+  height: auto;
+  background-color: #00ff31;
+}
+
+.image-2-container img {
+  width: 100%
+}
