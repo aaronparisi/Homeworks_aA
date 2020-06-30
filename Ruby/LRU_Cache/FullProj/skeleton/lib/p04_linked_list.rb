@@ -1,3 +1,5 @@
+require 'byebug'
+
 class Node
   attr_reader :key
   attr_accessor :val, :next, :prev
