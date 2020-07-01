@@ -57,6 +57,8 @@ class LinkedList
   end
 
   def get(key)
+    # returns the value stored at the node with the given key
+    
     # link = filter {|link| link.key == key}
     # link.empty? ? nil : link.first.val
     found = select {|link| link.key == key}

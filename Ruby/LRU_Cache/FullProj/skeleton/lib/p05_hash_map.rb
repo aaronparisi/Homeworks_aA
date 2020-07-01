@@ -27,6 +27,7 @@ class HashMap
   end
 
   def get(key)
+    # calls the LINKEDLIST's get method
     bucket(key).get(key)
   end
 
