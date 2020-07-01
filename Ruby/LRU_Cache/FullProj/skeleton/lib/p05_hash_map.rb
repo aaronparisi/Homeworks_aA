@@ -32,6 +32,7 @@ class HashMap
 
   def delete(key)
     @count -= 1 if bucket(key).remove(key)
+    # one issue w this is that you're not returning the deleted item
   end
 
   def each(&blck)
@@ -58,14 +59,30 @@ class HashMap
   end
 
   def resize!
-    new_size = num_buckets*2
-    new_bucks = Array.new(new_size) {LinkedList.new}
+    # new_size = num_buckets*2
+    # new_bucks = Array.new(new_size) {LinkedList.new}
 
-    each do |k, v|
-      new_bucks[k.hash % new_size].append(k, v)
+    # each do |k, v|
+    #   new_bucks[k.hash % new_size].append(k, v)
+    # end
+
+    # @store = new_bucks
+    # notice how here, you have to manually set the bucket item
+    # rather than taking advantage of the linked list's ability
+    # to set an element
+    # instead, store the old list and set @store to a new array
+    # of linked list objs
+    # that way, when you call set(), you'll be adding the old
+    # links to the new version of self
+    # that is, set() doesn't know that we are populating it from
+    # an array that used to be it
+    old_store = self.store
+    self.store = Array.new(num_buckets*2) {LinkedList.new}
+    self.count = 0
+
+    old_store.each do |aList|
+      aList.each {|link| set(link.key, link.val)}
     end
-
-    @store = new_bucks
   end
 
   def bucket(key)
