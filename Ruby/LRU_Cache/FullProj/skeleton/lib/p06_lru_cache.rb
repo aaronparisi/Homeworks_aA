@@ -17,7 +17,6 @@ class LRUCache
     if @map.include?(key)
       update_node!(@map.get(key))
     else
-      eject! if @map.count >= @max
       calc!(key)
     end
   end
@@ -31,23 +30,20 @@ class LRUCache
   def calc!(key)
     # suggested helper method; insert an (un-cached) key
     val = @prc.call(key)
-    @store.append(key, val)
-    @map.set(key, @store.last)
+    new_node = @store.append(key, val)
+    @map.set(key, new_node)
+
+    eject! if @map.count > @max
 
     return val
   end
 
   def update_node!(node)
     # suggested helper method; move a node to the end of the list
-    # NOTE: nothing has to change with the hash map
-    node.prev.next = node.next
-    node.next.prev = node.prev
 
-    @store.tail.prev.next = node
-    node.prev = @store.tail.prev
+    node.remove # take the node out of the list
 
-    @store.tail.prev = node
-    node.next = @store.tail
+    @map[node.key] = @store.append(node.key, node.val)
   end
 
   def eject!
