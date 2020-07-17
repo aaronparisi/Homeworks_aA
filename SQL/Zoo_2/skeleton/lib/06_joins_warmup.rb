@@ -94,31 +94,21 @@ def casablanca_cast
   # Obtain the cast list for 'Casablanca'. Use the id value that you obtained
   # in the previous question directly in your query (for example, id = 1).
   execute(<<-SQL)
-    select name
-    from castings C
-    join actors A
-    on C.actor_id = A.id
-    where C.movie_id = 27;
+    select A.name
+    from movies M
+    join castings C on M.id = C.movie_id
+    join actors A on C.actor_id = A.id
+    where M.title = 'Casablanca';
   SQL
 end
 
 def alien_cast
   # Obtain the cast list for the film 'Alien'
   execute(<<-SQL)
-    select name
-    from castings C
+    select A.name
+    from movies M
+    join castings C on M.id = C.movie_id
     join actors A on C.actor_id = A.id
-    where C.movie_id = (
-      select id
-      from movies
-      where title = 'Alien'
-    );
+    where M.title = 'Alien';
   SQL
 end
-
-# the other way, avoiding sub queries
-# select name
-# from castings C
-# join actors A on C.actor_id = A.id
-# join movies M on M.id = C.movie_id
-# where M.title = 'Alien'
