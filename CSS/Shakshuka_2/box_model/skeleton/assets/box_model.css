@@ -74,17 +74,17 @@ ol {
   font-weight: bold;
 }
 
-input[type="radio"] {
+/* input[type="radio"] {
     -webkit-appearance: none;
     width: 27px;
     height: 27px;
     background-image: url(../assets/stars.png);
     vertical-align: bottom;
-}
+} */
 
-input[type="radio"]:checked {
+/* input[type="radio"]:checked {
   background-position: 30px 30px;
-}
+} */
 
 
 input:last-child {
@@ -103,3 +103,16 @@ h2 + .user_review {
     border-top: 1px solid black;
 }
 
+.form_el {
+  display: block;
+  margin: 10px 0;
+}
+
+input[type="text"], select, textarea {
+  width: 50%;
+}
+
+input[type="radio"] {
+  display: inline-block;
+  margin: 0 5px;
+}

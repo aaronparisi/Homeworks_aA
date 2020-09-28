@@ -98,18 +98,18 @@
     <h2>Reviews</h2>
       <form id="review-form" action="/reviews" method="post">
         <label for="name">Name</label>
-        <input id="name" type="text" name="name">
+        <input class="form_el" id="name" type="text" name="name">
 
-        <label for="rating">Rating</label>
-        1<input type="radio" name="rating" value="1" checked>
-        2<input type="radio" name="rating" value="2">
-        3<input type="radio" name="rating" value="3">
-        4<input type="radio" name="rating" value="4">
-        5<input type="radio" name="rating" value="5">
+        <!-- <label for="rating">Rating</label> -->
+        1<input type="radio" class="form_el" name="rating" value="1" checked>
+        2<input type="radio" class="form_el" name="rating" value="2">
+        3<input type="radio" class="form_el" name="rating" value="3">
+        4<input type="radio" class="form_el" name="rating" value="4">
+        5<input type="radio" class="form_el" name="rating" value="5">
 
-        <label for="expertise">Cooking Expertise</label>
+        <!-- <label for="expertise">Cooking Expertise</label> -->
 
-        <select id="expertise" name="expertise">
+        <select class="form_el" id="expertise" name="expertise">
           <option value="Select Cooking Expertise" disabled="true" selected="true">Select Cooking Experise</option>
 
           <option value="Sometimes Cook">Sometimes Cook</option>
@@ -122,7 +122,7 @@
         </select>
 
         <label>Review
-          <textarea id="review" name="review" cols="30" rows="10"></textarea>
+          <textarea class="form_el" id="review" name="review" cols="30" rows="10"></textarea>
         </label>
 
         <input type="submit" value="Submit Review">
