@@ -1,20 +1,15 @@
 # == Schema Information
 #
-# Table name: users
+# Table name: tag_topics
 #
 #  id         :bigint           not null, primary key
-#  email      :string
-#  premium    :boolean          default(FALSE)
+#  name       :string
 #  created_at :datetime         not null
 #  updated_at :datetime         not null
 #
-# Indexes
-#
-#  index_users_on_email  (email)
-#
 require 'test_helper'
 
-class UserTest < ActiveSupport::TestCase
+class TagTopicTest < ActiveSupport::TestCase
   # test "the truth" do
   #   assert true
   # end

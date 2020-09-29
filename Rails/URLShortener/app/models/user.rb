@@ -4,6 +4,7 @@
 #
 #  id         :bigint           not null, primary key
 #  email      :string
+#  premium    :boolean          default(FALSE)
 #  created_at :datetime         not null
 #  updated_at :datetime         not null
 #
@@ -14,9 +15,9 @@
 class User < ApplicationRecord
   validates :email, presence: true, uniqueness: true
 
-  has_many :shortened_urls
+  has_many :shortened_urls, dependent: :destroy
 
-  has_many :visits
+  has_many :visits, dependent: :destroy
   has_many :visiteds, through: :visits, source: :visited
   
 end
