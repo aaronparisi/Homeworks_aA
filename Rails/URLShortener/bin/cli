@@ -1,0 +1,84 @@
+#!/usr/bin/env ruby
+
+class MyCLI
+
+  def get_email()
+    puts "Please enter your e mail"
+    email = gets.chomp
+
+    thisUser = User.where(email: email).first
+
+    if thisUser.nil?
+      puts "that e mail does not exist"
+      get_email
+    else
+      return thisUser
+    end
+  end
+
+  def add_url(user)
+    puts "enter the url you would like to add"
+    toAdd = gets.chomp
+    ShortenedUrl.create_short_url(user, toAdd)
+
+    touch_base(user)
+  end
+
+  def visit_url(user)
+    allURLs = ShortenedUrl.select(:long_url).to_a.map { |short| short.long_url }
+
+    puts "available URL's:"
+    puts allURLs
+
+    puts "please select a url to visit"
+    toVisit = gets.chomp
+
+    if allURLs.include?(toVisit)
+      shortened = ShortenedUrl.where(long_url: toVisit).first
+      Visit.record_visit!(user, shortened)
+      Launchy.open(toVisit)
+    else
+      puts "you must pick an existing url"
+      visit_url()
+    end
+
+    touch_base(user)
+    
+  end
+
+  def take_action(user)
+    puts "Press 1 to add a URL, 2 to visit a preexisting URL"
+    action = gets.chomp
+    
+    case action
+    when "1"
+      add_url(user)
+    when "2"
+      visit_url(user)
+    else
+      puts "sorry, that is not a valid action"
+      take_action(user)
+    end
+  end
+
+  def touch_base(user)
+    puts "select 1 to play again, 2 to exit"
+    action = gets.chomp
+
+    case action
+    when "1"
+      take_action(user)
+    when "2"
+      return
+    else
+      puts "invalid selection"
+      touch_base(user)
+    end
+  end
+end
+
+aCLI = MyCLI.new
+
+thisUser = aCLI.get_email()
+
+aCLI.take_action(thisUser)

@@ -1,20 +1,26 @@
 # == Schema Information
 #
-# Table name: users
+# Table name: shortened_urls
 #
 #  id         :bigint           not null, primary key
-#  email      :string
+#  long_url   :string
+#  short_url  :string
 #  created_at :datetime         not null
 #  updated_at :datetime         not null
+#  user_id    :bigint
 #
 # Indexes
 #
-#  index_users_on_email  (email)
+#  index_shortened_urls_on_user_id  (user_id)
 #
 require 'test_helper'
 
-class UserTest < ActiveSupport::TestCase
+class ShortenedUrlTest < ActiveSupport::TestCase
   # test "the truth" do
   #   assert true
   # end
+
+  test "should return the number of visits" do
+    
+  end
 end
