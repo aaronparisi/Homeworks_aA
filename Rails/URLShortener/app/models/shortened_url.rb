@@ -32,6 +32,9 @@ class ShortenedUrl < ApplicationRecord
   has_many :taggings, dependent: :destroy
   has_many :tag_topics, through: :taggings
 
+  has_many :votes, dependent: :destroy
+  has_many :fans, through: :votes, source: :fan
+
   # 
 #                                                                                                                   
 #          ,,                                                                 ,,                        ,,          
@@ -47,9 +50,20 @@ class ShortenedUrl < ApplicationRecord
 # 
 
 
-  def self.create_short_url(user, long)
+  def self.create_short_url(user, long, num_words=3)
     # takes User object and long as a string
-    self.create!(short_url: self.random_code(), long_url: long, user_id: user.id)
+    # short = self.random_code
+    short = self.random_words(num_words)
+    short += "_premium" if user.premium
+    self.create!(short_url: short, long_url: long, user_id: user.id)
+  end
+  
+  def self.random_words(num_words)
+    words = []
+    num_words.times do
+      words << RandomWord.nouns.next
+    end
+    return words.join('_')
   end
   
 
@@ -62,26 +76,29 @@ class ShortenedUrl < ApplicationRecord
     ret
   end
 
-  def self.prune()
+  def self.prune(sec)
     # unpopular means it has been clicked, but not recently enough
-    ids_to_destroy = ShortenedUrl.all.to_a.select(&:qualifies?).map { |url| url.id }
+    ids_to_destroy = ShortenedUrl.all.to_a
+      .select { |url| url.qualifies?(sec) }
+      .map { |url| url.id }
     ShortenedUrl.destroy(ids_to_destroy)
   end
 
-  def qualifies?()
-    mins = 600
+  def qualifies?(sec)
+    return false if self.submitter.premium
+
     myVisits = self.visits
-    myVisits.empty? ? self.abandoned?(mins) : self.unpopular?(myVisits, mins)
+    myVisits.empty? ? self.abandoned?(sec) : self.unpopular?(myVisits, sec)
   end
 
-  def abandoned?(mins)
+  def abandoned?(sec)
     # return true if there are NO visits and if self is too old
-    self.created_at < (Time.now - mins)
+    self.created_at < (Time.now - sec)
   end
 
-  def unpopular?(myVisits, mins)
+  def unpopular?(myVisits, sec)
     # return true if no visits happened recently enough
-    myVisits.order(:created_at).none? { |visit| visit.created_at > (Time.now - mins) }
+    myVisits.order(:created_at).none? { |visit| visit.created_at > (Time.now - sec) }
   end
   
 
@@ -166,3 +183,5 @@ class ShortenedUrl < ApplicationRecord
   end
   
 end
+
+
