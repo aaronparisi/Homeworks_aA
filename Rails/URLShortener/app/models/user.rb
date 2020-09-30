@@ -35,7 +35,7 @@ class User < ApplicationRecord
 # .JMML..JMML  JMML.M9mmmP'   `Mbmo`Moo9^Yo..JMML  JMML.YMbmd'   `Mbmmd'     .JMML  JMML  JMML.`Mbmmd'  `Mbmo.JMML  JMML.`Ybmd9'   `Wbmd"MML.M9mmmP' 
 #                                                                                                                                                    
 #                                                                                                                                                    
-# 
+# hello world
 
   def cast_vote(url)
     Vote.tabulate_vote(self.id, ShortenedUrl.find_by(long_url: url).id)
