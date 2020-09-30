@@ -100,8 +100,33 @@ class ShortenedUrl < ApplicationRecord
     # return true if no visits happened recently enough
     myVisits.order(:created_at).none? { |visit| visit.created_at > (Time.now - sec) }
   end
-  
 
+  def self.top
+    ShortenedUrl.all.sort_by(&:vote_count).last
+  end
+
+  def vote_count
+    self.votes.count
+  end
+
+  def self.hot(num_urls=5, duration=300)
+    # returns urls which have received the most votes in the last n mins
+    ShortenedUrl.all
+      .filter { |url| url.recently_voted_on?(duration)}
+      .sort_by(&:vote_count)
+      .take(num_urls)
+      .sort_by(&:time_of_latest_vote)
+  end
+
+  def time_of_latest_vote
+    self.votes.order(:created_at).last
+  end
+  
+  
+  def recently_voted_on?(duration)
+    # returns true if this url has votes created recdntly enough
+    self.votes.any? { |vote| vote.created_at > (Time.now - duration)}
+  end
   
 
   # 
