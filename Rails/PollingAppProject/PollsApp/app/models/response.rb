@@ -59,9 +59,31 @@ class Response < ApplicationRecord
     # id as the response's question's poll's author (user)
     # respondent_id != self.question.author.id
     # ^^ I guess rails has a bug??
-    if respondent_id == self.answer_choice.question.poll.author.id
-      errors.add(:respondent_id, "cannot submit answer to authored poll")
+
+    # if respondent_id == self.answer_choice.question.poll.author.id
+    #   errors.add(:respondent_id, "cannot submit answer to authored poll")
+    # end
+    # this works, but it makes THREE sql queries
+
+    # unless Response
+    #               .joins(:question)
+    #               .joins(:poll)
+    #               .where(polls: { author_id: self.respondent_id })
+    #               .empty?
+    #   errors.add(:respondent_id, "cannot submit answer to authored poll")
+    # end
+    # this is not the correct syntax for nested joins
+
+    poll_author =  Poll.joins(questions: :answer_choices)
+                        .where(answer_choices: { id: self.answer_choice_id })
+                        .select(:author_id)
+                        .first
+                        .author_id
+
+    if poll_author == self.respondent_id
+        errors.add(:respondent_id, "cannot submit answer to authored poll; author: #{poll_author}")
     end
+
   end
   
 end

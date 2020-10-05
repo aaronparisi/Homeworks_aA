@@ -17,7 +17,7 @@ class Question < ApplicationRecord
   
   belongs_to :poll, class_name: :Poll, foreign_key: :poll_id
   has_one :author, through: :poll, class_name: :User, foreign_key: :author_id
-  has_many :answer_choices
+  has_many :answer_choices, dependent: :destroy
   has_many :responses, through: :answer_choices
 
   def n_plus_one_results

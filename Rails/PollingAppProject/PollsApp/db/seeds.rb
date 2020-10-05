@@ -25,7 +25,7 @@ kristin = User.create(username: "Kristin")
 circe = User.create(username: "Circe")
 maggie = User.create(username: "Maggie")
 nick = User.create(username: "Nick")
-jamison = User.create(username: "Jaimson")
+jamison = User.create(username: "Jamison")
 julie = User.create(username: "Julie")
 annalivia = User.create(username: "Annalivia")
 
@@ -73,6 +73,7 @@ carved_bday.save
 #responses
 annalivia.responses.build(answer_choice_id: aarons_bday.id).save
 maggie.responses.build(answer_choice_id: carved_bday.id).save
+kristin.responses.build(answer_choice_id: aarons_bday.id).save
 
 # 
 #                                                                    
@@ -89,7 +90,7 @@ maggie.responses.build(answer_choice_id: carved_bday.id).save
 # 
 
 
-pets_poll = kristin.authored_polls.build(title: "Secret Pets")
+pets_poll = jamison.authored_polls.build(title: "Secret Pets")
 pets_poll.save
 
 #question
@@ -103,6 +104,9 @@ all_pets.save
 allergic = guinea_pig_q.answer_choices.build(text: "I'm allergic")
 allergic.save
 
+# responses
+kristin.responses.build(answer_choice_id: no_pets.id).save
+
 # question
 gecko_q = pets_poll.questions.build(text: "Who wants to feed Tony's leopard gecko?")
 gecko_q.save
@@ -113,6 +117,9 @@ ill_do_it = gecko_q.answer_choices.build(text: "I'll do it!")
 ill_do_it.save
 tattle_tale = gecko_q.answer_choices.build(text: "I'm telling AvenueOne")
 tattle_tale.save
+
+# responses
+kristin.responses.build(answer_choice_id: tattle_tale.id).save
 
 # 
 #                                                                                                       
