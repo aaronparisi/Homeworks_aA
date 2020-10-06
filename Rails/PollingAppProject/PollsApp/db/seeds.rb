@@ -57,7 +57,8 @@ no_ceiling.save
 whats_a_streamer = streamer_decoration_q.answer_choices.build(text: "What's a streamer?")
 whats_a_streamer.save
 # responses
-jamison.responses.build(answer_choice_id: fuck_streamers.id).save
+annalivia.responses.build(answer_choice_id: fuck_streamers.id).save
+jamison.responses.build(answer_choice_id: whats_a_streamer.id).save
 kristin.responses.build(answer_choice_id: whats_a_streamer.id).save
 
 # question
@@ -73,7 +74,7 @@ carved_bday.save
 #responses
 annalivia.responses.build(answer_choice_id: aarons_bday.id).save
 maggie.responses.build(answer_choice_id: carved_bday.id).save
-kristin.responses.build(answer_choice_id: aarons_bday.id).save
+# kristin.responses.build(answer_choice_id: aarons_bday.id).save
 
 # 
 #                                                                    

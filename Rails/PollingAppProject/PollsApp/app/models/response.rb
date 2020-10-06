@@ -15,9 +15,8 @@ require 'byebug'
 #  index_responses_on_respondent_id     (respondent_id)
 #
 class Response < ApplicationRecord
-  validate :not_duplicate_response
-  validate :not_answered_by_author
-  # why can I create a response by aaron to the first poll?????
+  validate :not_duplicate_response, unless: -> { answer_choice.nil? }
+  validate :not_answered_by_author, unless: -> { answer_choice.nil? }
 
   belongs_to :respondent, class_name: :User, foreign_key: :respondent_id
   belongs_to :answer_choice
@@ -34,9 +33,13 @@ class Response < ApplicationRecord
     # we need this so we can check if any of those responses have the current
     # respondent as THEIR respondent
     # self.question.answer_choices.responses.respondents # <- redundant, we have through associations
+
     self.question.responses.where.not(id: self.id)
+    # TAKES 2 QUERIES
     # we are making sure THIS response is not included
     # because duh, this response will have the same respondent_id...
+
+    # to do this in 1 query, seems easier to do it in pure sql
   end
   
   def respondent_already_answered?
@@ -79,6 +82,7 @@ class Response < ApplicationRecord
                         .select(:author_id)
                         .first
                         .author_id
+    # this can be a .pluck(:author_id).first                        
 
     if poll_author == self.respondent_id
         errors.add(:respondent_id, "cannot submit answer to authored poll; author: #{poll_author}")
