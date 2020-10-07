@@ -48,15 +48,35 @@ class SQLObject
   end
 
   def self.all
-    # ...
+    # just like ActiveRecord- Cat.all => all cats
+    results = DBConnection.execute(<<-SQL)
+      select *
+      from "#{self.table_name}"
+    SQL
+
+    parse_all(results)
   end
 
   def self.parse_all(results)
-    # ...
+    # turn the results of self.all into actual Ruby objects
+    ret = []
+    results.each do |obj_hash|
+      ret << self.new(obj_hash)
+    end
+
+    ret
   end
 
   def self.find(id)
-    # ...
+    # returns a single Ruby object with the given id
+    # eg. Cat.find(2) => <Cat {id: 2, ...}> or whatever
+    result = DBConnection.execute(<<-SQL, id)
+      select *
+      from "#{self.table_name}"
+      where id = ?
+    SQL
+
+    result.empty? ? nil : self.new(result.first)
   end
 
   def initialize(params = {})
