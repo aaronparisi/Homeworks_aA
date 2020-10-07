@@ -136,10 +136,21 @@ class SQLObject
   end
 
   def update
-    # ...
+    # updates an existing record in the database table
+    set_line = self.class
+      .columns
+      .drop(1)
+      .map { |attr_name| "#{attr_name.to_s} = ?"}
+      .join(", ")
+    DBConnection.execute(<<-SQL, *(attribute_values.rotate))
+      update #{self.class.table_name}
+      set #{set_line}
+      where id = ?
+    SQL
   end
 
   def save
-    # ...
+    # calls either #insert or #update
+    self.id ? update : insert
   end
 end
