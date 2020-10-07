@@ -1,73 +1,96 @@
 require_relative '03_associatable'
 
-# Phase IV
+# 
+#                                                                                               
+#                                                                                               
+#                                                                                               
+#                                                                                               
+# `7MMpMMMb.pMMMb.  ,pW"Wq.`7Mb,od8 .gP"Ya                                                      
+#   MM    MM    MM 6W'   `Wb MM' "',M'   Yb                                                     
+#   MM    MM    MM 8M     M8 MM    8M""""""                                                     
+#   MM    MM    MM YA.   ,A9 MM    YM.    ,                                                     
+# .JMML  JMML  JMML.`Ybmd9'.JMML.   `Mbmmd'                                                     
+#                                                                                               
+#                                                                                               
+#                                                                                               
+#                                                  ,,                     ,,        ,,          
+#       db                                         db         mm         *MM      `7MM          
+#      ;MM:                                                   MM          MM        MM          
+#     ,V^MM.   ,pP"Ybd ,pP"Ybd  ,pW"Wq.   ,p6"bo `7MM  ,6"YbmmMMmm ,6"Yb. MM,dMMb.  MM  .gP"Ya  
+#    ,M  `MM   8I   `" 8I   `" 6W'   `Wb 6M'  OO   MM 8)   MM MM  8)   MM MM    `Mb MM ,M'   Yb 
+#    AbmmmqMA  `YMMMa. `YMMMa. 8M     M8 8M        MM  ,pm9MM MM   ,pm9MM MM     M8 MM 8M"""""" 
+#   A'     VML L.   I8 L.   I8 YA.   ,A9 YM.    ,  MM 8M   MM MM  8M   MM MM.   ,M9 MM YM.    , 
+# .AMA.   .AMMAM9mmmP' M9mmmP'  `Ybmd9'   YMbmd' .JMML`Moo9^Yo`Mbm`Moo9^YoP^YbmdP'.JMML.`Mbmmd' 
+#                                                                                               
+#                                                                                               
+# 
+
 module Associatable
-  # Remember to go back to 04_associatable to write ::assoc_options
-  # I think this will just add additional functionality to the module
-  # defined in 03
 
   def has_one_through(name, through_name, source_name)
-    # given the name of the association,
-    # the name of the SQLObject class through which the association flows,
-    # and the name of the model we will query,
-    # calling has_one_through will give the calling class a method, :name,
-    # which will return the associated object from source
-
-    # we need the options linking us from THIS class to the THROUGH class
-    # remember, each belongs_to association saves an entry in the @assoc_options
-    # with key=name_of_association
-    through_options = assoc_options[through_name]
-    source_options = through_options.model_class.assoc_options[source_name]
-=begin
-select houses.*                 <- source_options class_name  
-from humans                     <- through_options class_name
-join houses                     <- source_options class_name
-on humans.house_id = houses.id  <- source_options foreign_key, source_options primary_key
-where humans.id = ?             <- through_options primary_key, foreign_key
-=end
     define_method(name.to_s) do
-      query = DBConnection.execute(<<-SQL, self.send(through_options.foreign_key))
+      thru_options = assoc_options[through_name]
+      thru_table = thru_options.table_name
+      thru_fk = thru_table.thru_options.foreign_key
+      thru_fk = thru_table.thru_options.primary_key
+      
+      src_options = thru_options.model_class.assoc_options[source_name]
+      src_table = src_options.table_name
+      src_fk = src_table.src_options.foreign_key
+      src_pk = src_table.src_options.primary_key
+
+      query = DBConnection.execute(<<-SQL, self.send(thru_fk))
         select
-          #{source_options.table_name}.*
+          #{src_table}.*
         from
-          #{through_options.table_name}
+          #{thru_table}
         join
-          #{source_options.table_name}
+          #{src_table}
         on
-          #{through_options.table_name}
-            .#{source_options.foreign_key} = #{source_options.table_name}
-                                                .#{source_options.primary_key}
+          #{thru_fk} = #{src_pk}
         where
-          #{through_options.table_name}.
-            #{through_options.primary_key} = ?
+          #{thru_pk} = ?
       SQL
 
       return source_options.model_class.parse_all(query).first
     end
   end
+
+  def has_many_through(name, through_name, source_name)
+    define_method(name.to_s) do
+      thru_options = assoc_options[through_name]
+      thru_table = thru_options.table_name
+      thru_fk = thru_table.thru_options.foreign_key
+      thru_fk = thru_table.thru_options.primary_key
+      
+      src_options = thru_options.model_class.assoc_options[source_name]
+      src_table = src_options.table_name
+      src_fk = src_table.src_options.foreign_key
+      src_pk = src_table.src_options.primary_key
+
+      query = DBConnection.execute(<<-SQL, self.send(thru_fk))
+        select
+          #{src_table}.*
+        from
+          #{thru_table}
+        join
+          #{src_table}
+        on
+          #{thru_fk} = #{src_pk}
+        where
+          #{thru_pk} = ?
+      SQL
+
+      return source_options.model_class.parse_all(query)
+    end
+  end
+
+  def includes
+    
+  end
+  
+  def joins
+    
+  end
+  
 end
-
-=begin
-eg. a Cat has one HOME through HUMAN, source name HOUSE
-remember, the module Associatable has a CLASS INSTANCE VARIABLE, @assoc_options
-which is accessible here
-
-say we have cat belongs to human, human belongs to home
-then we are going to have TWO belongs to relationships
-
-ok so we are going to have 3 instances of the sql object class
-1. cat
-2. human
-3. house
-
-cat belogns_to human
-therefore the CAT class has a CLASS INSTANCE VARIABLE @assoc_options:
-{ owner: aBelongsToOptionsInstance{ foreign_key: owner_id, class_name: Human, primary_key: id} }
-
-human belongs_to house
-therefore the HUMAN class has its own CLASS INSTANCE VARIABLE @assoc_options:
-{ home: aBelongsToOptionsInstance{ foreign_key: home_id, class_name: House, primary_key: id} }
-
-any class calling has_one_through will have access to its OWN @assoc_options
-
-=end

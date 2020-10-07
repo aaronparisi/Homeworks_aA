@@ -4,7 +4,47 @@ require 'active_support/inflector'
 # NB: the attr_accessor we wrote in phase 0 is NOT used in the rest
 # of this project. It was only a warm up.
 
+# 
+#                                                                                     
+#          ,,                                                                         
+#        `7MM                                                                         
+#          MM                                                                         
+#  ,p6"bo  MM   ,6"Yb.  ,pP"Ybd ,pP"Ybd                                               
+# 6M'  OO  MM  8)   MM  8I   `" 8I   `"                                               
+# 8M       MM   ,pm9MM  `YMMMa. `YMMMa.                                               
+# YM.    , MM  8M   MM  L.   I8 L.   I8                                               
+#  YMbmd'.JMML.`Moo9^Yo.M9mmmP' M9mmmP'                                               
+#                                                                                     
+#                                                                                     
+#                                                                                     
+#                                               ,,        ,,                          
+#  .M"""bgd   .g8""8q. `7MMF'        .g8""8q.  *MM        db                    mm    
+# ,MI    "Y .dP'    `YM. MM        .dP'    `YM. MM                              MM    
+# `MMb.     dM'      `MM MM        dM'      `MM MM,dMMb.`7MM  .gP"Ya   ,p6"bo mmMMmm  
+#   `YMMNq. MM        MM MM        MM        MM MM    `Mb MM ,M'   Yb 6M'  OO   MM    
+# .     `MM MM.      ,MP MM      , MM.      ,MP MM     M8 MM 8M"""""" 8M        MM    
+# Mb     dM `Mb.    ,dP' MM     ,M `Mb.    ,dP' MM.   ,M9 MM YM.    , YM.    ,  MM    
+# P"Ybmmd"    `"bmmd"' .JMMmmmmMMM   `"bmmd"'   P^YbmdP'  MM  `Mbmmd'  YMbmd'   `Mbmo 
+#                 MMb                                  QO MP                          
+#                  `bood'                              `bmP                           
+# 
+
+
 class SQLObject
+# 
+#                                                                                                                                     
+#                                ,,                                                              ,,                        ,,         
+#                              `7MM                                                        mm  `7MM                      `7MM         
+#         `\\.                   MM                                                        MM    MM                        MM         
+#            `\\:.       ,p6"bo  MM  ,6"Yb. ,pP"Ybd ,pP"Ybd     `7MMpMMMb.pMMMb.  .gP"Ya mmMMmm  MMpMMMb.  ,pW"Wq.    ,M""bMM ,pP"Ybd 
+# mmmmmmmmm     `\\.    6M'  OO  MM 8)   MM 8I   `" 8I   `"       MM    MM    MM ,M'   Yb  MM    MM    MM 6W'   `Wb ,AP    MM 8I   `" 
+#              ,;//'    8M       MM  ,pm9MM `YMMMa. `YMMMa.       MM    MM    MM 8M""""""  MM    MM    MM 8M     M8 8MI    MM `YMMMa. 
+# mmmmmmmmm ,;//'       YM.    , MM 8M   MM L.   I8 L.   I8       MM    MM    MM YM.    ,  MM    MM    MM YA.   ,A9 `Mb    MM L.   I8 
+#         ,//'           YMbmd'.JMML`Moo9^YoM9mmmP' M9mmmP'     .JMML  JMML  JMML.`Mbmmd'  `Mbm.JMML  JMML.`Ybmd9'   `Wbmd"MMLM9mmmP' 
+#                                                                                                                                     
+#                                                                                                                                     
+# 
+
   def self.columns
     # returns an array of the corresponding database table's column names
     unless @columns
@@ -19,10 +59,6 @@ class SQLObject
   end
 
   def self.finalize!
-    # automatically adds a getter and setter for each column
-    # this method is called at the end of the subclass definition
-    # i.e. will be executed whenever the subclass is instantiated??
-    # the getters and setters are available to INSTANCES of the subclass
     columns.each do |attr|
       # setter
       define_method("#{attr}=") do |setVal|
@@ -42,42 +78,49 @@ class SQLObject
   end
 
   def self.table_name
-    # returns the name of the database table for the class, like
-    # User.table_name => users
     @table_name ? @table_name : self.to_s.tableize
   end
 
-  def self.all
-    # just like ActiveRecord- Cat.all => all cats
-    results = DBConnection.execute(<<-SQL)
-      select *
-      from "#{self.table_name}"
-    SQL
+  # def self.all
+  #   results = DBConnection.execute(<<-SQL)
+  #     select *
+  #     from "#{self.table_name}"
+  #   SQL
 
-    parse_all(results)
-  end
+  #   parse_all(results)
+  # end
 
-  def self.parse_all(results)
-    # turn the results of self.all into actual Ruby objects
-    ret = []
-    results.each do |obj_hash|
-      ret << self.new(obj_hash)
-    end
+  # def self.parse_all(results)
+  #   ret = []
+  #   results.each do |obj_hash|
+  #     ret << self.new(obj_hash)
+  #   end
 
-    ret
-  end
+  #   ret
+  # end
 
-  def self.find(id)
-    # returns a single Ruby object with the given id
-    # eg. Cat.find(2) => <Cat {id: 2, ...}> or whatever
-    result = DBConnection.execute(<<-SQL, id)
-      select *
-      from #{self.table_name}
-      where id = ?
-    SQL
+  # def self.find(id)
+  #   result = DBConnection.execute(<<-SQL, id)
+  #     select *
+  #     from #{self.table_name}
+  #     where id = ?
+  #   SQL
 
-    result.empty? ? nil : self.new(result.first)
-  end
+  #   result.empty? ? nil : self.new(result.first)
+  # end
+# 
+#                                                                                                                       
+#                         ,,                                                       ,,                        ,,         
+#                         db                        `7MMM.     ,MMF'         mm  `7MM                      `7MM         
+#         `\\.                                        MMMb    dPMM           MM    MM                        MM         
+#            `\\:.      `7MM `7MMpMMMb. ,pP"Ybd       M YM   ,M MM  .gP"Ya mmMMmm  MMpMMMb.  ,pW"Wq.    ,M""bMM ,pP"Ybd 
+# mmmmmmmmm     `\\.      MM   MM    MM 8I   `"       M  Mb  M' MM ,M'   Yb  MM    MM    MM 6W'   `Wb ,AP    MM 8I   `" 
+#              ,;//'      MM   MM    MM `YMMMa.       M  YM.P'  MM 8M""""""  MM    MM    MM 8M     M8 8MI    MM `YMMMa. 
+# mmmmmmmmm ,;//'         MM   MM    MM L.   I8       M  `YM'   MM YM.    ,  MM    MM    MM YA.   ,A9 `Mb    MM L.   I8 
+#         ,//'          .JMML.JMML  JMMLM9mmmP'     .JML. `'  .JMML.`Mbmmd'  `Mbm.JMML  JMML.`Ybmd9'   `Wbmd"MMLM9mmmP' 
+#                                                                                                                       
+#                                                                                                                       
+# 
 
   def initialize(params = {})
     # set the attributes of this instance's @attributes hash
@@ -111,28 +154,12 @@ class SQLObject
     question_marks = (["?"] * columns.length).join(", ")
     attr_vals = attribute_values.drop(1).join(", ")
 
-    # only interpolate the attribute_values
-    # could I just make them a string?
-    # I think that when you join the attr_vals, you end up with just a string
-    # instead of "Gizmo" and 1; idk, but it doesn't work when I do it that way.
     DBConnection.execute(<<-SQL, *attribute_values.drop(1))
       insert into #{self.class.table_name} (#{col_names})
       values (#{question_marks})
     SQL
 
     self.id = DBConnection.last_insert_row_id
-    # col_names = self.class.columns[1..-1].join(", ")
-    # question_marks = (["?"] * (self.class.columns.length-1)).join(", ")
-
-    # DBConnection.execute(<<-SQL, self.class.table_name, col_names, *attribute_values[1..-1])
-    #   insert into ? (?)
-    #   values (#{question_marks})
-    # SQL
-    # DBConnection.execute(<<-SQL)
-    #   insert into cats (name, owner_id)
-    #   values ("Gizmo", 1)
-    # SQL
-
   end
 
   def update
