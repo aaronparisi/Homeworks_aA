@@ -72,7 +72,7 @@ class SQLObject
     # eg. Cat.find(2) => <Cat {id: 2, ...}> or whatever
     result = DBConnection.execute(<<-SQL, id)
       select *
-      from "#{self.table_name}"
+      from #{self.table_name}
       where id = ?
     SQL
 
