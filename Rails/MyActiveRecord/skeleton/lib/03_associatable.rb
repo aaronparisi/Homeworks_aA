@@ -33,16 +33,16 @@ class BelongsToOptions < AssocOptions
   def initialize(name, options = {})
     # HERE is where we define the defaults,
     # aided by the methods in AssocOptions
-    self.foreign_key = (options[:foreign_key] ? options[:foreign_key] : name.foreign_key.to_sym)
-    self.class_name = (options[:class_name] ? options[:class_name] : name.classify)
+    self.foreign_key = (options[:foreign_key] ? options[:foreign_key] : name.to_s.foreign_key.to_sym)
+    self.class_name = (options[:class_name] ? options[:class_name] : name.to_s.classify)
     self.primary_key = (options[:primary_key] ? options[:primary_key] : :id)
   end
 end
 
 class HasManyOptions < AssocOptions
   def initialize(name, self_class_name, options = {})
-    self.foreign_key = (options[:foreign_key] ? options[:foreign_key] : self_class_name.foreign_key.to_sym)
-    self.class_name = (options[:class_name] ? options[:class_name] : name.classify)
+    self.foreign_key = (options[:foreign_key] ? options[:foreign_key] : self_class_name.to_s.foreign_key.to_sym)
+    self.class_name = (options[:class_name] ? options[:class_name] : name.to_s.classify)
     self.primary_key = (options[:primary_key] ? options[:primary_key] : :id)
   end
 end
@@ -50,7 +50,14 @@ end
 module Associatable
   # Phase IIIb
   def belongs_to(name, options = {})
-    # ...
+    # remember, belogns_to is a method which creates methods like aCat.owner
+    options = BelongsToOptions.new(name, options)
+
+    define_method(options.class_name.underscore) do
+      options.model_class
+      .send(:where, {options.primary_key => self.send(options.foreign_key)})
+      .first
+    end
   end
 
   def has_many(name, options = {})
@@ -64,4 +71,5 @@ end
 
 class SQLObject
   # Mixin Associatable here...
+  extend Associatable
 end
