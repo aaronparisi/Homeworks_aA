@@ -1,3 +1,4 @@
+require 'byebug'
 require '03_associatable'
 
 describe 'AssocOptions' do

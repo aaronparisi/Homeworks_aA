@@ -1,3 +1,4 @@
+require 'byebug'
 require_relative '02_searchable'
 require 'active_support/inflector'
 
@@ -55,13 +56,17 @@ module Associatable
 
     define_method(options.class_name.underscore) do
       options.model_class
-      .send(:where, {options.primary_key => self.send(options.foreign_key)})
-      .first
+        .send(:where, {options.primary_key => self.send(options.foreign_key)})
+        .first
     end
   end
 
   def has_many(name, options = {})
-    # ...
+    options = HasManyOptions.new(name, self, options)
+    define_method(options.table_name) do
+      options.model_class
+      .send(:where, {options.foreign_key => self.send(options.primary_key)})
+    end
   end
 
   def assoc_options
