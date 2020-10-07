@@ -49,11 +49,12 @@ class HasManyOptions < AssocOptions
 end
 
 module Associatable
+  # note that these are CLASS methods because our SQL object classes EXTEND this module?
   # Phase IIIb
   def belongs_to(name, options = {})
     # remember, belogns_to is a method which creates methods like aCat.owner
     options = BelongsToOptions.new(name, options)
-
+    assoc_options[name] = options
     define_method(options.class_name.underscore) do
       options.model_class
         .send(:where, {options.primary_key => self.send(options.foreign_key)})
@@ -71,6 +72,8 @@ module Associatable
 
   def assoc_options
     # Wait to implement this in Phase IVa. Modify `belongs_to`, too.
+    # we are going to STORE some BelongsToOptions for later use
+    @assoc_options ||= {}
   end
 end
 
