@@ -19,6 +19,21 @@ class SQLObject
   end
 
   def self.finalize!
+    # automatically adds a getter and setter for each column
+    # this method is called at the end of the subclass definition
+    # i.e. will be executed whenever the subclass is instantiated??
+    # the getters and setters are available to INSTANCES of the subclass
+    columns.each do |attr|
+      # setter
+      define_method("#{attr}=") do |setVal|
+        attributes[attr] = setVal
+      end
+
+      # getter
+      define_method(attr) do
+        attributes[attr]
+      end
+    end
   end
 
   def self.table_name=(table_name)
@@ -45,11 +60,23 @@ class SQLObject
   end
 
   def initialize(params = {})
-    # ...
+    # set the attributes of this instance's @attributes hash
+    curColumns = self.class.columns
+    params.each do |attr_name, val|
+      attr_name = attr_name.to_sym
+      unless curColumns.include?(attr_name)
+        raise ArgumentError, "unknown attribute '#{attr_name}'"
+      end
+
+      # call the setter method defined in finalize!
+      self.send("#{attr_name}=", val)
+    end
   end
 
   def attributes
-    # ...
+    # returns a hash, keys are column names, values are the particular
+    # instance's attributes (eg. {name: "Wiskers", ...})
+    @attributes ||= {}
   end
 
   def attribute_values
