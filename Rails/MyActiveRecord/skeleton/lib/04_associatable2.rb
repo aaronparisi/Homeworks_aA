@@ -89,7 +89,7 @@ module Associatable
     
   end
   
-  def joins
+  def joins(t1, t2)
     
   end
   
