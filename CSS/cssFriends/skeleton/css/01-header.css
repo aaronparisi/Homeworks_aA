@@ -1,0 +1,65 @@
+/* PHASE 1: Header */
+
+body {
+  font-family: 'Robato', sans-serif;
+  font-weight: 400;
+  font-size: 16px;
+}
+
+.header {
+  width: 100%;
+  height: auto;
+  display: flex;
+  justify-content: center;
+  background-color: #F40305;
+  border-bottom: 1px solid #ccc;
+}
+
+.header-nav {
+  width: 95%;
+  display: flex;
+  flex-wrap: nowrap;
+  justify-content: space-between;
+  align-items: stretch;
+}
+
+.header-logo {
+  color: white;
+  border-left: 1px solid #ccc;
+  border-right: 1px solid #ccc;
+  display: flex;
+  align-items: center;
+  padding: 10px 20px;
+  font-size: inherit;
+}
+
+.header-logo:hover {
+  background-color: black;
+}
+
+.header-list {
+  display: flex;
+  flex-wrap: nowrap;
+  align-items: stretch;
+}
+
+.header-list li {
+  color: #ccc;
+  border-right: 1px solid #ccc;
+  display: flex;
+  align-items: center;
+  padding: 10px 20px;
+}
+
+.header-list li:hover {
+  background-color: black;
+}
+
+.header-list li:nth-of-type(1) {
+  border-left: 1px solid #ccc;
+}
+
+.header a {
+  color: white;
+  text-decoration: none;
+}
