@@ -24,17 +24,11 @@ body {
 }
 
 .header-logo {
-  color: white;
   border-left: 1px solid #ccc;
   border-right: 1px solid #ccc;
   display: flex;
-  align-items: center;
-  padding: 10px 20px;
+  align-items: stretch;
   font-size: inherit;
-}
-
-.header-logo:hover {
-  background-color: black;
 }
 
 .header-list {
@@ -44,15 +38,9 @@ body {
 }
 
 .header-list li {
-  color: #ccc;
-  border-right: 1px solid #ccc;
   display: flex;
   align-items: center;
-  padding: 10px 20px;
-}
-
-.header-list li:hover {
-  background-color: black;
+  border-right: 1px solid #ccc;
 }
 
 .header-list li:nth-of-type(1) {
@@ -62,4 +50,11 @@ body {
 .header a {
   color: white;
   text-decoration: none;
+  display: block;
+  padding: 10px 20px;
+  margin: 0px;
+}
+
+.header a:hover {
+  background-color: black;
 }
