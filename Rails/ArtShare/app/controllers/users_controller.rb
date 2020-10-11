@@ -1,7 +1,20 @@
 class UsersController < ApplicationController
 
   def index
-    render json: User.all.to_json
+    if params[:user_info]
+      # how do you differentiate between params in the body
+      # and params in a query string?
+      # does it matter?
+      toRender = get_user(params[:user_info])
+    else
+      toRender = User.all
+    end
+
+    if toRender.empty?
+      # search returned no results
+    else
+      render json: toRender.to_json
+    end
   end
 
   def show
@@ -44,5 +57,9 @@ class UsersController < ApplicationController
   def user_params
     params.require(:user).permit(:username)
   end
-  
+
+  def get_user(info)
+    User.where(username: info)  
+  end
+    
 end
