@@ -7,6 +7,7 @@
   <link href="https://fonts.googleapis.com/css2?family=Roboto&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="css/00-reset.css" type="text/css">
   <link rel="stylesheet" href="css/01-header.css" type="text/css">
+  <link rel="stylesheet" href="css/02-notifications.css" type="text/css">
 </head>
 
 <body>
@@ -15,7 +16,13 @@
     <nav class="header-nav">
       <h1 class="header-logo"><a href="#">App Academy Friends</a></h1>
       <ul class="header-list">
-        <li><a href="#">Notifications</a></li>
+        <li id="notification-li">
+          <a id="notification-link" href="#">Notifications <span class="badge">9</span></a>
+          <ul class="notification-list">
+            <li><a href="#">one</a></li>
+            <li><a href="#">two</a></li>
+          </ul>
+        </li>
         <li><a href="#">Profile</a></li>
         <li><a href="#">Settings</a></li>
       </ul>
