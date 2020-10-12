@@ -24,7 +24,7 @@ body {
 }
 
 .header-nav {
-  width: calc(95% - 1px);
+  width: 95%;
   display: flex;
   flex-wrap: nowrap;
   justify-content: space-between;

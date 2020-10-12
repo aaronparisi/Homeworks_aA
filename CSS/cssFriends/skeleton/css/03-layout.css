@@ -10,6 +10,7 @@
   flex-wrap: nowrap;
   border-left: 1px solid #ccc;
   border-bottom: 1px solid #ccc;
+  border-right: 1px solid #ccc;
   margin: 0 auto;
 }
 
@@ -19,7 +20,7 @@
   flex: 2;
 }
 
-.content-body div {
+.content-body div:first-child {
   border-right: 1px solid #ccc;
 }
 
