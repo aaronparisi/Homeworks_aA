@@ -4,6 +4,10 @@ body {
   font-family: 'Robato', sans-serif;
   font-weight: 400;
   font-size: 16px;
+  background-color: #eeee;
+  display: flex;
+  justify-content: center;
+  flex-wrap: wrap;
 }
 
 .header {
@@ -15,10 +19,11 @@ body {
   border-bottom: 1px solid #ccc;
   position: relative;
   z-index: 1;
+  margin: 0 auto;
 }
 
 .header-nav {
-  width: 95%;
+  width: calc(95% - 1px);
   display: flex;
   flex-wrap: nowrap;
   justify-content: space-between;

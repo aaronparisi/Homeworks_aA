@@ -12,11 +12,16 @@ li:hover .badge {
 
 .notification-list {
   display: none;
-  background-color: white;
+  background: white;
   position: absolute;
   top: 38px;
   left: -1;
+  font-size: 14px;
   border-top: 1px solid #ccc;
+  border-bottom-left-radius: 5px;
+  border-bottom-right-radius: 5px;
+  overflow: hidden;
+  white-space: nowrap;
 }
 
 li:hover .notification-list {
@@ -36,5 +41,5 @@ li:hover .notification-list {
 }
 
 .notification-list a:hover {
-  background-color: #ccc;
+  background-color: #eeee;
 }

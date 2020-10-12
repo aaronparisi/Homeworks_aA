@@ -1,1 +1,25 @@
 /* PHASE 3: Layout */
+
+.content {
+  min-height: 240px;
+  width: calc(95% - 1px);
+  background-color: white;
+  display: flex;
+  justify-content: stretch;
+  flex-wrap: nowrap;
+  border-left: 1px solid #ccc;
+  border-bottom: 1px solid #ccc;
+  margin: 0 auto;
+}
+
+.content div {
+  border-right: 1px solid #ccc;
+}
+
+.content-sidebar {
+  flex: 1;
+}
+
+.content-main {
+  flex: 3;
+}
