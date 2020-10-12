@@ -33,24 +33,31 @@ class RentalRequest < ApplicationRecord
 
   def end_date_after_start_date
     unless self.end_date >= self.start_date
-      self[:end_date].errors.add("End Date must be on or after Start Date")
+      errors.add(:end_date, "End Date must be on or after Start Date")
     end
   end
   
   def cat_is_available
     unless self.overlapping_requests.empty?
-      self[:cat_id].errors.add("This cat is not available for the requested period")
+      errors.add(:cat_id, "This cat is not available for the requested period")
     end
   end
 
   def overlapping_requests
-    RentalRequest.where(cat_id: cat_id).to_a.filter { |rental| date_overlaps?(rental) }
+    # RentalRequest.where(cat_id: cat_id).to_a.filter { |rental| date_overlaps?(rental) }
+    RentalRequest
+      .where(cat_id: cat_id)
+      .where(
+        "? between start_date and end_date OR ? between start_date and end_date", 
+        self.start_date, 
+        self.end_date
+      )
   end
   
-  def date_overlaps?(rental)
-    # returns true if the given rental's dates do not overlap with self's
-    self.start_date.between?(rental.start_date, rental.end_date) ||
-    self.end_date.between?(rental.start_date, rental.end_date)
-  end  
+  # def date_overlaps?(rental)
+  #   # returns true if the given rental's dates do not overlap with self's
+  #   self.start_date.between?(rental.start_date, rental.end_date) ||
+  #   self.end_date.between?(rental.start_date, rental.end_date)
+  # end  
   
 end

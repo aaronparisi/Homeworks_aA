@@ -37,7 +37,7 @@
 
 </table>
 
-<%= button_to 'Rent Me!', new_cat_rental_request_path(@cat) %>
+<%= link_to 'Rent Me!', new_cat_rental_request_path(@cat) %> |
 <%= link_to 'Check Availability!', cat_rental_requests_url(@cat), method: :get %> | 
 <%= link_to 'Modify', edit_cat_path(@cat) %> | 
 <%= link_to 'Murder', cat_path, method: :delete %> | 
