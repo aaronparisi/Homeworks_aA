@@ -1,0 +1,26 @@
+<h1>A User</h1>
+
+<table>
+
+  <thead>
+    <tr>
+      <th colspan="2">A User</th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <tr>
+      <td>Name</td>
+      <td><%= @user.name %></td>
+    </tr>
+
+    <tr>
+      <td>Email</td>
+      <td><%= @user.email %></td>
+    </tr>
+
+  </tbody>
+
+</table>
+
+<%= link_to 'Modify', edit_user_path(@user) %> | <%= link_to 'Murder', user_path, method: :delete %> | <%= link_to 'All Users', users_url %>

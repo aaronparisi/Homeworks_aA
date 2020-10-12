@@ -1,0 +1,9 @@
+<h1>All Cats</h1>
+
+<ul>
+  <% @users.each do |aUser| %>
+    <li><%= link_to aUser.name, user_url(aUser) %></li>
+  <% end %>
+</ul>
+
+<%= link_to 'New User', new_user_url %>
