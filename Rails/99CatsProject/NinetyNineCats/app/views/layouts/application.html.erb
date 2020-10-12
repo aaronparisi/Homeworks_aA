@@ -10,6 +10,12 @@
   </head>
 
   <body>
+    <% if @curUser %>
+      <div class="logged_in_info"><%= link_to @curUser.name, user_path(@curUser) %> is logged in!</div>
+      <div class="loggout"><%= link_to 'Log Out', logout_url, method: :delete %></div>
+    <% else %>
+      <div class="loggin"><%= link_to 'Login', login_url %></div>
+    <% end %>
     <%= yield %>
   </body>
 </html>

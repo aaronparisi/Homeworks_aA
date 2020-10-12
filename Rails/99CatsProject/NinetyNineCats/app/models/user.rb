@@ -11,4 +11,7 @@
 class User < ApplicationRecord
   validates :name, :email, presence: :true
   validates :email, uniqueness: true
+
+  has_many :rental_requests, dependent: :destroy
+  has_many :cats, through: :rental_requests
 end

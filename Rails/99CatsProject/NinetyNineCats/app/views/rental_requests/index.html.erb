@@ -1,0 +1,10 @@
+<h1>Rental Requests for <%= @subject.name %></h1>
+
+
+<% @rentals.each do |rental| %>
+  <div class="rental_info">
+    <p>I'm rented from <%= rental.start_date %> to <%= rental.end_date %> (<%= rental.status %>)</p>
+  </div>
+<% end %>
+
+<%= link_to 'All Cats', cats_path %>

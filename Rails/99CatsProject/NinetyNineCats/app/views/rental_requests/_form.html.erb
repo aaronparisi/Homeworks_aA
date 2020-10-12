@@ -1,0 +1,12 @@
+<%= form_with model: rq do |f| %>
+  <%= f.hidden_field :user_id, value: user_id %>
+  <%= f.hidden_field :cat_id, value: cat_id %>
+
+  <%= f.label :start_date %>
+  <%= f.date_field :start_date %>
+
+  <%= f.label :end_date %>
+  <%= f.date_field :end_date %>
+
+  <%= f.submit "Request Rental!" %>
+<% end %>

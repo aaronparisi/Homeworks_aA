@@ -21,7 +21,9 @@ class Cat < ApplicationRecord
   validates :birth_date, :color, :name, :sex, :description, presence: true
   validates :color, inclusion: CAT_COLORS
   validates :sex, inclusion: ['M', 'F']
-  
+
+  has_many :rental_requests, dependent: :destroy
+  has_many :users, through: :rental_requests
 
   def age
     distance_of_time_in_words(self.birth_date, Time.now)
