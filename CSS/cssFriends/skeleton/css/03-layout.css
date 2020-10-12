@@ -2,9 +2,10 @@
 
 .content {
   min-height: 240px;
-  width: calc(95% - 1px);
+  width: 95%;
   background-color: white;
   display: flex;
+  flex-direction: column;
   justify-content: stretch;
   flex-wrap: nowrap;
   border-left: 1px solid #ccc;
@@ -12,7 +13,13 @@
   margin: 0 auto;
 }
 
-.content div {
+.content-body {
+  display: flex;
+  flex-wrap: nowrap;
+  flex: 2;
+}
+
+.content-body div {
   border-right: 1px solid #ccc;
 }
 
