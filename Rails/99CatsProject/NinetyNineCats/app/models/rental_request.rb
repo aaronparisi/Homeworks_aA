@@ -29,6 +29,11 @@ class RentalRequest < ApplicationRecord
   belongs_to :cat
   belongs_to :user
 
+  def pending?
+    self.status == 'PENDING'
+  end
+  
+
   def approve!
     ActiveRecord::Base.transaction do
       self.update(status: 'APPROVED')

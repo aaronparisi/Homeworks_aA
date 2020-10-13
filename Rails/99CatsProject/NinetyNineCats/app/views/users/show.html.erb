@@ -23,4 +23,8 @@
 
 </table>
 
+<%= link_to 'All Rental Requests', user_rental_requests_url(@user) %>
+
+<br>
+
 <%= link_to 'Modify', edit_user_path(@user) %> | <%= link_to 'Murder', user_path, method: :delete %> | <%= link_to 'All Users', users_url %>

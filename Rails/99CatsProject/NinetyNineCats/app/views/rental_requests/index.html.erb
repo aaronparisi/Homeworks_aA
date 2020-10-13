@@ -1,9 +1,13 @@
-<h1>Rental Requests for <%= @subject.name %></h1>
+<h1>Rental Requests for <%= @subject.name %> (<%= @subject.class.to_s %>)</h1>
 
 
 <% @rentals.each do |rental| %>
   <div class="rental_info">
-    <p>I'm rented from <%= rental.start_date %> to <%= rental.end_date %> (<%= rental.status %>)</p>
+    <% if @subject.class == Cat %>
+      <p>I'm rented from <%= rental.start_date %> to <%= rental.end_date %> (<%= rental.status %>)</p>
+    <% else %>
+      <p>I'm requesting from <%= rental.start_date %> to <%= rental.end_date %> (<%= rental.status %>)</p>
+    <% end %>
   </div>
 <% end %>
 

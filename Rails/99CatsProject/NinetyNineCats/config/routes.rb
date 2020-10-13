@@ -7,7 +7,10 @@ Rails.application.routes.draw do
     resources :rental_requests, only: [:index, :new]
   end
 
-  resources :rental_requests, except: [:index]
+  resources :rental_requests, except: [:index] do
+    patch 'rental_requests/:id/approve' => 'rental_requests#approve', as: 'approve'
+    patch 'rental_requests/:id/deny' => 'rental_requests#deny', as: 'deny'
+  end
 
   controller :sessions do
     get 'login' => :new
