@@ -2,6 +2,7 @@ class SessionsController < ApplicationController
 
   def new
     redirect_to new_user_path if User.none?
+    redirect_to user_path(id: session[:user_id]) if session[:user_id]
   end
   
   def create
