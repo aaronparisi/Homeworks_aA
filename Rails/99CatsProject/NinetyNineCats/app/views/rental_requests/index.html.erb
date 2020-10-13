@@ -9,6 +9,13 @@
       <p>I'm requesting from <%= rental.start_date %> to <%= rental.end_date %> (<%= rental.status %>)</p>
     <% end %>
   </div>
+
+  <% if rental.status == 'PENDING' %>
+    <div class="rental_button">
+      <%= button_to 'Approve', rental_request_approve_url(rental), method: :patch %>
+      <%= button_to 'Deny', rental_request_deny_url(rental), method: :patch %>
+    </div>
+  <% end %>
 <% end %>
 
 <%= link_to 'Back', "/#{@subject.class.to_s.downcase.pluralize}/#{@subject.id}" %> | <%= link_to 'All Cats', cats_path %>

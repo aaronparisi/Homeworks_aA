@@ -8,8 +8,8 @@ Rails.application.routes.draw do
   end
 
   resources :rental_requests, except: [:index] do
-    patch 'rental_requests/:id/approve' => 'rental_requests#approve', as: 'approve'
-    patch 'rental_requests/:id/deny' => 'rental_requests#deny', as: 'deny'
+    patch '/approve' => 'rental_requests#approve', as: 'approve'
+    patch '/deny' => 'rental_requests#deny', as: 'deny'
   end
 
   controller :sessions do

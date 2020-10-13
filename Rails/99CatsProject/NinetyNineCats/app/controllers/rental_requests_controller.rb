@@ -31,6 +31,20 @@ class RentalRequestsController < ApplicationController
       render 'new'
     end
   end
+
+  def approve
+    @toApprove = RentalRequest.find(params[:rental_request_id])
+    @toApprove.approve!
+
+    redirect_to root_path
+  end
+  
+  def deny
+    @toDeny = RentalRequest.find(params[:rental_request_id])
+    @toDeny.deny!
+
+    redirect_to root_path
+  end
   
   private
 

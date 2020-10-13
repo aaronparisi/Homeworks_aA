@@ -53,7 +53,7 @@ class RentalRequest < ApplicationRecord
   end
   
   def cat_is_available
-    if self.status == 'APPROVED' && ! self.overlapping_approved_requests.empty?
+    if self.id.nil? && ! self.overlapping_approved_requests.empty?
       errors.add(:cat_id, "This cat is not available for the requested period")
     end
   end  
@@ -67,7 +67,7 @@ class RentalRequest < ApplicationRecord
         self.end_date,
         self.start_date
       )
-      .where.not('id = ?', self.id)
+      .where.not(id: self.id)
   end
 
   def overlapping_approved_requests
