@@ -7,4 +7,4 @@
   </div>
 <% end %>
 
-<%= link_to 'All Cats', cats_path %>
+<%= link_to 'Back', "/#{@subject.class.to_s.downcase.pluralize}/#{@subject.id}" %> | <%= link_to 'All Cats', cats_path %>

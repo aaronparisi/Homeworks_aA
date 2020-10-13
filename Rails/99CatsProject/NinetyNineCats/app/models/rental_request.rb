@@ -29,7 +29,17 @@ class RentalRequest < ApplicationRecord
   belongs_to :cat
   belongs_to :user
 
-  private
+  def approve!
+    ActiveRecord::Base.transaction do
+      self.update(status: 'APPROVED')
+  
+      self.overlapping_pending_requests.each { |req| req.deny! }
+    end
+  end
+  
+  def deny!
+    self.update(status: 'DENIED')
+  end
 
   def end_date_after_start_date
     unless self.end_date >= self.start_date
@@ -38,26 +48,30 @@ class RentalRequest < ApplicationRecord
   end
   
   def cat_is_available
-    unless self.overlapping_requests.empty?
+    if self.status == 'APPROVED' && ! self.overlapping_approved_requests.empty?
       errors.add(:cat_id, "This cat is not available for the requested period")
     end
-  end
+  end  
 
   def overlapping_requests
-    # RentalRequest.where(cat_id: cat_id).to_a.filter { |rental| date_overlaps?(rental) }
     RentalRequest
       .where(cat_id: cat_id)
       .where(
-        "? between start_date and end_date OR ? between start_date and end_date", 
+        "? < start_date and ? > start_date OR ? BETWEEN start_date and end_date", 
         self.start_date, 
-        self.end_date
+        self.end_date,
+        self.start_date
       )
+      .where.not('id = ?', self.id)
+  end
+
+  def overlapping_approved_requests
+    overlapping_requests.where(status: 'APPROVED')
   end
   
-  # def date_overlaps?(rental)
-  #   # returns true if the given rental's dates do not overlap with self's
-  #   self.start_date.between?(rental.start_date, rental.end_date) ||
-  #   self.end_date.between?(rental.start_date, rental.end_date)
-  # end  
+  
+  def overlapping_pending_requests
+    overlapping_requests.where(status: 'PENDING')
+  end
   
 end
