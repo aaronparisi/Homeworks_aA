@@ -6,7 +6,7 @@ class CatsController < ApplicationController
   end
 
   def show
-
+    @rentals = RentalRequest.where(cat_id: @cat.id)
   end
 
   def new

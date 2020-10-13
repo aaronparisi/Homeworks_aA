@@ -37,6 +37,21 @@
 
 </table>
 
+<h1>Rental Requests for <%= @cat.name %></h1>
+
+<% @rentals.each do |rental| %>
+  <div class="rental_info">
+    <p>I'm rented from <%= rental.start_date %> to <%= rental.end_date %> (<%= rental.status %>)</p>
+  </div>
+
+  <% if rental.status == 'PENDING' %>
+    <div class="rental_button">
+      <%= button_to 'Approve', rental_request_approve_url(rental), method: :patch %>
+      <%= button_to 'Deny', rental_request_deny_url(rental), method: :patch %>
+    </div>
+  <% end %>
+<% end %>
+
 <%= link_to 'Rent Me!', new_cat_rental_request_path(@cat) %> |
 <%= link_to 'Check Availability!', cat_rental_requests_url(@cat), method: :get %> | 
 <%= link_to 'Modify', edit_cat_path(@cat) %> | 
