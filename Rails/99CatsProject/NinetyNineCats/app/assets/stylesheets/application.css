@@ -116,3 +116,10 @@
  .app-form {
    font-size: 35px;
  }
+
+ .info-page-info {
+   width: 100%;
+   display: flex;
+   justify-content: center;
+   font-size: 70px;
+ }

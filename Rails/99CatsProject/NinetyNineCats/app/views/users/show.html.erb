@@ -1,33 +1,34 @@
-<h1>A User</h1>
+<div class="body-content-header">
+  <div class="body-content-header-nav">
+    <h1></h1>
+    <%= link_to 'All Rental Requests', user_rental_requests_url(@user) %>
+    <%= link_to 'Make Rental Request', new_user_rental_request_url(@user) %>
+    <%= link_to 'Modify', edit_user_path(@user) %>
+    <%= link_to 'Murder', user_path, method: :delete %>
+    <%= link_to 'All Users', users_url %>
+    <%= link_to 'Cats', cats_url %>
+    <%= link_to 'Home', root_path %>
+  </div>
+</div>
 
-<table>
+<div class="body-content-main">
+  <div class="info-page-info">
+    <table>
 
-  <thead>
-    <tr>
-      <th colspan="2">A User</th>
-    </tr>
-  </thead>
+      <tbody>
+        <tr>
+          <td>Name:</td>
+          <td><%= @user.name %></td>
+        </tr>
 
-  <tbody>
-    <tr>
-      <td>Name</td>
-      <td><%= @user.name %></td>
-    </tr>
+        <tr>
+          <td>Email:</td>
+          <td><%= @user.email %></td>
+        </tr>
 
-    <tr>
-      <td>Email</td>
-      <td><%= @user.email %></td>
-    </tr>
+      </tbody>
 
-  </tbody>
-
-</table>
-
-<%= link_to 'All Rental Requests', user_rental_requests_url(@user) %> |
-<%= link_to 'Make Rental Request', new_user_rental_request_url(@user) %>
-
-<br>
-
-<%= link_to 'Modify', edit_user_path(@user) %> | <%= link_to 'Murder', user_path, method: :delete %> | <%= link_to 'All Users', users_url %>
-<br>
-<%= link_to 'Cats', cats_url %>
+    </table>
+  </div>
+  
+</div>
