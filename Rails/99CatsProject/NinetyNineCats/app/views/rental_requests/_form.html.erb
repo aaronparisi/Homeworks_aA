@@ -1,17 +1,27 @@
-<%= form_with model: rq do |f| %>
-  <%= f.hidden_field :user_id, value: user_id %>
-  <% if cat_id.nil? %>
-    <%= f.label :cat_id, "Which cat?" %>
-    <%= f.collection_select :cat_id, Cat.all, :id, :name, prompt: true %>
-  <% else %>
-    <%= f.hidden_field :cat_id, value: cat_id %>
+<div class="app-form">
+  <%= form_with model: rq do |f| %>
+    <%= f.hidden_field :user_id, value: user_id %>
+    <% if cat_id.nil? %>
+      <div class="fields">
+        <%= f.label :cat_id, "Which cat?" %><br>
+        <%= f.collection_select :cat_id, Cat.all, :id, :name, prompt: true %>
+      </div>
+    <% else %>
+      <%= f.hidden_field :cat_id, value: cat_id %>
+    <% end %>
+
+    <div class="fields">
+      <%= f.label :start_date %><br>
+      <%= f.date_field :start_date %>
+    </div>
+
+    <div class="fields">
+      <%= f.label :end_date %><br>
+      <%= f.date_field :end_date %>
+    </div>
+
+    <div class="actions">
+      <%= f.submit "Request Rental!" %>
+    </div>
   <% end %>
-
-  <%= f.label :start_date %>
-  <%= f.date_field :start_date %>
-
-  <%= f.label :end_date %>
-  <%= f.date_field :end_date %>
-
-  <%= f.submit "Request Rental!" %>
-<% end %>
+</div>

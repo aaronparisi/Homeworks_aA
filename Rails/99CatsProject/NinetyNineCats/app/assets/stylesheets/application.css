@@ -37,7 +37,7 @@
    width: 100%;
    display: flex;
    justify-content: center;
-   margin-bottom: 30px;
+   /* margin-bottom: 30px; */
    height: auto;
  }
 
@@ -71,6 +71,8 @@
  }
 
  .body-content {
+   margin-top: 2.5%;
+   margin-bottom: 2.5%;
    width: 100%;
    display: flex;
    flex-direction: column;
@@ -109,4 +111,8 @@
    flex-direction: column;
    padding: 20px;
    margin: 20px;
+ }
+
+ .app-form {
+   font-size: 35px;
  }

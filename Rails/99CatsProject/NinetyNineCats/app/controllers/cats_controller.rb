@@ -17,7 +17,7 @@ class CatsController < ApplicationController
     @cat = Cat.new(cat_params)
 
     if @cat.save
-      redirect_to cat_path(@cat)
+      redirect_to cats_path
     else
       render :new
     end

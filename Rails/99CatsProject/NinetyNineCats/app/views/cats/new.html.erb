@@ -1,6 +1,10 @@
-<h1>Create a new cat</h1>
+<div class="body-content-header">
+  <div class="body-content-header-nav">
+    <h1>Add a cat!</h1>
+    <%= link_to 'Cancel', root_path %>
+  </div>
+</div>
 
-<%= render 'form', cat: @cat %>
-
-<%= link_to 'Cancel', root_path %>
-
+<div class="body-content-main">
+  <%= render 'form', cat: @cat %>
+</div>

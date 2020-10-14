@@ -1,5 +1,10 @@
-<h1>New Rental Request</h1>
+<div class="body-content-header">
+  <div class="body-content-header-nav">
+    <h1>Request a Rental!</h1>
+    <%= link_to 'Cancel', root_path %>
+  </div>
+</div>
 
-<%= render 'form', rq: @rq, cat_id: @cat_id, user_id: @user_id %>
-
-<%= link_to 'Cancel', cats_url %>
+<div class="body-content-main">
+  <%= render 'form', rq: @rq, cat_id: @cat_id, user_id: @user_id %>
+</div>

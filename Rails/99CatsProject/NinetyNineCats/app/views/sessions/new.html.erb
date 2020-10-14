@@ -1,31 +1,38 @@
-<div class="cats_form">
-  
-  <% if flash[:notice] %>
-    <p id="notice"><%= flash[:notice] %></p>
-  <% end %>
+<div class="body-content-header">
+  <div class="body-content-header-nav">
+    <h1>Login!</h1>
+    <%= link_to 'Cancel', root_path %>
+  </div>
+</div>
 
-  <%= form_tag '/login' do %>
-    <fieldset>
-      <legend>Please Log In</legend>    
+<div class="body-content-main">
+  <div class="app-form">
+    
+    <% if flash[:notice] %>
+      <p id="notice"><%= flash[:notice] %></p>
+    <% end %>
 
-      <div class="field">
-        <%= label_tag :name, "Name:" %>
-        <%= text_field_tag :name, params[:name] %>
-      </div>
+    <%= form_tag '/login' do %>
+      <fieldset>  
 
-      <div class="field">
-        <%= label_tag :email, "Email" %>
-        <%= text_field_tag :email, params[:email] %>
-      </div>
+        <div class="field">
+          <%= label_tag :name, "Name:" %>
+          <%= text_field_tag :name, params[:name] %>
+        </div>
 
-      <div class="actions">
-        <%= submit_tag "Login" %>
-      </div>
-    </fieldset>
-  <% end %>
+        <div class="field">
+          <%= label_tag :email, "Email" %>
+          <%= text_field_tag :email, params[:email] %>
+        </div>
 
-  <%# link_to 'Forgot Password?', forgot_password_users_path %>
-  <%# link_to 'Add Admin', new_user_url %>
-  <%= link_to 'Cancel', root_path %>
-  
+        <div class="actions">
+          <%= submit_tag "Login" %>
+        </div>
+      </fieldset>
+    <% end %>
+
+    <%# link_to 'Forgot Password?', forgot_password_users_path %>
+    <%# link_to 'Add Admin', new_user_url %>
+    
+  </div>
 </div>
