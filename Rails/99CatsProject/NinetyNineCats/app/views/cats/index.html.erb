@@ -1,9 +1,16 @@
-<h1>All Cats</h1>
+<div class="body-content-header">
+  <div class="body-content-header-nav">
+    <h1>All The Cats in the World</h1>
+    <%= link_to 'New Cat', new_cat_url %>
+  </div>
+</div>
 
-<ul>
+<div class="body-content-main">
   <% @cats.each do |aCat| %>
-    <li><%= link_to aCat.name, cat_url(aCat) %></li>
+    <div class="cat-box">
+      <%# link_to aCat.name, cat_url(aCat) %>
+      <%= render 'cat', aCat: aCat %>
+    </div>
   <% end %>
-</ul>
+</div>
 
-<%= link_to 'New Cat', new_cat_url %>

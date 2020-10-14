@@ -5,17 +5,31 @@
     <%= csrf_meta_tags %>
     <%= csp_meta_tag %>
 
+    <link href="https://fonts.googleapis.com/css2?family=Amatic+SC&display=swap" rel="stylesheet">
     <%= stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track': 'reload' %>
     <%= javascript_include_tag 'application', 'data-turbolinks-track': 'reload' %>
   </head>
 
   <body>
-    <% if @curUser %>
-      <div class="logged_in_info"><%= link_to @curUser.name, user_path(@curUser) %> is logged in!</div>
-      <div class="loggout"><%= link_to 'Log Out', logout_url, method: :delete %></div>
-    <% else %>
-      <div class="loggin"><%= link_to 'Login', login_url %></div>
-    <% end %>
-    <%= yield %>
+    <div class="body-header">
+      <div class="body-header-nav">
+        <div class="home-link">
+          <%= link_to '99 Cats', root_path %>
+        </div>
+        <div class="session-links">
+          <% if @curUser %>
+            <div class="logged_in_info">Hi, <%= link_to @curUser.name, user_path(@curUser) %>!</div>
+            <div class="loggout"><%= link_to 'Log Out', logout_url, method: :delete %></div>
+          <% else %>
+            <div class="signup"><%= link_to 'Sign Up!', new_user_url %></div>
+            <div class="loggin"><%= link_to 'Login', login_url %></div>
+          <% end %>
+        </div>
+      </div>
+    </div>
+
+    <div class="body-content">
+      <%= yield %>
+    </div>
   </body>
 </html>

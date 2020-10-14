@@ -10,6 +10,103 @@
  * files in this directory. Styles in this file should be added after the last require_* statement.
  * It is generally better to create a new file per style scope.
  *
+ *= require css_reset
  *= require_tree .
  *= require_self
  */
+
+ body {
+   background-color: transparent;
+   color: #FAFC00;
+   font-family: 'Amatic SC', cursive;
+   display: flex;
+   flex-direction: column;
+   align-items: center;
+ }
+
+ body a {
+   color: #FAFC00;
+   font-size: 40px;
+ }
+
+ .body-header, .body-content-header {
+   background-color: #060366;
+ }
+
+ .body-header {
+   width: 100%;
+   display: flex;
+   justify-content: center;
+   margin-bottom: 30px;
+   height: auto;
+ }
+
+ .body-header-nav {
+   width: 95%;
+   display: flex;
+   justify-content: space-between;
+   align-items: stretch;
+ }
+ 
+ .home-link {
+  padding: 0px;
+  display: flex;
+  align-items: flex-end;
+ }
+
+ .home-link a {
+  font-size: 90px;
+ }
+
+ .session-links {
+   font-size: 35px;
+   display: flex;
+   flex-wrap: nowrap;
+   justify-content: space-between;
+   align-items: center;
+ }
+
+ .session-links > div:first-child {
+   padding-right: 20px;
+ }
+
+ .body-content {
+   width: 100%;
+   display: flex;
+   flex-direction: column;
+   align-items: center;
+ }
+
+ .body-content-header {
+   width: 95%;
+   display: flex;
+   justify-content: center;
+ }
+
+ .body-content-header-nav {
+   width: 95%;
+   display: flex;
+   justify-content: space-between;
+   align-items: center;
+ }
+
+ .body-content-header-nav h1 {
+   font-size: 70px;
+ }
+
+ .body-content-main {
+   background-color: #309998;
+   width: 95%;
+   display: flex;
+   flex-wrap: wrap;
+   justify-content: space-around;
+   align-items: center;
+ }
+
+ .cat-box {
+   background-color: #060366;
+   display: flex;
+   flex-direction: column;
+   padding: 20px;
+   margin: 20px;
+ }
