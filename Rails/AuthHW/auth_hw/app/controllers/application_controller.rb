@@ -21,11 +21,10 @@ class ApplicationController < ActionController::Base
   end
 
   def require_user_logged_in
-    redirect_to login_path if current_user.nil?
+    redirect_to login_path, notice: "must be logged in to see that" if current_user.nil?
   end
 
   def require_this_user
-    redirect_to root_path, notice: "must be logged in" unless current_user
     redirect_to root_path, notice: "mind your business" unless current_user.id == params[:id].to_i
   end
   
