@@ -7202,3 +7202,163 @@ Processing by RentalRequestsController#new as HTML
 Completed 200 OK in 134ms (Views: 54.1ms | ActiveRecord: 37.5ms)
 
 
+Started GET "/" for ::1 at 2020-10-14 21:07:55 -0700
+  [1m[35m (2.0ms)[0m  [1m[34mSELECT "schema_migrations"."version" FROM "schema_migrations" ORDER BY "schema_migrations"."version" ASC[0m
+  ↳ /Users/aaronparisi/.rbenv/versions/2.7.0/lib/ruby/gems/2.7.0/gems/activerecord-5.2.4.4/lib/active_record/log_subscriber.rb:98
+Processing by CatsController#index as HTML
+  [1m[36mUser Load (1.1ms)[0m  [1m[34mSELECT  "users".* FROM "users" WHERE "users"."id" = $1 LIMIT $2[0m  [["id", 2], ["LIMIT", 1]]
+  ↳ app/controllers/application_controller.rb:6
+  Rendering cats/index.html.erb within layouts/application
+  [1m[36mCat Load (0.7ms)[0m  [1m[34mSELECT "cats".* FROM "cats"[0m
+  ↳ app/views/cats/index.html.erb:9
+  Rendered cats/_cat.html.erb (175.6ms)
+  Rendered cats/_cat.html.erb (1.7ms)
+  Rendered cats/_cat.html.erb (0.9ms)
+  Rendered cats/_cat.html.erb (0.8ms)
+  Rendered cats/index.html.erb within layouts/application (202.9ms)
+Completed 200 OK in 404ms (Views: 355.0ms | ActiveRecord: 15.0ms)
+
+
+Started DELETE "/logout" for ::1 at 2020-10-14 21:08:08 -0700
+Processing by SessionsController#destroy as HTML
+  Parameters: {"authenticity_token"=>"tdu/4JfdupeHNJeBc9Y7w93y9dJpCIfJZlkC1ky74wOG+g/3IOoGd5DZoWFPHd+8jxs+krlanZng23xa355Z1A=="}
+  [1m[36mUser Load (0.3ms)[0m  [1m[34mSELECT  "users".* FROM "users" WHERE "users"."id" = $1 LIMIT $2[0m  [["id", 2], ["LIMIT", 1]]
+  ↳ app/controllers/application_controller.rb:6
+Redirected to http://localhost:3000/
+Completed 302 Found in 3ms (ActiveRecord: 0.3ms)
+
+
+Started GET "/" for ::1 at 2020-10-14 21:08:08 -0700
+Processing by CatsController#index as HTML
+  Rendering cats/index.html.erb within layouts/application
+  [1m[36mCat Load (3.6ms)[0m  [1m[34mSELECT "cats".* FROM "cats"[0m
+  ↳ app/views/cats/index.html.erb:9
+  Rendered cats/_cat.html.erb (3.1ms)
+  Rendered cats/_cat.html.erb (0.8ms)
+  Rendered cats/_cat.html.erb (1.1ms)
+  Rendered cats/_cat.html.erb (0.9ms)
+  Rendered cats/index.html.erb within layouts/application (15.0ms)
+Completed 200 OK in 82ms (Views: 76.6ms | ActiveRecord: 3.6ms)
+
+
+Started GET "/login" for ::1 at 2020-10-14 21:08:11 -0700
+Processing by SessionsController#new as HTML
+  [1m[36mUser Exists (4.0ms)[0m  [1m[34mSELECT  1 AS one FROM "users" LIMIT $1[0m  [["LIMIT", 1]]
+  ↳ app/controllers/sessions_controller.rb:4
+  Rendering sessions/new.html.erb within layouts/application
+  Rendered sessions/new.html.erb within layouts/application (1.3ms)
+Completed 200 OK in 61ms (Views: 52.5ms | ActiveRecord: 4.0ms)
+
+
+Started POST "/login" for ::1 at 2020-10-14 21:08:20 -0700
+Processing by SessionsController#create as HTML
+  Parameters: {"utf8"=>"✓", "authenticity_token"=>"3NpZ+/Vg5+460FoqxDhw7AVh5v186xZjsxVWfTAOV/Y81t8quHsQCLWIVyYKZPUT7oEv2AWDosVpbpBttkxm+w==", "name"=>"Fool", "email"=>"fool@verizon.net", "commit"=>"Login"}
+  [1m[36mUser Load (0.5ms)[0m  [1m[34mSELECT  "users".* FROM "users" WHERE "users"."name" = $1 LIMIT $2[0m  [["name", "Fool"], ["LIMIT", 1]]
+  ↳ app/controllers/sessions_controller.rb:9
+Redirected to http://localhost:3000/
+Completed 302 Found in 5ms (ActiveRecord: 0.5ms)
+
+
+Started GET "/" for ::1 at 2020-10-14 21:08:20 -0700
+Processing by CatsController#index as HTML
+  [1m[36mUser Load (0.5ms)[0m  [1m[34mSELECT  "users".* FROM "users" WHERE "users"."id" = $1 LIMIT $2[0m  [["id", 2], ["LIMIT", 1]]
+  ↳ app/controllers/application_controller.rb:6
+  Rendering cats/index.html.erb within layouts/application
+  [1m[36mCat Load (2.1ms)[0m  [1m[34mSELECT "cats".* FROM "cats"[0m
+  ↳ app/views/cats/index.html.erb:9
+  Rendered cats/_cat.html.erb (2.5ms)
+  Rendered cats/_cat.html.erb (0.4ms)
+  Rendered cats/_cat.html.erb (0.4ms)
+  Rendered cats/_cat.html.erb (0.3ms)
+  Rendered cats/index.html.erb within layouts/application (13.3ms)
+Completed 200 OK in 38ms (Views: 33.1ms | ActiveRecord: 2.6ms)
+
+
+Started GET "/cats/new" for ::1 at 2020-10-14 21:09:00 -0700
+Processing by CatsController#new as HTML
+  [1m[36mUser Load (2.9ms)[0m  [1m[34mSELECT  "users".* FROM "users" WHERE "users"."id" = $1 LIMIT $2[0m  [["id", 2], ["LIMIT", 1]]
+  ↳ app/controllers/application_controller.rb:6
+  Rendering cats/new.html.erb within layouts/application
+  Rendered cats/_form.html.erb (156.8ms)
+  Rendered cats/new.html.erb within layouts/application (159.5ms)
+Completed 200 OK in 200ms (Views: 188.4ms | ActiveRecord: 2.9ms)
+
+
+Started POST "/cats" for ::1 at 2020-10-14 21:09:48 -0700
+Processing by CatsController#create as JS
+  Parameters: {"utf8"=>"✓", "authenticity_token"=>"H7VRKwB6zErPwvNwlYECo0Ozu5EBcYt5BSI1H32Akmd8UgTxjn5kttpyYPUYnH++XgYrkFXhMfM68b3D8Z0rMg==", "cat"=>{"name"=>"Pom-pom", "sex"=>"M", "birth_date"=>"2018-03-03", "color"=>"gray", "description"=>"Weowwy weowwy cute"}, "commit"=>"Submit"}
+  [1m[36mUser Load (1.2ms)[0m  [1m[34mSELECT  "users".* FROM "users" WHERE "users"."id" = $1 LIMIT $2[0m  [["id", 2], ["LIMIT", 1]]
+  ↳ app/controllers/application_controller.rb:6
+  [1m[35m (0.2ms)[0m  [1m[35mBEGIN[0m
+  ↳ app/controllers/cats_controller.rb:19
+  [1m[36mCat Create (0.7ms)[0m  [1m[32mINSERT INTO "cats" ("birth_date", "color", "name", "sex", "description", "created_at", "updated_at") VALUES ($1, $2, $3, $4, $5, $6, $7) RETURNING "id"[0m  [["birth_date", "2018-03-03"], ["color", "gray"], ["name", "Pom-pom"], ["sex", "M"], ["description", "Weowwy weowwy cute"], ["created_at", "2020-10-15 04:09:48.054870"], ["updated_at", "2020-10-15 04:09:48.054870"]]
+  ↳ app/controllers/cats_controller.rb:19
+  [1m[35m (0.7ms)[0m  [1m[35mCOMMIT[0m
+  ↳ app/controllers/cats_controller.rb:19
+Redirected to http://localhost:3000/cats
+Completed 200 OK in 8ms (ActiveRecord: 2.8ms)
+
+
+Started GET "/cats" for ::1 at 2020-10-14 21:09:48 -0700
+Processing by CatsController#index as HTML
+  [1m[36mUser Load (2.9ms)[0m  [1m[34mSELECT  "users".* FROM "users" WHERE "users"."id" = $1 LIMIT $2[0m  [["id", 2], ["LIMIT", 1]]
+  ↳ app/controllers/application_controller.rb:6
+  Rendering cats/index.html.erb within layouts/application
+  [1m[36mCat Load (4.0ms)[0m  [1m[34mSELECT "cats".* FROM "cats"[0m
+  ↳ app/views/cats/index.html.erb:9
+  Rendered cats/_cat.html.erb (2.4ms)
+  Rendered cats/_cat.html.erb (0.4ms)
+  Rendered cats/_cat.html.erb (0.8ms)
+  Rendered cats/_cat.html.erb (1.8ms)
+  Rendered cats/_cat.html.erb (1.4ms)
+  Rendered cats/index.html.erb within layouts/application (26.9ms)
+Completed 200 OK in 95ms (Views: 83.2ms | ActiveRecord: 6.9ms)
+
+
+Started GET "/cats/7/rental_requests/new" for ::1 at 2020-10-14 21:10:07 -0700
+Processing by RentalRequestsController#new as HTML
+  Parameters: {"cat_id"=>"7"}
+  [1m[36mUser Load (1.7ms)[0m  [1m[34mSELECT  "users".* FROM "users" WHERE "users"."id" = $1 LIMIT $2[0m  [["id", 2], ["LIMIT", 1]]
+  ↳ app/controllers/application_controller.rb:6
+  Rendering rental_requests/new.html.erb within layouts/application
+  Rendered rental_requests/_form.html.erb (5.6ms)
+  Rendered rental_requests/new.html.erb within layouts/application (8.8ms)
+Completed 200 OK in 90ms (Views: 48.3ms | ActiveRecord: 8.7ms)
+
+
+Started GET "/" for ::1 at 2020-10-14 21:10:17 -0700
+Processing by CatsController#index as HTML
+  [1m[36mUser Load (5.2ms)[0m  [1m[34mSELECT  "users".* FROM "users" WHERE "users"."id" = $1 LIMIT $2[0m  [["id", 2], ["LIMIT", 1]]
+  ↳ app/controllers/application_controller.rb:6
+  Rendering cats/index.html.erb within layouts/application
+  [1m[36mCat Load (5.2ms)[0m  [1m[34mSELECT "cats".* FROM "cats"[0m
+  ↳ app/views/cats/index.html.erb:9
+  Rendered cats/_cat.html.erb (3.9ms)
+  Rendered cats/_cat.html.erb (0.9ms)
+  Rendered cats/_cat.html.erb (5.1ms)
+  Rendered cats/_cat.html.erb (0.8ms)
+  Rendered cats/_cat.html.erb (0.8ms)
+  Rendered cats/index.html.erb within layouts/application (26.4ms)
+Completed 200 OK in 89ms (Views: 76.0ms | ActiveRecord: 10.3ms)
+
+
+  [1m[36mCat Load (0.7ms)[0m  [1m[34mSELECT  "cats".* FROM "cats" ORDER BY "cats"."id" DESC LIMIT $1[0m  [["LIMIT", 1]]
+  [1m[35m (0.2ms)[0m  [1m[35mBEGIN[0m
+  [1m[36mRentalRequest Load (1.3ms)[0m  [1m[34mSELECT "rental_requests".* FROM "rental_requests" WHERE "rental_requests"."cat_id" = $1[0m  [["cat_id", 7]]
+  [1m[36mCat Destroy (1.0ms)[0m  [1m[31mDELETE FROM "cats" WHERE "cats"."id" = $1[0m  [["id", 7]]
+  [1m[35m (0.6ms)[0m  [1m[35mCOMMIT[0m
+Started GET "/" for ::1 at 2020-10-14 21:11:17 -0700
+Processing by CatsController#index as HTML
+  [1m[36mUser Load (0.5ms)[0m  [1m[34mSELECT  "users".* FROM "users" WHERE "users"."id" = $1 LIMIT $2[0m  [["id", 2], ["LIMIT", 1]]
+  ↳ app/controllers/application_controller.rb:6
+  Rendering cats/index.html.erb within layouts/application
+  [1m[36mCat Load (0.4ms)[0m  [1m[34mSELECT "cats".* FROM "cats"[0m
+  ↳ app/views/cats/index.html.erb:9
+  Rendered cats/_cat.html.erb (1.6ms)
+  Rendered cats/_cat.html.erb (0.4ms)
+  Rendered cats/_cat.html.erb (0.3ms)
+  Rendered cats/_cat.html.erb (0.4ms)
+  Rendered cats/index.html.erb within layouts/application (6.7ms)
+Completed 200 OK in 46ms (Views: 41.0ms | ActiveRecord: 0.9ms)
+
+

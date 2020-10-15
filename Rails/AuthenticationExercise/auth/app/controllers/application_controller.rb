@@ -25,6 +25,14 @@ class ApplicationController < ActionController::Base
     session[:session_token] = nil
   end
   
+  def require_current_user!
+    # redirects to login page if nobody is logged in
+    redirect_to login_url if current_user.nil?
+  end
   
+  def require_this_user!
+    # prevents user A from accessing a page for user B
+    redirect_to root_path, notice: "naughty naughty" unless params[:id].to_i == current_user.id
+  end
   
 end
