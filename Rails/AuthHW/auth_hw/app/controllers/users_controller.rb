@@ -17,9 +17,12 @@ class UsersController < ApplicationController
     @user = User.new(user_params)
 
     if @user.save
+      login!(@user)
       redirect_to user_path(@user), notice: "user created"
     else
-      render :new, notice: "unable to save user"
+      # redirect_to new_user_path, notice: "there are #{@user.errors.full_messages.length} errors"
+      # when I do the above, it says there are 2 errors, which is what I want
+      render :new
     end
   end
   

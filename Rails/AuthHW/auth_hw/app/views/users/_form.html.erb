@@ -1,11 +1,19 @@
-<%= form_with model: user do |f| %>
+<%= form_with(model: user, local: true) do |f| %>
+  <% if user.errors.any? %>
+    <ul>
+      <% user.errors.full_messages.each do |msg| %>
+        <li><%= msg %></li>
+      <% end %>
+    </ul>  
+  <% end %>
+
   <div class="fields">
     <%= f.label :username %>
     <%= f.text_field :username, placeholder: "John Doe" %>
   </div>
 
   <div class="fields">
-    <%= f.lable :password %>
+    <%= f.label :password %>
     <%= f.password_field :password, placeholder: "password123" %>
   </div>
 

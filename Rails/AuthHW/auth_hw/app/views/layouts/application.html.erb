@@ -10,6 +10,18 @@
   </head>
 
   <body>
+    <% flash.each do |type, msg| %>
+      <div><%= msg %></div>
+    <% end %>
+
+    <% if user_logged_in? %>
+      <div><%= link_to current_user.username, user_path(current_user) %> is logged in</div>
+      <div><%= link_to 'Logout', logout_path, method: :delete %></div>
+    <% else %>
+      <div><%= link_to 'New User', new_user_path %></div>
+      <div><%= link_to 'Login', login_path %></div>
+    <% end  %>
+
     <%= yield %>
   </body>
 </html>
