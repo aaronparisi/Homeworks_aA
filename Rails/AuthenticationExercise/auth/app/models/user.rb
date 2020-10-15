@@ -27,6 +27,7 @@ class User < ApplicationRecord
     # notice that this overrides the usual behavior (setting a password in the db)
     # and instead uses the given info to populate the password_digest column
     @password = pw
+    # @password is an instance variable, NOT an instance attribute (self.password_dig)
     # this allows us to validate the length of the given password
     # but we do NOT save this in the database
     self.password_digest = BCrypt::Password.create(pw)
