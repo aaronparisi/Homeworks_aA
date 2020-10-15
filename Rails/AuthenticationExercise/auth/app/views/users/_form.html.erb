@@ -1,0 +1,24 @@
+<div class="app-form">
+  <%= form_with model: user do |f| %>
+    
+    <div class="fields">
+      <%= f.label :username  %>
+      <%= f.text_field :username, placeholder: 'John Doe' %>
+    </div>
+
+    <div class="fields">
+      <%= f.label :password %>
+      <%= f.password_field :password, placeholder: 'password123' %>
+    </div>
+
+    <div class="fields">
+      <%= f.label :password_confirmation %>
+      <%= f.password_field :password_confirmation %>
+    </div>
+
+    <div class="actions">
+      <%= f.submit %>
+    </div>
+
+  <% end %>
+</div>
