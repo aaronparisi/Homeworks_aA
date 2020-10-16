@@ -54,29 +54,42 @@
  }
 
  .body-content-header {
-  padding-top: 4%;
-  padding-bottom: 4%;
+   margin-top: 20px;
+   display: flex;
+   flex-direction: column;
+   justify-content: space-between;
+   height: 150px;
+   border: 1px solid red;
  }
 
  .body-content-main {
    display: flex;
    flex-direction: column;
    align-items: center;
-   border: 1px solid red;
+   /* border: 1px solid red; */
    width: 100%;
+   margin-bottom: 20px;
  }
 
- .main-content-header {
+ .body-content-main-header {
    margin-bottom: 30px;
+   width: 100%px;
+ }
+
+ .session-info {
+   display: flex;
+   justify-content: space-between;
  }
 
  .main-content-link {
    margin-bottom: 20px;
  }
 
- p, a, input {
+ p, a, input, .notification {
    font-family: 'Raleway', sans-serif;
    font-size: 18px;
+   text-decoration: none;
+   color: white;
  }
 
  .button {
@@ -96,6 +109,7 @@
    flex-direction: column;
    align-content: space-between;
    color: white;
+   /* margin: 1px solid red; */
  }
 
  .fields, .actions {
@@ -106,4 +120,13 @@
 
  .actions {
    align-self: flex-end;
+ }
+
+ ul {
+   display: flex;
+   flex-direction: column;
+ }
+
+ ul > li {
+   padding-bottom: 10px;
  }

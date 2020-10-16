@@ -16,22 +16,20 @@
       <div class="body-content-header">
         <h1 class="main-heading">Music App</h1>
         <% unless logging_in? %>
-          <%= debug(params[:controller]) %>
-          <%= debug(params[:action]) %>
           <div class="session-info">
             <% if user_logged_in? %>
-              <div><%= link_to @current_user.username, user_path(@current_user) %> is logged in</div>
-              <div><%= link_to 'Logout', logout_path, method: :delete %></div>
+              <div>Hi, <%= link_to @current_user.username, user_path(@current_user), class: "button" %></div>
+              <div><%= link_to 'Logout', logout_path, method: :delete, class: "button" %></div>
             <% else %>
-              <div><%= link_to 'Sign up', new_user_path %></div>
-              <div><%= link_to 'Login', login_path %></div>
+              <div><%= link_to 'Sign up', new_user_path, class: "button" %></div>
+              <div><%= link_to 'Login', login_path, class: "button" %></div>
             <% end %>
           </div>
         <% end %>
 
         <div class="flash-display">
           <% flash.each do |type, msg| %>
-            <div><%= msg %></div>
+            <div class=notification><%= msg %></div>
           <% end %>
         </div>
       </div>
