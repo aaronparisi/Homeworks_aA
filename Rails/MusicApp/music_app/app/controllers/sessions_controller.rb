@@ -1,12 +1,14 @@
 class SessionsController < ApplicationController
 
   def new
-
+    if User.all.empty?
+      redirect_to new_user_path, notice: "create a user first, silly"
+    end
   end
 
   def create
     @user = User.find_by_credentials(
-      params[:username]
+      params[:username],
       params[:password]
     )
 

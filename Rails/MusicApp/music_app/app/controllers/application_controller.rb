@@ -1,6 +1,10 @@
 class ApplicationController < ActionController::Base
-  helper_method :require_any_logged_in
-  helper_method :require_this_logged_in
+  helper_method :user_logged_in?
+  helper_method :current_user
+  # helper_method :require_any_logged_in
+  # helper_method :require_this_logged_in
+  # these are only used in controllers, not views
+  before_action :current_user
 
   def login!(user)
     session[:session_token] = user.session_token
