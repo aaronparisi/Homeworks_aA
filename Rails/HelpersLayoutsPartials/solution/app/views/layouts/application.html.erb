@@ -13,6 +13,7 @@
   <body>
     <nav class="main-nav">
     <h1><a href="<%= cats_url %>">99 Cats</a></h1>
+    
     <div>
     <% if current_user.nil? %>
       <a href="<%= new_session_url %>">Sign in</a>
@@ -27,8 +28,15 @@
     <% end %>
     </div>
     </nav>
+
     <main>
       <%= yield %>
     </main>
+
+    <footer>
+      This is our 99 Cats site
+
+      <%= yield :footer %>
+    </footer>
   </body>
 </html>
