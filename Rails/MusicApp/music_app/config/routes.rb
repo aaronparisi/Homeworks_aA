@@ -7,6 +7,16 @@ Rails.application.routes.draw do
     delete '/logout', to: 'sessions#destroy', as: 'logout'
   end
 
+  resources :bands do
+    resources :albums, except: [:show, :destroy]
+  end
+
+  resources :albums, only: [:show, :destroy] do
+    resources :tracks, except: [:show]
+  end
+
+  resources :tracks, only: [:show]
+
   root to: 'sessions#new'
   # For details on the DSL available within this file, see http://guides.rubyonrails.org/routing.html
 end

@@ -3450,3 +3450,14 @@ Processing by UsersController#index as HTML
 Completed 200 OK in 50ms (Views: 46.7ms | ActiveRecord: 1.1ms)
 
 
+Started GET "/users" for ::1 at 2020-10-16 14:55:56 -0700
+Processing by UsersController#index as HTML
+  [1m[36mUser Load (0.7ms)[0m  [1m[34mSELECT  "users".* FROM "users" WHERE "users"."session_token" = $1 LIMIT $2[0m  [["session_token", "IMPrhXnWqNBCB47TcHhCXg"], ["LIMIT", 1]]
+  ↳ app/controllers/application_controller.rb:25
+  Rendering users/index.html.erb within layouts/application
+  [1m[36mUser Load (0.4ms)[0m  [1m[34mSELECT "users".* FROM "users"[0m
+  ↳ app/views/users/index.html.erb:5
+  Rendered users/index.html.erb within layouts/application (2.7ms)
+Completed 200 OK in 43ms (Views: 38.0ms | ActiveRecord: 1.3ms)
+
+
