@@ -2,7 +2,8 @@ class AlbumsController < ApplicationController
   before_action :find_album, except: [:index, :new, :create]
 
   def index
-    @album = Album.all
+    @album = Album.where(band_id: params[:band_id])
+    @band = Band.find(params[:band_id])
   end
   
   def show
@@ -11,6 +12,7 @@ class AlbumsController < ApplicationController
   
   def new
     @album = Album.new
+    @band_id = params[:band_id]
   end
   
   def create
@@ -50,7 +52,7 @@ class AlbumsController < ApplicationController
   end
   
   def album_params
-    params.require(:album).permit(:name)
+    params.require(:album).permit(:name, :band_id)
   end
   
 end

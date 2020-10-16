@@ -1,0 +1,9 @@
+<h2 class="body-content-main-header">Tracks for <%= @album.name %></h2>
+
+<ul>
+  
+  <% @tracks.each do |track| %>
+    <li><%= link_to track.trackname, track_path(track) %></li>
+  <% end %>
+  
+</ul>

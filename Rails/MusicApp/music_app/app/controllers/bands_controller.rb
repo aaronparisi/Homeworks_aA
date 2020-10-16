@@ -1,5 +1,6 @@
 class BandsController < ApplicationController
   before_action :find_band, except: [:index, :new, :create]
+  before_action :require_any_logged_in
 
   def index
     @bands = Band.all

@@ -1,0 +1,15 @@
+<div class="app-form" id="new-band-form">
+  <%= form_with model: band, local: true do |f| %>
+    <%= render_errors(band) %>
+
+    <div class="fields">
+      <%= f.label :name %>
+      <%= f.text_field :name %>
+    </div>
+
+    <div class="actions button">
+      <%= f.submit %>
+    </div>
+    
+  <% end %>
+</div>

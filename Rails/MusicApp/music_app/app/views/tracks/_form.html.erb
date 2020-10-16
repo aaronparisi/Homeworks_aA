@@ -1,0 +1,17 @@
+<div class="app-form" id="signup-form">
+  <%= form_with model: user, local: true do |f| %>
+    <%= render_errors(user) %>
+
+    <%= f.hidden_field :album_id, album_id %>
+
+    <div class="fields">
+      <%= f.label :name %>
+      <%= f.text_field :name %>
+    </div>
+
+    <div class="actions button">
+      <%= f.submit %>
+    </div>
+    
+  <% end %>
+</div>

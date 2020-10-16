@@ -1,0 +1,9 @@
+<h2 class="body-content-main-header"><%= @band.name.possive %> Albums</h2>
+
+<ul>
+  
+  <% @albums.each do |album| %>
+    <li><%= link_to album.name, album_path(album) %></li>
+  <% end %>
+  
+</ul>

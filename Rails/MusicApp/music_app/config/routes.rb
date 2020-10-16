@@ -17,6 +17,6 @@ Rails.application.routes.draw do
 
   resources :tracks, only: [:show]
 
-  root to: 'sessions#new'
+  root to: 'bands#index'
   # For details on the DSL available within this file, see http://guides.rubyonrails.org/routing.html
 end
