@@ -1,6 +1,6 @@
 class UsersController < ApplicationController
   before_action :find_user, only: [:show, :edit, :update, :destroy]
-  before_action :require_user_logged_in, except: [:index]
+  before_action :require_user_logged_in, except: [:index, :new, :create]
   before_action :require_this_user, only: [:show, :update, :destroy]
 
   def index
@@ -19,8 +19,14 @@ class UsersController < ApplicationController
     @user = User.new(user_params)
 
     if @user.save
-      login!(@user)
-      redirect_to user_path(@user), notice: "user created"
+      # login!(@user)
+
+      msg = UserMailer.welcome_email(@user)
+      msg.deliver_now
+      # msg.deliver!
+      
+      # redirect_to user_path(@user), notice: "user created"
+      redirect_to root_path, notice: "Check your e mail for your login link!"
     else
       # redirect_to new_user_path, notice: "there are #{@user.errors.full_messages.length} errors"
       # when I do the above, it says there are 2 errors, which is what I want
@@ -55,7 +61,7 @@ class UsersController < ApplicationController
   end
 
   def user_params
-    params.require(:user).permit(:username, :password, :password_confirmation)
+    params.require(:user).permit(:name, :email, :username, :password, :password_confirmation)
   end
   
 end

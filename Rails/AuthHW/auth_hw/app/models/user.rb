@@ -3,6 +3,8 @@
 # Table name: users
 #
 #  id              :bigint           not null, primary key
+#  email           :string           not null
+#  name            :string           not null
 #  password_digest :string           not null
 #  session_token   :string
 #  username        :string           not null
@@ -16,7 +18,8 @@
 class User < ApplicationRecord
   validates :username, presence: true, uniqueness: true
   validates :password, length: { minimum: 2 }, allow_nil: true
-  validates :password_digest, presence: true, message: "Password can't be blank"
+  validates :password_digest, presence: true
+  validates :email, :name, presence: true
   validates :session_token, presence: true
   validate :passwords_match
   has_secure_password
