@@ -25,7 +25,7 @@ class User < ApplicationRecord
   after_initialize :ensure_session_token
 
   def self.find_by_credentials(email, password)
-    ret = User.where(email: email)
+    ret = User.find_by(email: email)
     return nil if ret.nil?
 
     ret.is_password?(password) ? ret : nil
@@ -45,7 +45,7 @@ class User < ApplicationRecord
   end
 
   def is_password?(password)
-    BCrypt::Password.new(ret.password_digest).is_password?(password)
+    BCrypt::Password.new(self.password_digest).is_password?(password)
   end
 
   def passwords_match
