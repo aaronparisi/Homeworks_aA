@@ -1,9 +1,8 @@
-<%= form_with do %>
-  <fieldset>
-
+<div class="app-form" id="login-form">
+  <%= form_with do %>
     <div class="fields">
-      <%= label_tag :username %>
-      <%= text_field_tag :username %>
+      <%= label_tag :email %>
+      <%= text_field_tag :email %>
     </div>
 
     <div class="fields">
@@ -12,8 +11,7 @@
     </div>
 
     <div class="actions">
-      <%= submit_tag "Login" %>
+      <%= submit_tag "Submit", class: "button", style: 'font-size: 18px; font-weight: 100' %>
     </div>
-
-  </fieldset>
-<% end %>
+  <% end %>
+</div>

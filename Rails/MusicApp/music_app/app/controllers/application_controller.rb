@@ -1,6 +1,7 @@
 class ApplicationController < ActionController::Base
   helper_method :user_logged_in?
   helper_method :current_user
+  helper_method :logging_in?
   # helper_method :require_any_logged_in
   # helper_method :require_this_logged_in
   # these are only used in controllers, not views
@@ -31,5 +32,10 @@ class ApplicationController < ActionController::Base
   def require_this_logged_in
     redirect_to root_path, notice: "Mind your own business" unless current_user.id == params[:id].to_i
   end
+
+  def logging_in?
+    params[:controller] == 'sessions' && params[:action] == 'new'
+  end
+  
   
 end

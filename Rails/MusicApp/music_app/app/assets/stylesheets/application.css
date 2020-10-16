@@ -10,6 +10,100 @@
  * files in this directory. Styles in this file should be added after the last require_* statement.
  * It is generally better to create a new file per style scope.
  *
+ *= require reset
  *= require_tree .
  *= require_self
  */
+
+ html, body {
+   height: 100%;
+   width: 100%;
+ }
+
+ h1 {
+   color: #FBDB62;
+   font-size: 75px;
+ }
+
+ h2 {
+   color: #3BBAAC;
+   font-size: 40px;
+ }
+
+ body {
+   background-color: #0E0E0E;
+   display: flex;
+   justify-content: center;
+   align-items: stretch;
+   font-family: 'Raleway', sans-serif;
+   font-size: 18px;
+  }
+  
+  h1, h2, h3 {
+    font-family: 'Bungee Inline', cursive;
+  }
+
+ .body-content {
+   width: 90%;
+   border-left: 5px solid #777777;
+   border-right: 5px solid #777777;
+   background-color: #343030;
+   display: flex;
+   flex-direction: column;
+   align-items: center;
+ }
+
+ .body-content-header {
+  padding-top: 4%;
+  padding-bottom: 4%;
+ }
+
+ .body-content-main {
+   display: flex;
+   flex-direction: column;
+   align-items: center;
+   border: 1px solid red;
+   width: 100%;
+ }
+
+ .main-content-header {
+   margin-bottom: 30px;
+ }
+
+ .main-content-link {
+   margin-bottom: 20px;
+ }
+
+ p, a, input {
+   font-family: 'Raleway', sans-serif;
+   font-size: 18px;
+ }
+
+ .button {
+   background-color: #87CEEB;
+   text-decoration: none;
+   color: black;
+   padding: 8px;
+   border-radius: 5px;
+ }
+
+ .app-form {
+   width: 40%;
+ }
+
+ form {
+   display: flex;
+   flex-direction: column;
+   align-content: space-between;
+   color: white;
+ }
+
+ .fields, .actions {
+   display: flex;
+   justify-content: space-between;
+   margin-bottom: 20px;
+ }
+
+ .actions {
+   align-self: flex-end;
+ }
