@@ -30,6 +30,11 @@
    font-size: 40px;
  }
 
+ h3 {
+   color: #F77F50;
+   font-size: 25px;
+ }
+
  body {
    background-color: #0E0E0E;
    display: flex;
@@ -51,6 +56,7 @@
    display: flex;
    flex-direction: column;
    align-items: center;
+   padding-bottom: 20px;
    /* border-bottom: 1px solid red; */
  }
 
@@ -132,6 +138,15 @@
    border-radius: 5px;
  }
 
+ .tiny-button {
+  background-color: #5C8DA1;
+  text-decoration: none;
+  color: black;
+  padding: 5px;
+  border-radius: 5px;
+  font-size: 10px;
+}
+
  .app-form {
    width: 55%;
  }
@@ -151,14 +166,26 @@
    margin-bottom: 20px;
  }
 
- ul {
+ ol {
    display: flex;
    flex-direction: column;
+   border: 1px solid red;
  }
 
- ul > li {
-   padding-bottom: 10px;
+ ol > li {
+   padding-bottom: 8px;
+   color: white;
+   display: flex;
+   justify-content: space-between;
  }
+
+ .content-list {
+  width: 50%;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-around;
+  /* border: 1px solid red; */
+}
 
  .content-grid {
    width: 95%;

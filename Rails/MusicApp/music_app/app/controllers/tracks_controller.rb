@@ -11,27 +11,28 @@ class TracksController < ApplicationController
   end
   
   def new
-    @track = Album.new
-    @album_id: params[:album_id]
+    @track = Track.new
+    @album = Album.find(params[:album_id])
   end
   
   def create
-    @track = Album.new(track_params)
+    @track = Track.new(track_params)
+    @track.album_id ||= params[:album_id]
 
     if @track.save
-      redirect_to track_path(@track), notice: "track created"
+      redirect_to album_path(@track.album), notice: "track created"
     else
       render :new
     end
   end
   
   def edit
-    
+    @album = Album.find(params[:album_id])
   end
   
   def update
     if @track.save(track_params)
-      redirect_to track_path(@track), notioce: "track updated"
+      redirect_to album_path(@track.album), notioce: "track updated"
     else
       render :edit
     end
@@ -52,6 +53,6 @@ class TracksController < ApplicationController
   end
   
   def track_params
-    params.require(:track).permit(:name, :album_id)
+    params.require(:track).permit(:name)
   end
 end

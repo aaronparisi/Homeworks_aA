@@ -1,11 +1,18 @@
-<h2>An Album</h2>
+<h2 class="body-content-main-header"><%= @album.name %></h2>
 
-<table>
-  <tr>
-    <th>Name</th>
-  </tr>
+<h3 class="body-content-sub-header">Tracks</h3>
 
-  <tr>
-    <td><%= @album.name %></td>
-  </tr>
-</table>
+<ol class="content-list">
+  
+  <% @tracks.each do |track| %>
+    <li><div class="list-info"><%= track.name %></div><div class="list-links"><%= link_to 'Delete', track_path(track), method: :delete, class: "tiny-button" %></div></li>
+  <% end %>
+  
+</ol>
+
+<h3 class="body-content-links-header">Links</h3>
+<div class="content-grid resource-links" id="album-links">
+  <%= link_to "Add Track", new_album_track_path(@album), class: "button" %>
+  <%= link_to "Delete Album", album_path(@album), class: "button", method: 'delete' %>
+  <%= link_to "Back to #{@album.band.name}", band_path(@album.band), class: "button" %>
+</div>

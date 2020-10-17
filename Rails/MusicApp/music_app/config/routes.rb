@@ -15,7 +15,7 @@ Rails.application.routes.draw do
     resources :tracks, except: [:show]
   end
 
-  resources :tracks, only: [:show]
+  resources :tracks, only: [:show, :destroy]
 
   root to: 'bands#index'
   # For details on the DSL available within this file, see http://guides.rubyonrails.org/routing.html

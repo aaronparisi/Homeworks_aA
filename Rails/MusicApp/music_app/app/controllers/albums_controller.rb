@@ -7,16 +7,17 @@ class AlbumsController < ApplicationController
   end
   
   def show
-    
+    @tracks = @album.tracks
   end
   
   def new
     @album = Album.new
-    @band_id = params[:band_id]
+    @band = Band.find(params[:band_id])
   end
   
   def create
     @album = Album.new(album_params)
+    @album.band_id = params[:band_id]
 
     if @album.save
       redirect_to album_path(@album), notice: "album created"
@@ -26,7 +27,7 @@ class AlbumsController < ApplicationController
   end
   
   def edit
-    
+    @band = Band.find(params[:band_id])
   end
   
   def update
@@ -52,7 +53,7 @@ class AlbumsController < ApplicationController
   end
   
   def album_params
-    params.require(:album).permit(:name, :band_id)
+    params.require(:album).permit(:name)
   end
   
 end
