@@ -20,7 +20,7 @@
             <div><%= link_to "Take me homeeee", root_path, class: "button home-button" %></div>
             <div class="session-info">
               <% if user_logged_in? %>
-                <div><%= link_to "Logged in as #{@current_user.username}", user_path(@current_user) %></div>
+                
                 <div><%= link_to 'Logout', logout_path, method: :delete, class: "button" %></div>
               <% else %>
                 <div><%= link_to 'Sign up', new_user_path, class: "button" %></div>

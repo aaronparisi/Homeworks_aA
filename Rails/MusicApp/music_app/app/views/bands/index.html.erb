@@ -1,9 +1,7 @@
 <h2 class="body-content-main-header">Bands</h2>
 
-<ul>
-  
+<div class="content-grid" id="band-index">
   <% @bands.each do |band| %>
-    <li><%= link_to band.name, band_path(band) %></li>
+      <%= link_to band.name, band_path(band), class: "grid-item content-button", id: "band-link" %>
   <% end %>
-  
-</ul>
+</div>

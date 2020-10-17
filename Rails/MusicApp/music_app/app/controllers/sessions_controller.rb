@@ -17,7 +17,7 @@ class SessionsController < ApplicationController
     if @user
       # success, log them in
       login!(@user)
-      redirect_to users_path, notice: "Logged in!"
+      redirect_to root_path, notice: "Logged in!"
     else
       # failure, no user found
       render :new, notice: "Bad credentials"
