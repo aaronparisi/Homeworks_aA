@@ -10664,3 +10664,427 @@ Processing by AlbumsController#show as HTML
 Completed 200 OK in 163ms (Views: 124.1ms | ActiveRecord: 17.7ms)
 
 
+Started GET "/bands/10" for ::1 at 2020-10-17 13:29:49 -0700
+Processing by BandsController#show as HTML
+  Parameters: {"id"=>"10"}
+  [1m[36mUser Load (0.4ms)[0m  [1m[34mSELECT  "users".* FROM "users" WHERE "users"."session_token" = $1 LIMIT $2[0m  [["session_token", "mJnml9H1w_DVIh2RsuDVsg"], ["LIMIT", 1]]
+  ↳ app/controllers/application_controller.rb:26
+  [1m[36mBand Load (0.7ms)[0m  [1m[34mSELECT  "bands".* FROM "bands" WHERE "bands"."id" = $1 LIMIT $2[0m  [["id", 10], ["LIMIT", 1]]
+  ↳ app/controllers/bands_controller.rb:62
+  Rendering bands/show.html.erb within layouts/application
+  [1m[36mAlbum Load (2.5ms)[0m  [1m[34mSELECT "albums".* FROM "albums" WHERE "albums"."band_id" = $1[0m  [["band_id", 10]]
+  ↳ app/views/bands/show.html.erb:5
+  Rendered bands/show.html.erb within layouts/application (6.5ms)
+Completed 200 OK in 90ms (Views: 81.3ms | ActiveRecord: 3.6ms)
+
+
+Started GET "/bands/10/members" for ::1 at 2020-10-17 13:30:54 -0700
+Processing by UsersController#index as HTML
+  Parameters: {"band_id"=>"10"}
+  [1m[36mUser Load (0.6ms)[0m  [1m[34mSELECT  "users".* FROM "users" WHERE "users"."session_token" = $1 LIMIT $2[0m  [["session_token", "mJnml9H1w_DVIh2RsuDVsg"], ["LIMIT", 1]]
+  ↳ app/controllers/application_controller.rb:26
+  [1m[36mBand Load (0.8ms)[0m  [1m[34mSELECT  "bands".* FROM "bands" WHERE "bands"."id" = $1 LIMIT $2[0m  [["id", 10], ["LIMIT", 1]]
+  ↳ app/controllers/users_controller.rb:17
+  Rendering users/index.html.erb within layouts/application
+  [1m[36mUser Load (1.4ms)[0m  [1m[34mSELECT "users".* FROM "users" INNER JOIN "band_memberships" ON "users"."id" = "band_memberships"."member_id" WHERE "band_memberships"."band_id" = $1[0m  [["band_id", 10]]
+  ↳ app/views/users/index.html.erb:5
+  Rendered users/index.html.erb within layouts/application (8.1ms)
+Completed 200 OK in 73ms (Views: 65.0ms | ActiveRecord: 2.8ms)
+
+
+Started GET "/bands/10" for ::1 at 2020-10-17 13:30:56 -0700
+Processing by BandsController#show as HTML
+  Parameters: {"id"=>"10"}
+  [1m[36mUser Load (5.1ms)[0m  [1m[34mSELECT  "users".* FROM "users" WHERE "users"."session_token" = $1 LIMIT $2[0m  [["session_token", "mJnml9H1w_DVIh2RsuDVsg"], ["LIMIT", 1]]
+  ↳ app/controllers/application_controller.rb:26
+  [1m[36mBand Load (6.1ms)[0m  [1m[34mSELECT  "bands".* FROM "bands" WHERE "bands"."id" = $1 LIMIT $2[0m  [["id", 10], ["LIMIT", 1]]
+  ↳ app/controllers/bands_controller.rb:62
+  Rendering bands/show.html.erb within layouts/application
+  [1m[36mAlbum Load (3.5ms)[0m  [1m[34mSELECT "albums".* FROM "albums" WHERE "albums"."band_id" = $1[0m  [["band_id", 10]]
+  ↳ app/views/bands/show.html.erb:5
+  Rendered bands/show.html.erb within layouts/application (7.2ms)
+Completed 200 OK in 106ms (Views: 86.1ms | ActiveRecord: 14.6ms)
+
+
+Started GET "/bands/10" for ::1 at 2020-10-17 13:42:53 -0700
+Processing by BandsController#show as HTML
+  Parameters: {"id"=>"10"}
+  [1m[36mUser Load (0.7ms)[0m  [1m[34mSELECT  "users".* FROM "users" WHERE "users"."session_token" = $1 LIMIT $2[0m  [["session_token", "mJnml9H1w_DVIh2RsuDVsg"], ["LIMIT", 1]]
+  ↳ app/controllers/application_controller.rb:26
+  [1m[36mBand Load (0.6ms)[0m  [1m[34mSELECT  "bands".* FROM "bands" WHERE "bands"."id" = $1 LIMIT $2[0m  [["id", 10], ["LIMIT", 1]]
+  ↳ app/controllers/bands_controller.rb:62
+  Rendering bands/show.html.erb within layouts/application
+  [1m[36mAlbum Load (0.6ms)[0m  [1m[34mSELECT "albums".* FROM "albums" WHERE "albums"."band_id" = $1[0m  [["band_id", 10]]
+  ↳ app/views/bands/show.html.erb:5
+  [1m[35m (1.1ms)[0m  [1m[34mSELECT "users"."id" FROM "users" INNER JOIN "band_memberships" ON "users"."id" = "band_memberships"."member_id" WHERE "band_memberships"."band_id" = $1[0m  [["band_id", 10]]
+  ↳ app/models/band.rb:24
+  Rendered bands/show.html.erb within layouts/application (24.9ms)
+Completed 200 OK in 256ms (Views: 201.9ms | ActiveRecord: 27.0ms)
+
+
+Started GET "/bands/10" for ::1 at 2020-10-17 13:43:09 -0700
+  [1m[35m (1.0ms)[0m  [1m[34mSELECT "schema_migrations"."version" FROM "schema_migrations" ORDER BY "schema_migrations"."version" ASC[0m
+  ↳ /Users/aaronparisi/.rbenv/versions/2.7.0/lib/ruby/gems/2.7.0/gems/activerecord-5.2.4.4/lib/active_record/log_subscriber.rb:98
+Processing by BandsController#show as HTML
+  Parameters: {"id"=>"10"}
+  [1m[36mUser Load (0.7ms)[0m  [1m[34mSELECT  "users".* FROM "users" WHERE "users"."session_token" = $1 LIMIT $2[0m  [["session_token", "mJnml9H1w_DVIh2RsuDVsg"], ["LIMIT", 1]]
+  ↳ app/controllers/application_controller.rb:26
+  [1m[36mBand Load (0.6ms)[0m  [1m[34mSELECT  "bands".* FROM "bands" WHERE "bands"."id" = $1 LIMIT $2[0m  [["id", 10], ["LIMIT", 1]]
+  ↳ app/controllers/bands_controller.rb:62
+  Rendering bands/show.html.erb within layouts/application
+  [1m[36mAlbum Load (0.5ms)[0m  [1m[34mSELECT "albums".* FROM "albums" WHERE "albums"."band_id" = $1[0m  [["band_id", 10]]
+  ↳ app/views/bands/show.html.erb:5
+  [1m[35m (0.9ms)[0m  [1m[34mSELECT "users"."id" FROM "users" INNER JOIN "band_memberships" ON "users"."id" = "band_memberships"."member_id" WHERE "band_memberships"."band_id" = $1[0m  [["band_id", 10]]
+  ↳ app/models/band.rb:24
+  Rendered bands/show.html.erb within layouts/application (29.2ms)
+Completed 200 OK in 438ms (Views: 375.3ms | ActiveRecord: 22.8ms)
+
+
+Started GET "/bands/10/members" for ::1 at 2020-10-17 13:43:13 -0700
+Processing by UsersController#index as HTML
+  Parameters: {"band_id"=>"10"}
+  [1m[36mUser Load (3.6ms)[0m  [1m[34mSELECT  "users".* FROM "users" WHERE "users"."session_token" = $1 LIMIT $2[0m  [["session_token", "mJnml9H1w_DVIh2RsuDVsg"], ["LIMIT", 1]]
+  ↳ app/controllers/application_controller.rb:26
+  [1m[36mBand Load (2.6ms)[0m  [1m[34mSELECT  "bands".* FROM "bands" WHERE "bands"."id" = $1 LIMIT $2[0m  [["id", 10], ["LIMIT", 1]]
+  ↳ app/controllers/users_controller.rb:17
+  Rendering users/index.html.erb within layouts/application
+  [1m[36mUser Load (1.0ms)[0m  [1m[34mSELECT "users".* FROM "users" INNER JOIN "band_memberships" ON "users"."id" = "band_memberships"."member_id" WHERE "band_memberships"."band_id" = $1[0m  [["band_id", 10]]
+  ↳ app/views/users/index.html.erb:5
+  Rendered users/index.html.erb within layouts/application (9.0ms)
+Completed 200 OK in 147ms (Views: 129.2ms | ActiveRecord: 7.2ms)
+
+
+Started GET "/bands/10" for ::1 at 2020-10-17 13:43:23 -0700
+Processing by BandsController#show as HTML
+  Parameters: {"id"=>"10"}
+  [1m[36mUser Load (1.1ms)[0m  [1m[34mSELECT  "users".* FROM "users" WHERE "users"."session_token" = $1 LIMIT $2[0m  [["session_token", "mJnml9H1w_DVIh2RsuDVsg"], ["LIMIT", 1]]
+  ↳ app/controllers/application_controller.rb:26
+  [1m[36mBand Load (13.7ms)[0m  [1m[34mSELECT  "bands".* FROM "bands" WHERE "bands"."id" = $1 LIMIT $2[0m  [["id", 10], ["LIMIT", 1]]
+  ↳ app/controllers/bands_controller.rb:62
+  Rendering bands/show.html.erb within layouts/application
+  [1m[36mAlbum Load (5.8ms)[0m  [1m[34mSELECT "albums".* FROM "albums" WHERE "albums"."band_id" = $1[0m  [["band_id", 10]]
+  ↳ app/views/bands/show.html.erb:5
+  [1m[35m (6.3ms)[0m  [1m[34mSELECT "users"."id" FROM "users" INNER JOIN "band_memberships" ON "users"."id" = "band_memberships"."member_id" WHERE "band_memberships"."band_id" = $1[0m  [["band_id", 10]]
+  ↳ app/models/band.rb:24
+  Rendered bands/show.html.erb within layouts/application (25.0ms)
+Completed 200 OK in 118ms (Views: 85.8ms | ActiveRecord: 26.9ms)
+
+
+Started DELETE "/logout" for ::1 at 2020-10-17 13:44:07 -0700
+Processing by SessionsController#destroy as HTML
+  Parameters: {"authenticity_token"=>"raMX4g9TOy9jit5/4qACMMeKFzc3CviLAVc/HzhFYxzKSp6D5drp5/XhRQqLWUy2SlD+oO+tOASTnH4xyFuMcw=="}
+  [1m[36mUser Load (0.5ms)[0m  [1m[34mSELECT  "users".* FROM "users" WHERE "users"."session_token" = $1 LIMIT $2[0m  [["session_token", "mJnml9H1w_DVIh2RsuDVsg"], ["LIMIT", 1]]
+  ↳ app/controllers/application_controller.rb:26
+  [1m[35m (0.4ms)[0m  [1m[35mBEGIN[0m
+  ↳ app/models/user.rb:60
+  [1m[36mUser Exists (0.6ms)[0m  [1m[34mSELECT  1 AS one FROM "users" WHERE "users"."username" = $1 AND "users"."id" != $2 LIMIT $3[0m  [["username", "kelseyjones"], ["id", 3], ["LIMIT", 1]]
+  ↳ app/models/user.rb:60
+  [1m[36mUser Exists (0.5ms)[0m  [1m[34mSELECT  1 AS one FROM "users" WHERE "users"."email" = $1 AND "users"."id" != $2 LIMIT $3[0m  [["email", "fake@fake.com"], ["id", 3], ["LIMIT", 1]]
+  ↳ app/models/user.rb:60
+  [1m[36mUser Update (0.9ms)[0m  [1m[33mUPDATE "users" SET "session_token" = $1, "updated_at" = $2 WHERE "users"."id" = $3[0m  [["session_token", "1jioPq1QbGnkmGexGleryg"], ["updated_at", "2020-10-17 20:44:07.544602"], ["id", 3]]
+  ↳ app/models/user.rb:60
+  [1m[35m (0.8ms)[0m  [1m[35mCOMMIT[0m
+  ↳ app/models/user.rb:60
+Redirected to http://localhost:3000/login
+Completed 302 Found in 13ms (ActiveRecord: 3.8ms)
+
+
+Started GET "/login" for ::1 at 2020-10-17 13:44:07 -0700
+Processing by SessionsController#new as HTML
+  [1m[36mUser Load (1.1ms)[0m  [1m[34mSELECT  "users".* FROM "users" WHERE "users"."session_token" IS NULL LIMIT $1[0m  [["LIMIT", 1]]
+  ↳ app/controllers/application_controller.rb:26
+  [1m[36mUser Exists (0.8ms)[0m  [1m[34mSELECT  1 AS one FROM "users" LIMIT $1[0m  [["LIMIT", 1]]
+  ↳ app/controllers/sessions_controller.rb:4
+  [1m[36mCACHE User Load (0.0ms)[0m  [1m[34mSELECT  "users".* FROM "users" WHERE "users"."session_token" IS NULL LIMIT $1[0m  [["LIMIT", 1]]
+  ↳ app/controllers/application_controller.rb:26
+  Rendering sessions/new.html.erb within layouts/application
+  Rendered sessions/_form.html.erb (3.9ms)
+  Rendered sessions/new.html.erb within layouts/application (5.6ms)
+Completed 200 OK in 47ms (Views: 39.3ms | ActiveRecord: 1.9ms)
+
+
+Started POST "/login" for ::1 at 2020-10-17 13:44:12 -0700
+Processing by SessionsController#create as JS
+  Parameters: {"utf8"=>"✓", "authenticity_token"=>"ioeNhE/EqkoAaOQLr3ULuOP5/gXNkzihj0gzx6sPyAztbgTlpU14gpYDf37GjEU+biMXkhU0+C4dg3LpWxEnYw==", "email"=>"parisi.aaron@gmail.com", "password"=>"[FILTERED]", "commit"=>"Login"}
+  [1m[36mUser Load (0.3ms)[0m  [1m[34mSELECT  "users".* FROM "users" WHERE "users"."session_token" IS NULL LIMIT $1[0m  [["LIMIT", 1]]
+  ↳ app/controllers/application_controller.rb:26
+  [1m[36mUser Load (0.3ms)[0m  [1m[34mSELECT  "users".* FROM "users" WHERE "users"."email" = $1 LIMIT $2[0m  [["email", "parisi.aaron@gmail.com"], ["LIMIT", 1]]
+  ↳ app/models/user.rb:31
+Redirected to http://localhost:3000/
+Completed 200 OK in 247ms (ActiveRecord: 0.6ms)
+
+
+Started GET "/" for ::1 at 2020-10-17 13:44:13 -0700
+Processing by UsersController#welcome as HTML
+  [1m[36mUser Load (6.7ms)[0m  [1m[34mSELECT  "users".* FROM "users" WHERE "users"."session_token" = $1 LIMIT $2[0m  [["session_token", "WXcK5kRylUDhyiAszB6KWA"], ["LIMIT", 1]]
+  ↳ app/controllers/application_controller.rb:26
+Redirected to http://localhost:3000/users/2
+Completed 302 Found in 9ms (ActiveRecord: 6.7ms)
+
+
+Started GET "/users/2" for ::1 at 2020-10-17 13:44:13 -0700
+Processing by UsersController#show as HTML
+  Parameters: {"id"=>"2"}
+  [1m[36mUser Load (0.5ms)[0m  [1m[34mSELECT  "users".* FROM "users" WHERE "users"."session_token" = $1 LIMIT $2[0m  [["session_token", "WXcK5kRylUDhyiAszB6KWA"], ["LIMIT", 1]]
+  ↳ app/controllers/application_controller.rb:26
+  [1m[36mUser Load (1.0ms)[0m  [1m[34mSELECT  "users".* FROM "users" WHERE "users"."id" = $1 LIMIT $2[0m  [["id", 2], ["LIMIT", 1]]
+  ↳ app/controllers/users_controller.rb:67
+  Rendering users/show.html.erb within layouts/application
+  Rendered users/show.html.erb within layouts/application (1.3ms)
+Completed 200 OK in 91ms (Views: 83.9ms | ActiveRecord: 1.4ms)
+
+
+Started GET "/users/2/bands" for ::1 at 2020-10-17 13:44:15 -0700
+Processing by BandsController#index as HTML
+  Parameters: {"user_id"=>"2"}
+  [1m[36mUser Load (3.2ms)[0m  [1m[34mSELECT  "users".* FROM "users" WHERE "users"."session_token" = $1 LIMIT $2[0m  [["session_token", "WXcK5kRylUDhyiAszB6KWA"], ["LIMIT", 1]]
+  ↳ app/controllers/application_controller.rb:26
+  Rendering bands/index.html.erb within layouts/application
+  [1m[36mBand Load (3.9ms)[0m  [1m[34mSELECT "bands".* FROM "bands"[0m
+  ↳ app/views/bands/index.html.erb:4
+  Rendered bands/index.html.erb within layouts/application (6.3ms)
+Completed 200 OK in 92ms (Views: 80.8ms | ActiveRecord: 7.1ms)
+
+
+Started GET "/bands/10" for ::1 at 2020-10-17 13:44:16 -0700
+Processing by BandsController#show as HTML
+  Parameters: {"id"=>"10"}
+  [1m[36mUser Load (5.3ms)[0m  [1m[34mSELECT  "users".* FROM "users" WHERE "users"."session_token" = $1 LIMIT $2[0m  [["session_token", "WXcK5kRylUDhyiAszB6KWA"], ["LIMIT", 1]]
+  ↳ app/controllers/application_controller.rb:26
+  [1m[36mBand Load (3.7ms)[0m  [1m[34mSELECT  "bands".* FROM "bands" WHERE "bands"."id" = $1 LIMIT $2[0m  [["id", 10], ["LIMIT", 1]]
+  ↳ app/controllers/bands_controller.rb:62
+  Rendering bands/show.html.erb within layouts/application
+  [1m[36mAlbum Load (1.1ms)[0m  [1m[34mSELECT "albums".* FROM "albums" WHERE "albums"."band_id" = $1[0m  [["band_id", 10]]
+  ↳ app/views/bands/show.html.erb:5
+  [1m[35m (2.9ms)[0m  [1m[34mSELECT "users"."id" FROM "users" INNER JOIN "band_memberships" ON "users"."id" = "band_memberships"."member_id" WHERE "band_memberships"."band_id" = $1[0m  [["band_id", 10]]
+  ↳ app/models/band.rb:24
+  Rendered bands/show.html.erb within layouts/application (205.4ms)
+Completed 500 Internal Server Error in 222ms (ActiveRecord: 13.0ms)
+
+
+
+NoMethodError - undefined method `member_add_path' for #<#<Class:0x00007faa32217968>:0x00007faa316a8e60>:
+  app/views/bands/show.html.erb:15:in `_app_views_bands_show_html_erb___4098673932289464857_22120'
+
+Started POST "/__better_errors/abc3b331d77d7044/variables" for ::1 at 2020-10-17 13:44:17 -0700
+Started GET "/bands/10" for ::1 at 2020-10-17 13:44:41 -0700
+Processing by BandsController#show as HTML
+  Parameters: {"id"=>"10"}
+  [1m[36mUser Load (0.4ms)[0m  [1m[34mSELECT  "users".* FROM "users" WHERE "users"."session_token" = $1 LIMIT $2[0m  [["session_token", "WXcK5kRylUDhyiAszB6KWA"], ["LIMIT", 1]]
+  ↳ app/controllers/application_controller.rb:26
+  [1m[36mBand Load (0.7ms)[0m  [1m[34mSELECT  "bands".* FROM "bands" WHERE "bands"."id" = $1 LIMIT $2[0m  [["id", 10], ["LIMIT", 1]]
+  ↳ app/controllers/bands_controller.rb:62
+  Rendering bands/show.html.erb within layouts/application
+  [1m[36mAlbum Load (0.4ms)[0m  [1m[34mSELECT "albums".* FROM "albums" WHERE "albums"."band_id" = $1[0m  [["band_id", 10]]
+  ↳ app/views/bands/show.html.erb:5
+  [1m[35m (0.9ms)[0m  [1m[34mSELECT "users"."id" FROM "users" INNER JOIN "band_memberships" ON "users"."id" = "band_memberships"."member_id" WHERE "band_memberships"."band_id" = $1[0m  [["band_id", 10]]
+  ↳ app/models/band.rb:24
+  Rendered bands/show.html.erb within layouts/application (9.2ms)
+Completed 200 OK in 50ms (Views: 42.6ms | ActiveRecord: 2.4ms)
+
+
+Started GET "/bands/10" for ::1 at 2020-10-17 13:44:56 -0700
+Processing by BandsController#show as HTML
+  Parameters: {"id"=>"10"}
+  [1m[36mUser Load (0.6ms)[0m  [1m[34mSELECT  "users".* FROM "users" WHERE "users"."session_token" = $1 LIMIT $2[0m  [["session_token", "WXcK5kRylUDhyiAszB6KWA"], ["LIMIT", 1]]
+  ↳ app/controllers/application_controller.rb:26
+  [1m[36mBand Load (0.5ms)[0m  [1m[34mSELECT  "bands".* FROM "bands" WHERE "bands"."id" = $1 LIMIT $2[0m  [["id", 10], ["LIMIT", 1]]
+  ↳ app/controllers/bands_controller.rb:62
+  Rendering bands/show.html.erb within layouts/application
+  [1m[36mAlbum Load (0.4ms)[0m  [1m[34mSELECT "albums".* FROM "albums" WHERE "albums"."band_id" = $1[0m  [["band_id", 10]]
+  ↳ app/views/bands/show.html.erb:5
+  [1m[35m (0.6ms)[0m  [1m[34mSELECT "users"."id" FROM "users" INNER JOIN "band_memberships" ON "users"."id" = "band_memberships"."member_id" WHERE "band_memberships"."band_id" = $1[0m  [["band_id", 10]]
+  ↳ app/models/band.rb:24
+  Rendered bands/show.html.erb within layouts/application (4.4ms)
+Completed 200 OK in 39ms (Views: 32.8ms | ActiveRecord: 2.0ms)
+
+
+Started GET "/bands/10/add_members" for ::1 at 2020-10-17 13:45:00 -0700
+
+ActionController::RoutingError - uninitialized constant BandMembershipsController:
+
+Started POST "/__better_errors/f987737c15e9b22c/variables" for ::1 at 2020-10-17 13:45:00 -0700
+Started GET "/bands/10/add_members" for ::1 at 2020-10-17 13:45:25 -0700
+
+SyntaxError - syntax error, unexpected local variable or method, expecting ')'
+        member_id: @to_add.id
+        ^~~~~~~~~
+/Users/aaronparisi/Desktop/CS/AppAcademy2020/Homeworks_aA/Rails/MusicApp/music_app/app/controllers/band_memberships_controller.rb:16: syntax error, unexpected ')', expecting `end'
+      )
+      ^:
+  app/controllers/band_memberships_controller.rb:15:in `'
+
+Started POST "/__better_errors/97d88d4fb987619a/variables" for ::1 at 2020-10-17 13:45:26 -0700
+Started GET "/bands/10/add_members" for ::1 at 2020-10-17 13:45:37 -0700
+Processing by BandMembershipsController#new as HTML
+  Parameters: {"band_id"=>"10"}
+  [1m[36mUser Load (0.2ms)[0m  [1m[34mSELECT  "users".* FROM "users" WHERE "users"."session_token" = $1 LIMIT $2[0m  [["session_token", "WXcK5kRylUDhyiAszB6KWA"], ["LIMIT", 1]]
+  ↳ app/controllers/application_controller.rb:26
+  [1m[36mBand Load (0.3ms)[0m  [1m[34mSELECT  "bands".* FROM "bands" WHERE "bands"."id" = $1 LIMIT $2[0m  [["id", 10], ["LIMIT", 1]]
+  ↳ app/controllers/band_memberships_controller.rb:3
+  Rendering band_memberships/new.html.erb within layouts/application
+  Rendered band_memberships/new.html.erb within layouts/application (0.4ms)
+Completed 200 OK in 87ms (Views: 44.9ms | ActiveRecord: 9.8ms)
+
+
+Started GET "/bands/10/add_members" for ::1 at 2020-10-17 13:46:21 -0700
+Processing by BandMembershipsController#new as HTML
+  Parameters: {"band_id"=>"10"}
+  [1m[36mUser Load (0.5ms)[0m  [1m[34mSELECT  "users".* FROM "users" WHERE "users"."session_token" = $1 LIMIT $2[0m  [["session_token", "WXcK5kRylUDhyiAszB6KWA"], ["LIMIT", 1]]
+  ↳ app/controllers/application_controller.rb:26
+  [1m[36mBand Load (1.4ms)[0m  [1m[34mSELECT  "bands".* FROM "bands" WHERE "bands"."id" = $1 LIMIT $2[0m  [["id", 10], ["LIMIT", 1]]
+  ↳ app/controllers/band_memberships_controller.rb:3
+  Rendering band_memberships/new.html.erb within layouts/application
+  Rendered band_memberships/_form.html.erb (1.7ms)
+  Rendered band_memberships/new.html.erb within layouts/application (2.8ms)
+Completed 200 OK in 46ms (Views: 38.4ms | ActiveRecord: 1.9ms)
+
+
+Started POST "/bands/10/add_members" for ::1 at 2020-10-17 13:46:28 -0700
+  
+ActionController::RoutingError (No route matches [POST] "/bands/10/add_members"):
+  
+actionpack (5.2.4.4) lib/action_dispatch/middleware/debug_exceptions.rb:65:in `call'
+web-console (3.7.0) lib/web_console/middleware.rb:135:in `call_app'
+web-console (3.7.0) lib/web_console/middleware.rb:30:in `block in call'
+web-console (3.7.0) lib/web_console/middleware.rb:20:in `catch'
+web-console (3.7.0) lib/web_console/middleware.rb:20:in `call'
+actionpack (5.2.4.4) lib/action_dispatch/middleware/show_exceptions.rb:33:in `call'
+railties (5.2.4.4) lib/rails/rack/logger.rb:38:in `call_app'
+railties (5.2.4.4) lib/rails/rack/logger.rb:26:in `block in call'
+activesupport (5.2.4.4) lib/active_support/tagged_logging.rb:71:in `block in tagged'
+activesupport (5.2.4.4) lib/active_support/tagged_logging.rb:28:in `tagged'
+activesupport (5.2.4.4) lib/active_support/tagged_logging.rb:71:in `tagged'
+railties (5.2.4.4) lib/rails/rack/logger.rb:26:in `call'
+sprockets-rails (3.2.2) lib/sprockets/rails/quiet_assets.rb:13:in `call'
+actionpack (5.2.4.4) lib/action_dispatch/middleware/remote_ip.rb:81:in `call'
+actionpack (5.2.4.4) lib/action_dispatch/middleware/request_id.rb:27:in `call'
+rack (2.2.3) lib/rack/method_override.rb:24:in `call'
+rack (2.2.3) lib/rack/runtime.rb:22:in `call'
+activesupport (5.2.4.4) lib/active_support/cache/strategy/local_cache_middleware.rb:29:in `call'
+actionpack (5.2.4.4) lib/action_dispatch/middleware/executor.rb:14:in `call'
+actionpack (5.2.4.4) lib/action_dispatch/middleware/static.rb:127:in `call'
+rack (2.2.3) lib/rack/sendfile.rb:110:in `call'
+railties (5.2.4.4) lib/rails/engine.rb:524:in `call'
+puma (3.12.6) lib/puma/configuration.rb:227:in `call'
+puma (3.12.6) lib/puma/server.rb:706:in `handle_request'
+puma (3.12.6) lib/puma/server.rb:476:in `process_client'
+puma (3.12.6) lib/puma/server.rb:334:in `block in run'
+puma (3.12.6) lib/puma/thread_pool.rb:135:in `block in spawn_thread'
+Started GET "/bands/10/add_members" for ::1 at 2020-10-17 13:47:48 -0700
+Processing by BandMembershipsController#new as HTML
+  Parameters: {"band_id"=>"10"}
+  [1m[36mUser Load (0.3ms)[0m  [1m[34mSELECT  "users".* FROM "users" WHERE "users"."session_token" = $1 LIMIT $2[0m  [["session_token", "WXcK5kRylUDhyiAszB6KWA"], ["LIMIT", 1]]
+  ↳ app/controllers/application_controller.rb:26
+  [1m[36mBand Load (0.3ms)[0m  [1m[34mSELECT  "bands".* FROM "bands" WHERE "bands"."id" = $1 LIMIT $2[0m  [["id", 10], ["LIMIT", 1]]
+  ↳ app/controllers/band_memberships_controller.rb:3
+  Rendering band_memberships/new.html.erb within layouts/application
+  Rendered band_memberships/_form.html.erb (1.7ms)
+  Rendered band_memberships/new.html.erb within layouts/application (3.8ms)
+Completed 200 OK in 77ms (Views: 36.1ms | ActiveRecord: 15.3ms)
+
+
+Started POST "/bands/10/add_members" for ::1 at 2020-10-17 13:47:52 -0700
+Processing by BandMembershipsController#create as JS
+  Parameters: {"utf8"=>"✓", "authenticity_token"=>"59h2ICshvhl96jK8JQNxjufpUvooVhC1rLUZKPNxwrmAMf9Bwahs0euBqclM+j8IajO7bfDx0Do+flgGA28t1g==", "band_id"=>"10", "email"=>"fake@fake.com", "commit"=>"Add Member"}
+  [1m[36mUser Load (0.3ms)[0m  [1m[34mSELECT  "users".* FROM "users" WHERE "users"."session_token" = $1 LIMIT $2[0m  [["session_token", "WXcK5kRylUDhyiAszB6KWA"], ["LIMIT", 1]]
+  ↳ app/controllers/application_controller.rb:26
+Completed 500 Internal Server Error in 4ms (ActiveRecord: 0.3ms)
+
+
+
+NameError - uninitialized constant BandMembershipsController::Uesr:
+  app/controllers/band_memberships_controller.rb:8:in `create'
+
+Started GET "/bands/10/add_members" for ::1 at 2020-10-17 13:48:22 -0700
+Processing by BandMembershipsController#new as HTML
+  Parameters: {"band_id"=>"10"}
+  [1m[36mUser Load (0.3ms)[0m  [1m[34mSELECT  "users".* FROM "users" WHERE "users"."session_token" = $1 LIMIT $2[0m  [["session_token", "WXcK5kRylUDhyiAszB6KWA"], ["LIMIT", 1]]
+  ↳ app/controllers/application_controller.rb:26
+  [1m[36mBand Load (0.4ms)[0m  [1m[34mSELECT  "bands".* FROM "bands" WHERE "bands"."id" = $1 LIMIT $2[0m  [["id", 10], ["LIMIT", 1]]
+  ↳ app/controllers/band_memberships_controller.rb:3
+  Rendering band_memberships/new.html.erb within layouts/application
+  Rendered band_memberships/_form.html.erb (2.6ms)
+  Rendered band_memberships/new.html.erb within layouts/application (3.6ms)
+Completed 200 OK in 73ms (Views: 32.5ms | ActiveRecord: 10.3ms)
+
+
+Started POST "/bands/10/add_members" for ::1 at 2020-10-17 13:48:27 -0700
+Processing by BandMembershipsController#create as JS
+  Parameters: {"utf8"=>"✓", "authenticity_token"=>"FeYYbQK73oKeuY95o7U32w8myBBTUI4tU8XVIeAIhQRyD5EM6DIMSgjSFAzKTHldgvwhh4v3TqLBDpQPEBZqaw==", "band_id"=>"10", "email"=>"fake@fake.com", "commit"=>"Add Member"}
+  [1m[36mUser Load (0.3ms)[0m  [1m[34mSELECT  "users".* FROM "users" WHERE "users"."session_token" = $1 LIMIT $2[0m  [["session_token", "WXcK5kRylUDhyiAszB6KWA"], ["LIMIT", 1]]
+  ↳ app/controllers/application_controller.rb:26
+  [1m[36mUser Load (0.5ms)[0m  [1m[34mSELECT  "users".* FROM "users" WHERE "users"."email" = $1 LIMIT $2[0m  [["email", "fake@fake.com"], ["LIMIT", 1]]
+  ↳ app/controllers/band_memberships_controller.rb:8
+Completed 500 Internal Server Error in 8ms (ActiveRecord: 0.7ms)
+
+
+
+NoMethodError - undefined method `nil' for #<User:0x00007faa363d80a0>
+Did you mean?  nil?:
+  app/controllers/band_memberships_controller.rb:9:in `create'
+
+Started GET "/bands/10/add_members" for ::1 at 2020-10-17 13:48:37 -0700
+Processing by BandMembershipsController#new as HTML
+  Parameters: {"band_id"=>"10"}
+  [1m[36mUser Load (0.3ms)[0m  [1m[34mSELECT  "users".* FROM "users" WHERE "users"."session_token" = $1 LIMIT $2[0m  [["session_token", "WXcK5kRylUDhyiAszB6KWA"], ["LIMIT", 1]]
+  ↳ app/controllers/application_controller.rb:26
+  [1m[36mBand Load (0.2ms)[0m  [1m[34mSELECT  "bands".* FROM "bands" WHERE "bands"."id" = $1 LIMIT $2[0m  [["id", 10], ["LIMIT", 1]]
+  ↳ app/controllers/band_memberships_controller.rb:3
+  Rendering band_memberships/new.html.erb within layouts/application
+  Rendered band_memberships/_form.html.erb (2.5ms)
+  Rendered band_memberships/new.html.erb within layouts/application (4.1ms)
+Completed 200 OK in 72ms (Views: 35.7ms | ActiveRecord: 13.3ms)
+
+
+Started POST "/bands/10/add_members" for ::1 at 2020-10-17 13:48:40 -0700
+Processing by BandMembershipsController#create as JS
+  Parameters: {"utf8"=>"✓", "authenticity_token"=>"jHP0v9WIxhIo3DMWx+jEpwNCou9KOLLcY0PUPjTY0f/rmn3ePwEU2r63qGOuEYohjphLeJKfclPxiJUQxMY+kA==", "band_id"=>"10", "email"=>"fake@fake.com", "commit"=>"Add Member"}
+  [1m[36mUser Load (0.2ms)[0m  [1m[34mSELECT  "users".* FROM "users" WHERE "users"."session_token" = $1 LIMIT $2[0m  [["session_token", "WXcK5kRylUDhyiAszB6KWA"], ["LIMIT", 1]]
+  ↳ app/controllers/application_controller.rb:26
+  [1m[36mUser Load (0.3ms)[0m  [1m[34mSELECT  "users".* FROM "users" WHERE "users"."email" = $1 LIMIT $2[0m  [["email", "fake@fake.com"], ["LIMIT", 1]]
+  ↳ app/controllers/band_memberships_controller.rb:8
+  [1m[35m (0.2ms)[0m  [1m[35mBEGIN[0m
+  ↳ app/controllers/band_memberships_controller.rb:18
+  [1m[36mBand Load (0.2ms)[0m  [1m[34mSELECT  "bands".* FROM "bands" WHERE "bands"."id" = $1 LIMIT $2[0m  [["id", 10], ["LIMIT", 1]]
+  ↳ app/controllers/band_memberships_controller.rb:18
+  [1m[36mUser Load (0.4ms)[0m  [1m[34mSELECT  "users".* FROM "users" WHERE "users"."id" = $1 LIMIT $2[0m  [["id", 3], ["LIMIT", 1]]
+  ↳ app/controllers/band_memberships_controller.rb:18
+  [1m[36mBandMembership Create (1.0ms)[0m  [1m[32mINSERT INTO "band_memberships" ("band_id", "member_id", "created_at", "updated_at") VALUES ($1, $2, $3, $4) RETURNING "id"[0m  [["band_id", 10], ["member_id", 3], ["created_at", "2020-10-17 20:48:40.783428"], ["updated_at", "2020-10-17 20:48:40.783428"]]
+  ↳ app/controllers/band_memberships_controller.rb:18
+  [1m[35m (0.5ms)[0m  [1m[35mCOMMIT[0m
+  ↳ app/controllers/band_memberships_controller.rb:18
+Redirected to http://localhost:3000/bands/10
+Completed 200 OK in 27ms (ActiveRecord: 7.3ms)
+
+
+Started GET "/bands/10" for ::1 at 2020-10-17 13:48:40 -0700
+Processing by BandsController#show as HTML
+  Parameters: {"id"=>"10"}
+  [1m[36mUser Load (4.4ms)[0m  [1m[34mSELECT  "users".* FROM "users" WHERE "users"."session_token" = $1 LIMIT $2[0m  [["session_token", "WXcK5kRylUDhyiAszB6KWA"], ["LIMIT", 1]]
+  ↳ app/controllers/application_controller.rb:26
+  [1m[36mBand Load (3.0ms)[0m  [1m[34mSELECT  "bands".* FROM "bands" WHERE "bands"."id" = $1 LIMIT $2[0m  [["id", 10], ["LIMIT", 1]]
+  ↳ app/controllers/bands_controller.rb:62
+  Rendering bands/show.html.erb within layouts/application
+  [1m[36mAlbum Load (1.0ms)[0m  [1m[34mSELECT "albums".* FROM "albums" WHERE "albums"."band_id" = $1[0m  [["band_id", 10]]
+  ↳ app/views/bands/show.html.erb:5
+  [1m[35m (0.7ms)[0m  [1m[34mSELECT "users"."id" FROM "users" INNER JOIN "band_memberships" ON "users"."id" = "band_memberships"."member_id" WHERE "band_memberships"."band_id" = $1[0m  [["band_id", 10]]
+  ↳ app/models/band.rb:24
+  Rendered bands/show.html.erb within layouts/application (58.8ms)
+Completed 200 OK in 212ms (Views: 173.6ms | ActiveRecord: 22.8ms)
+
+
+Started GET "/bands/10/members" for ::1 at 2020-10-17 13:48:44 -0700
+Processing by UsersController#index as HTML
+  Parameters: {"band_id"=>"10"}
+  [1m[36mUser Load (3.9ms)[0m  [1m[34mSELECT  "users".* FROM "users" WHERE "users"."session_token" = $1 LIMIT $2[0m  [["session_token", "WXcK5kRylUDhyiAszB6KWA"], ["LIMIT", 1]]
+  ↳ app/controllers/application_controller.rb:26
+  [1m[36mBand Load (2.2ms)[0m  [1m[34mSELECT  "bands".* FROM "bands" WHERE "bands"."id" = $1 LIMIT $2[0m  [["id", 10], ["LIMIT", 1]]
+  ↳ app/controllers/users_controller.rb:17
+  Rendering users/index.html.erb within layouts/application
+  [1m[36mUser Load (6.5ms)[0m  [1m[34mSELECT "users".* FROM "users" INNER JOIN "band_memberships" ON "users"."id" = "band_memberships"."member_id" WHERE "band_memberships"."band_id" = $1[0m  [["band_id", 10]]
+  ↳ app/views/users/index.html.erb:5
+  Rendered users/index.html.erb within layouts/application (13.2ms)
+Completed 200 OK in 88ms (Views: 67.5ms | ActiveRecord: 12.6ms)
+
+
