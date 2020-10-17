@@ -12,6 +12,7 @@
   <%= link_to 'Members', band_members_path(@band), class: "button" %>
   <% if current_user.in_the_band?(@band) %>
     <%= link_to 'Invite Members', band_member_add_path(@band), class: "button" %>
+    <%= link_to 'Leave Band', band_member_leave_path(@band, current_user), class: "button", method: :delete %>
   <% end %>
   <%= link_to "Add Album", new_band_album_path(@band), class: "button" %>
   <%= link_to "Delete Band", band_path(@band), class: "button", method: 'delete' %>

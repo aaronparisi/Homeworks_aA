@@ -24,7 +24,7 @@ class User < ApplicationRecord
 
   after_initialize :ensure_session_token
 
-  has_many :band_memberships
+  has_many :band_memberships, class_name: :BandMembership, foreign_key: :member_id
   has_many :bands, through: :band_memberships
 
   def self.find_by_credentials(email, password)

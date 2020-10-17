@@ -21,7 +21,12 @@
 #
 class BandMembership < ApplicationRecord
   # validates :instrument, presence: true
+  validates :member_id, uniqueness: { scope: :band_id, message: "Can't be in the same band twice" }
   
   belongs_to :band
-  belongs_to :member, class_name: :User, foreign_key: :member_id, primary_key: :id
+  belongs_to :member, class_name: :User, foreign_key: :member_id
+
+  def self.find_by_credentials(band_id, member_id)
+    BandMembership.where(band_id: band_id).where(member_id: member_id).first
+  end
 end

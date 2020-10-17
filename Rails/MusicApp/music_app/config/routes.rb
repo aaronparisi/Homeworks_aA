@@ -17,7 +17,7 @@ Rails.application.routes.draw do
     get '/members', to: 'users#index', as: 'members'
     get '/add_members', to: 'band_memberships#new', as: 'member_add'
     post '/add_members', to: 'band_memberships#create'
-    delete '/member/:member_id', to: 'band_memberships#destroy', as: 'member_kick_out'
+    delete '/member/:member_id', to: 'band_memberships#destroy', as: 'member_leave'
   end
 
   resources :albums, only: [:show, :destroy] do

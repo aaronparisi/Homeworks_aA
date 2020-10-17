@@ -4,7 +4,7 @@ class BandsController < ApplicationController
   before_action :require_band_membership, only: [:edit, :update, :destroy]
 
   def index
-    if params[:usr_id]
+    if params[:user_id]
       # index page for bands a user's bands
       @bands = User.find(params[:user_id]).bands
     else

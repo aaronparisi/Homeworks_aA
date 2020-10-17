@@ -17,7 +17,7 @@ class Band < ApplicationRecord
   has_many :albums, dependent: :destroy
   has_many :tracks, through: :albums
 
-  has_many :band_memberships
+  has_many :band_memberships, class_name: :BandMembership, foreign_key: :band_id
   has_many :members, through: :band_memberships
 
   def has_member?(user)

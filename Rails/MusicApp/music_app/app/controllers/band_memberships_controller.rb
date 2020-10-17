@@ -1,4 +1,7 @@
 class BandMembershipsController < ApplicationController
+  before_action :require_band_membership
+  # before_action :require_this_logged_in, only: [:destroy]
+
   def new
     @band = Band.find(params[:band_id])
     # @membership = BandMembership.new
@@ -24,6 +27,20 @@ class BandMembershipsController < ApplicationController
   end
 
   def destroy
+    @to_destroy = BandMembership.find_by_credentials(
+      params[:band_id].to_i,
+      params[:member_id].to_i
+    )
+    
+    if @to_destroy.nil?
+      redirect_to root_path, notice: "this should not happen, something is wrong"
+    else
+      if @to_destroy.destroy
+        redirect_to root_path, notice: "left band"
+      else
+        redirect_to root_path, notice: "didn't leave band"
+      end
+    end
   end
 
   private
