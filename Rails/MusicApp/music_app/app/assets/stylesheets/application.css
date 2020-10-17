@@ -30,13 +30,6 @@
    font-size: 40px;
  }
 
- input[type="text"] {
-  padding: 5px;
-  -webkit-box-sizing: border-box; /* Safari/Chrome, other WebKit */
-  -moz-box-sizing: border-box;    /* Firefox, other Gecko */
-  box-sizing: border-box;         /* Opera/IE 8+ */
-}
-
  body {
    background-color: #0E0E0E;
    display: flex;
@@ -123,7 +116,12 @@
  input[type="text"], input[type="password"] {
    color: black;
    height: 30px;
-   width: 70%;
+   width: 60%;
+   padding: 5px;
+   -webkit-box-sizing: border-box; /* Safari/Chrome, other WebKit */
+   -moz-box-sizing: border-box;    /* Firefox, other Gecko */
+   box-sizing: border-box;         /* Opera/IE 8+ */
+   background-color: #907D47;
  }
 
  .button {
@@ -135,7 +133,7 @@
  }
 
  .app-form {
-   width: 40%;
+   width: 55%;
  }
 
  form {
@@ -143,17 +141,14 @@
    flex-direction: column;
    align-content: space-between;
    color: white;
-   /* margin: 1px solid red; */
  }
 
  .fields, .actions {
    display: flex;
+   flex-direction: column;
    justify-content: space-between;
+   align-items: center;
    margin-bottom: 20px;
- }
-
- .actions {
-   align-self: flex-end;
  }
 
  ul {

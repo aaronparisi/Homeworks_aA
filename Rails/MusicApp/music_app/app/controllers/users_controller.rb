@@ -18,13 +18,13 @@ class UsersController < ApplicationController
 
   def create
     @user = User.new(user_params)
-
+    
     if @user.save
       login!(@user)
       # session[:session_token] = @user.session_token <= done in login!()
       redirect_to root_path, notice: "logged in!"
     else
-      redirect_to new_user_path
+      redirect_to new_user_path, notice: "something is wrong"
     end
   end
 
