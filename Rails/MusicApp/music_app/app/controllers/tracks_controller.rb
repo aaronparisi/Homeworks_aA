@@ -20,7 +20,7 @@ class TracksController < ApplicationController
     @track.album_id ||= params[:album_id]
 
     if @track.save
-      redirect_to album_path(@track.album), notice: "track created"
+      redirect_to album_path(@track.album)# , notice: "track created"
     else
       render :new
     end

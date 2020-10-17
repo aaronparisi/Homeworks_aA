@@ -19,4 +19,9 @@ class Band < ApplicationRecord
 
   has_many :band_memberships
   has_many :members, through: :band_memberships
+
+  def has_member?(user)
+    self.members.pluck(:id).include?(user.id)
+  end
+  
 end

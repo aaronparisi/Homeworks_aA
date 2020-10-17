@@ -1,9 +1,14 @@
-<h2 class="body-content-main-header">All Users</h2>
+<h2 class="body-content-main-header"><%= @band.name %></h2>
 
-<ul>
-  
+<h3 class="body-content-sub-header">Members</h3>
+<div class="content-grid" id="band-index">
   <% @users.each do |user| %>
-    <li><%= link_to user.username, user_path(user) %></li>
+      <%= link_to user.username, user_path(user), class: "grid-item content-button", id: "user-link" %>
   <% end %>
-  
-</ul>
+</div>
+
+<h3 class="body-content-links-header">Links</h3>
+<div class="content-grid resource-links" id="member-index-links">
+  <%# link_to "Invite Member", .........................., class: "button" %>
+  <%= link_to "Back to #{@band.name}", band_path(@band), class: "button" %>
+</div>

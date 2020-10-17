@@ -7,7 +7,9 @@
   <% @tracks.each do |track| %>
     <li><div class="list-info"><%= track.name %></div><div class="list-links"><%= link_to 'Delete', track_path(track), method: :delete, class: "tiny-button" %></div></li>
   <% end %>
-  
+  <% if current_user.in_the_band?(@album)%>
+    <%= render 'tracks/form', track: Track.new, album: @album %>
+  <% end %>
 </ol>
 
 <h3 class="body-content-links-header">Links</h3>

@@ -39,7 +39,7 @@ class ApplicationController < ActionController::Base
   end
 
   def require_band_membership
-    unless Band.find(params[:band_id]).members.pluck(:id).include?(current_user.id)
+    unless Band.find(params[:band_id]).has_member?(current_user)
       redirect_to root_path, notice: "Only band members can do that"
     end
   end

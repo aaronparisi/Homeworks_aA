@@ -60,7 +60,17 @@ class User < ApplicationRecord
     self.save!
     self.session_token
   end
+  
+  def in_the_band?(band_or_album)
+    if band_or_album.class == Album
+      band = band_or_album.band
+    else
+      band = band_or_album
+    end
 
+    band.has_member?(self)
+  end
+  
   private
   
   def ensure_session_token

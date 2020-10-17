@@ -13,7 +13,12 @@ class UsersController < ApplicationController
   end
 
   def index
-    @users = User.all
+    if params[:band_id]
+      @band = Band.find(params[:band_id])
+      @users = @band.members
+    else
+      @users = User.all
+    end
   end
 
   def show

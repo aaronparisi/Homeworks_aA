@@ -1,5 +1,5 @@
 Rails.application.routes.draw do
-  resources :users do
+  resources :users, except: [:index] do
     resources :bands, except: [:show]
   end
 
@@ -11,6 +11,7 @@ Rails.application.routes.draw do
 
   resources :bands, only: [:index, :show] do
     resources :albums, except: [:show, :destroy]
+    get '/members', to: 'users#index', as: 'members'
   end
 
   resources :albums, only: [:show, :destroy] do
