@@ -2,14 +2,14 @@
   <%= form_for([band, album]) do |f| %>
     <%= render_errors(album) %>
 
-    <%# <%= f.hidden_field :band_id, band.id %> %>
+    <%# f.hidden_field :band_id, band.id %>
 
     <div class="fields">
       <%= f.label :name %>
       <%= f.text_field :name %>
     </div>
 
-    <div class="actions button">
+    <div class="actions">
       <%= f.submit "Add Album", class: "button", style: 'font-size: 18px; font-weight: 100' %>
     </div>
     

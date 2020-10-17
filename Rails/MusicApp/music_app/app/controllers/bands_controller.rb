@@ -1,6 +1,7 @@
 class BandsController < ApplicationController
   before_action :find_band, except: [:index, :new, :create]
   before_action :require_any_logged_in
+  before_action :require_band_membership, only: [:edit, :update, :destroy]
 
   def index
     if params[:usr_id]
@@ -28,7 +29,7 @@ class BandsController < ApplicationController
         band_id: @band.id,
         member_id: params[:user_id],
         instrument: params[:instrument]
-      )
+      ).save
       redirect_to band_path(@band), notice: "band created"
     else
       render :new

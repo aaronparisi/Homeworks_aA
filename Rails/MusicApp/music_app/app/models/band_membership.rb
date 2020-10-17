@@ -20,7 +20,7 @@
 #  fk_rails_...  (member_id => users.id)
 #
 class BandMembership < ApplicationRecord
-  validates :instrument, presence: true
+  # validates :instrument, presence: true
   
   belongs_to :band
   belongs_to :member, class_name: :User, foreign_key: :member_id, primary_key: :id

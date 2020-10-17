@@ -38,6 +38,12 @@ class ApplicationController < ActionController::Base
     redirect_to root_path, notice: "Logout before creating a new user" unless ! user_logged_in?
   end
 
+  def require_band_membership
+    unless Band.find(params[:band_id]).members.pluck(:id).include?(current_user.id)
+      redirect_to root_path, notice: "Only band members can do that"
+    end
+  end
+  
   def logging_in?
     params[:controller] == 'sessions' && params[:action] == 'new'
   end

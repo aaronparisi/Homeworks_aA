@@ -1,5 +1,6 @@
 class AlbumsController < ApplicationController
   before_action :find_album, except: [:index, :new, :create]
+  before_action :require_band_membership, except: [:index, :show]
 
   def index
     @album = Album.where(band_id: params[:band_id])
