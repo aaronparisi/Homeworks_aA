@@ -1,5 +1,7 @@
 Rails.application.routes.draw do
-  resources :users
+  resources :users do
+    resources :bands, except: [:show]
+  end
 
   controller :sessions do
     get '/login', to: 'sessions#new', as: 'login'
@@ -7,7 +9,7 @@ Rails.application.routes.draw do
     delete '/logout', to: 'sessions#destroy', as: 'logout'
   end
 
-  resources :bands do
+  resources :bands, only: [:index, :show] do
     resources :albums, except: [:show, :destroy]
   end
 
@@ -17,6 +19,6 @@ Rails.application.routes.draw do
 
   resources :tracks, only: [:show, :destroy]
 
-  root to: 'bands#index'
+  root to: 'users#welcome'
   # For details on the DSL available within this file, see http://guides.rubyonrails.org/routing.html
 end

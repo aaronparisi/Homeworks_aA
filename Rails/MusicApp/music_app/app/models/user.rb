@@ -24,6 +24,9 @@ class User < ApplicationRecord
 
   after_initialize :ensure_session_token
 
+  has_many :band_memberships
+  has_many :bands, through: :band_memberships
+
   def self.find_by_credentials(email, password)
     ret = User.find_by(email: email)
     return nil if ret.nil?

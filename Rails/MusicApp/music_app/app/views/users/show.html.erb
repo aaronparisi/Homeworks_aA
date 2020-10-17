@@ -1,13 +1,12 @@
-<h2>A User</h2>
+<h2 class="body-content-main-header"><%= @user.username %></h2>
 
-<table>
-  <tr>
-    <th>Username</th>
-    <th>Email</th>
-  </tr>
+<div class="content-grid" id="album-index">
+  <%= link_to 'Your Bands', user_bands_path(@user), class: "grid-item content-button", id: "user-bands-link" %>
+  <%# link_to 'Your Content', ..........................., class: "grid-item content-button", id: "user-content-link" %>
+</div>
 
-  <tr>
-    <td><%= @user.username %></td>
-    <td><%= @user.email %></td>
-  </tr>
-</table>
+<h3 class="body-content-links-header">Links</h3>
+<div class="content-grid resource-links" id="band-links">
+  <%= link_to "Add Band", new_user_band_path(@user), class: "button" %>
+  <%= link_to "All Bands", bands_path, class: "button" %>
+</div>

@@ -4,6 +4,14 @@ class UsersController < ApplicationController
   before_action :require_this_logged_in, only: [:show, :edit, :update, :destroy]
   before_action :require_logged_out, only: [:new, :create]
 
+  def welcome
+    if current_user
+      redirect_to user_path(current_user)
+    else
+      redirect_to login_path
+    end
+  end
+
   def index
     @users = User.all
   end
