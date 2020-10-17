@@ -4964,3 +4964,472 @@ Processing by BandsController#index as HTML
 Completed 200 OK in 87ms (Views: 70.7ms | ActiveRecord: 14.1ms)
 
 
+Started DELETE "/logout" for ::1 at 2020-10-16 17:01:51 -0700
+Processing by SessionsController#destroy as HTML
+  Parameters: {"authenticity_token"=>"6COAgnEJiTlqXm6CKh+XhFEPmN8ENr6JT73JJLhFGfGPygnjm4Bb8fw19fdD5tkC3NVxSNyRfgbddogKSFv2ng=="}
+  [1m[36mUser Load (0.5ms)[0m  [1m[34mSELECT  "users".* FROM "users" WHERE "users"."session_token" = $1 LIMIT $2[0m  [["session_token", "yNTBXGbZ2T4QOJT37EMRFg"], ["LIMIT", 1]]
+  ↳ app/controllers/application_controller.rb:25
+  [1m[35m (0.3ms)[0m  [1m[35mBEGIN[0m
+  ↳ app/models/user.rb:57
+  [1m[36mUser Exists (0.6ms)[0m  [1m[34mSELECT  1 AS one FROM "users" WHERE "users"."username" = $1 AND "users"."id" != $2 LIMIT $3[0m  [["username", "aaronparisi"], ["id", 2], ["LIMIT", 1]]
+  ↳ app/models/user.rb:57
+  [1m[36mUser Exists (1.0ms)[0m  [1m[34mSELECT  1 AS one FROM "users" WHERE "users"."email" = $1 AND "users"."id" != $2 LIMIT $3[0m  [["email", "parisi.aaron@gmail.com"], ["id", 2], ["LIMIT", 1]]
+  ↳ app/models/user.rb:57
+  [1m[36mUser Update (0.6ms)[0m  [1m[33mUPDATE "users" SET "session_token" = $1, "updated_at" = $2 WHERE "users"."id" = $3[0m  [["session_token", "NUK6g0LGuQWbmpqKR2e8Tg"], ["updated_at", "2020-10-17 00:01:51.772127"], ["id", 2]]
+  ↳ app/models/user.rb:57
+  [1m[35m (0.4ms)[0m  [1m[35mCOMMIT[0m
+  ↳ app/models/user.rb:57
+Redirected to http://localhost:3000/
+Completed 302 Found in 12ms (ActiveRecord: 3.4ms)
+
+
+Started GET "/" for ::1 at 2020-10-16 17:01:51 -0700
+Processing by BandsController#index as HTML
+  [1m[36mUser Load (0.3ms)[0m  [1m[34mSELECT  "users".* FROM "users" WHERE "users"."session_token" IS NULL LIMIT $1[0m  [["LIMIT", 1]]
+  ↳ app/controllers/application_controller.rb:25
+Redirected to http://localhost:3000/login
+Filter chain halted as :require_any_logged_in rendered or redirected
+Completed 302 Found in 2ms (ActiveRecord: 0.3ms)
+
+
+Started GET "/login" for ::1 at 2020-10-16 17:01:51 -0700
+Processing by SessionsController#new as HTML
+  [1m[36mUser Load (1.3ms)[0m  [1m[34mSELECT  "users".* FROM "users" WHERE "users"."session_token" IS NULL LIMIT $1[0m  [["LIMIT", 1]]
+  ↳ app/controllers/application_controller.rb:25
+  [1m[36mUser Exists (2.5ms)[0m  [1m[34mSELECT  1 AS one FROM "users" LIMIT $1[0m  [["LIMIT", 1]]
+  ↳ app/controllers/sessions_controller.rb:4
+  [1m[36mCACHE User Load (0.1ms)[0m  [1m[34mSELECT  "users".* FROM "users" WHERE "users"."session_token" IS NULL LIMIT $1[0m  [["LIMIT", 1]]
+  ↳ app/controllers/application_controller.rb:25
+  Rendering sessions/new.html.erb within layouts/application
+  Rendered sessions/_form.html.erb (4.7ms)
+  Rendered sessions/new.html.erb within layouts/application (9.1ms)
+Completed 200 OK in 87ms (Views: 61.5ms | ActiveRecord: 4.0ms)
+
+
+Started POST "/login" for ::1 at 2020-10-16 17:02:44 -0700
+Processing by SessionsController#create as JS
+  Parameters: {"utf8"=>"✓", "authenticity_token"=>"T+F60V1TU7IeaWWlCK3iOs2vRKy/mEL7w/C0bqbcErIoCPOwt9qBeogC/tBhVKy8QHWtO2c/gnRRO/VAVsL93Q==", "email"=>"parisi.aaron@gmail.com", "password"=>"[FILTERED]", "commit"=>"Submit"}
+  [1m[36mUser Load (0.2ms)[0m  [1m[34mSELECT  "users".* FROM "users" WHERE "users"."session_token" IS NULL LIMIT $1[0m  [["LIMIT", 1]]
+  ↳ app/controllers/application_controller.rb:25
+  [1m[36mUser Load (0.3ms)[0m  [1m[34mSELECT  "users".* FROM "users" WHERE "users"."email" = $1 LIMIT $2[0m  [["email", "parisi.aaron@gmail.com"], ["LIMIT", 1]]
+  ↳ app/models/user.rb:28
+Redirected to http://localhost:3000/
+Completed 200 OK in 261ms (ActiveRecord: 6.2ms)
+
+
+Started GET "/" for ::1 at 2020-10-16 17:02:45 -0700
+Processing by BandsController#index as HTML
+  [1m[36mUser Load (6.2ms)[0m  [1m[34mSELECT  "users".* FROM "users" WHERE "users"."session_token" = $1 LIMIT $2[0m  [["session_token", "NUK6g0LGuQWbmpqKR2e8Tg"], ["LIMIT", 1]]
+  ↳ app/controllers/application_controller.rb:25
+  Rendering bands/index.html.erb within layouts/application
+  [1m[36mBand Load (7.7ms)[0m  [1m[34mSELECT "bands".* FROM "bands"[0m
+  ↳ app/views/bands/index.html.erb:4
+  Rendered bands/index.html.erb within layouts/application (57.2ms)
+Completed 200 OK in 161ms (Views: 99.2ms | ActiveRecord: 52.9ms)
+
+
+Started DELETE "/logout" for ::1 at 2020-10-16 17:02:47 -0700
+Processing by SessionsController#destroy as HTML
+  Parameters: {"authenticity_token"=>"A2zWsrvwcD/VFFxcL0E7exEDmCJxtjSlEA8TWQm3jTlkhV/TUXmi90N/xylGuHX9nNlxtakR9CqCxFJ3+aliVg=="}
+  [1m[36mUser Load (0.2ms)[0m  [1m[34mSELECT  "users".* FROM "users" WHERE "users"."session_token" = $1 LIMIT $2[0m  [["session_token", "NUK6g0LGuQWbmpqKR2e8Tg"], ["LIMIT", 1]]
+  ↳ app/controllers/application_controller.rb:25
+  [1m[35m (0.2ms)[0m  [1m[35mBEGIN[0m
+  ↳ app/models/user.rb:57
+  [1m[36mUser Exists (0.4ms)[0m  [1m[34mSELECT  1 AS one FROM "users" WHERE "users"."username" = $1 AND "users"."id" != $2 LIMIT $3[0m  [["username", "aaronparisi"], ["id", 2], ["LIMIT", 1]]
+  ↳ app/models/user.rb:57
+  [1m[36mUser Exists (0.4ms)[0m  [1m[34mSELECT  1 AS one FROM "users" WHERE "users"."email" = $1 AND "users"."id" != $2 LIMIT $3[0m  [["email", "parisi.aaron@gmail.com"], ["id", 2], ["LIMIT", 1]]
+  ↳ app/models/user.rb:57
+  [1m[36mUser Update (0.7ms)[0m  [1m[33mUPDATE "users" SET "session_token" = $1, "updated_at" = $2 WHERE "users"."id" = $3[0m  [["session_token", "YuLQGOhm7KY5eT8KDlmc3Q"], ["updated_at", "2020-10-17 00:02:47.048256"], ["id", 2]]
+  ↳ app/models/user.rb:57
+  [1m[35m (1.2ms)[0m  [1m[35mCOMMIT[0m
+  ↳ app/models/user.rb:57
+Redirected to http://localhost:3000/login
+Completed 302 Found in 10ms (ActiveRecord: 3.2ms)
+
+
+Started GET "/login" for ::1 at 2020-10-16 17:02:47 -0700
+Processing by SessionsController#new as HTML
+  [1m[36mUser Load (0.4ms)[0m  [1m[34mSELECT  "users".* FROM "users" WHERE "users"."session_token" IS NULL LIMIT $1[0m  [["LIMIT", 1]]
+  ↳ app/controllers/application_controller.rb:25
+  [1m[36mUser Exists (0.9ms)[0m  [1m[34mSELECT  1 AS one FROM "users" LIMIT $1[0m  [["LIMIT", 1]]
+  ↳ app/controllers/sessions_controller.rb:4
+  [1m[36mCACHE User Load (0.0ms)[0m  [1m[34mSELECT  "users".* FROM "users" WHERE "users"."session_token" IS NULL LIMIT $1[0m  [["LIMIT", 1]]
+  ↳ app/controllers/application_controller.rb:25
+  Rendering sessions/new.html.erb within layouts/application
+  Rendered sessions/_form.html.erb (1.3ms)
+  Rendered sessions/new.html.erb within layouts/application (2.8ms)
+Completed 200 OK in 40ms (Views: 34.0ms | ActiveRecord: 1.3ms)
+
+
+Started GET "/login" for ::1 at 2020-10-16 17:02:50 -0700
+Processing by SessionsController#new as HTML
+  [1m[36mUser Load (0.3ms)[0m  [1m[34mSELECT  "users".* FROM "users" WHERE "users"."session_token" IS NULL LIMIT $1[0m  [["LIMIT", 1]]
+  ↳ app/controllers/application_controller.rb:25
+  [1m[36mUser Exists (0.4ms)[0m  [1m[34mSELECT  1 AS one FROM "users" LIMIT $1[0m  [["LIMIT", 1]]
+  ↳ app/controllers/sessions_controller.rb:4
+  [1m[36mCACHE User Load (0.0ms)[0m  [1m[34mSELECT  "users".* FROM "users" WHERE "users"."session_token" IS NULL LIMIT $1[0m  [["LIMIT", 1]]
+  ↳ app/controllers/application_controller.rb:25
+  Rendering sessions/new.html.erb within layouts/application
+  Rendered sessions/_form.html.erb (2.2ms)
+  Rendered sessions/new.html.erb within layouts/application (3.8ms)
+Completed 200 OK in 38ms (Views: 32.6ms | ActiveRecord: 0.7ms)
+
+
+Started POST "/login" for ::1 at 2020-10-16 17:02:52 -0700
+Processing by SessionsController#create as JS
+  Parameters: {"utf8"=>"✓", "authenticity_token"=>"8nKQVyhrtqI2gsqw8YPbUxUSIllEt8JNqHOW9xH7dhWVmxk2wuJkaqDpUcWYepXVmMjLzpwQAsI6uNfZ4eWZeg==", "email"=>"", "password"=>"[FILTERED]", "commit"=>"Submit"}
+  [1m[36mUser Load (0.2ms)[0m  [1m[34mSELECT  "users".* FROM "users" WHERE "users"."session_token" IS NULL LIMIT $1[0m  [["LIMIT", 1]]
+  ↳ app/controllers/application_controller.rb:25
+  [1m[36mUser Load (0.3ms)[0m  [1m[34mSELECT  "users".* FROM "users" WHERE "users"."email" = $1 LIMIT $2[0m  [["email", ""], ["LIMIT", 1]]
+  ↳ app/models/user.rb:28
+  Rendering sessions/new.html.erb within layouts/application
+  Rendered sessions/_form.html.erb (1.7ms)
+  Rendered sessions/new.html.erb within layouts/application (10.9ms)
+Completed 200 OK in 63ms (Views: 60.4ms | ActiveRecord: 0.5ms)
+
+
+Started POST "/login" for ::1 at 2020-10-16 17:02:54 -0700
+Processing by SessionsController#create as JS
+  Parameters: {"utf8"=>"✓", "authenticity_token"=>"8nKQVyhrtqI2gsqw8YPbUxUSIllEt8JNqHOW9xH7dhWVmxk2wuJkaqDpUcWYepXVmMjLzpwQAsI6uNfZ4eWZeg==", "email"=>"", "password"=>"[FILTERED]", "commit"=>"Submit"}
+  [1m[36mUser Load (0.3ms)[0m  [1m[34mSELECT  "users".* FROM "users" WHERE "users"."session_token" IS NULL LIMIT $1[0m  [["LIMIT", 1]]
+  ↳ app/controllers/application_controller.rb:25
+  [1m[36mUser Load (0.9ms)[0m  [1m[34mSELECT  "users".* FROM "users" WHERE "users"."email" = $1 LIMIT $2[0m  [["email", ""], ["LIMIT", 1]]
+  ↳ app/models/user.rb:28
+  Rendering sessions/new.html.erb within layouts/application
+  Rendered sessions/_form.html.erb (1.1ms)
+  Rendered sessions/new.html.erb within layouts/application (5.1ms)
+Completed 200 OK in 40ms (Views: 35.8ms | ActiveRecord: 1.2ms)
+
+
+Started POST "/login" for ::1 at 2020-10-16 17:02:55 -0700
+Processing by SessionsController#create as JS
+  Parameters: {"utf8"=>"✓", "authenticity_token"=>"8nKQVyhrtqI2gsqw8YPbUxUSIllEt8JNqHOW9xH7dhWVmxk2wuJkaqDpUcWYepXVmMjLzpwQAsI6uNfZ4eWZeg==", "email"=>"", "password"=>"[FILTERED]", "commit"=>"Submit"}
+  [1m[36mUser Load (0.2ms)[0m  [1m[34mSELECT  "users".* FROM "users" WHERE "users"."session_token" IS NULL LIMIT $1[0m  [["LIMIT", 1]]
+  ↳ app/controllers/application_controller.rb:25
+  [1m[36mUser Load (0.5ms)[0m  [1m[34mSELECT  "users".* FROM "users" WHERE "users"."email" = $1 LIMIT $2[0m  [["email", ""], ["LIMIT", 1]]
+  ↳ app/models/user.rb:28
+  Rendering sessions/new.html.erb within layouts/application
+  Rendered sessions/_form.html.erb (1.2ms)
+  Rendered sessions/new.html.erb within layouts/application (5.8ms)
+Completed 200 OK in 46ms (Views: 42.6ms | ActiveRecord: 0.8ms)
+
+
+Started GET "/users/new" for ::1 at 2020-10-16 17:02:57 -0700
+Processing by UsersController#new as HTML
+  [1m[36mUser Load (5.2ms)[0m  [1m[34mSELECT  "users".* FROM "users" WHERE "users"."session_token" IS NULL LIMIT $1[0m  [["LIMIT", 1]]
+  ↳ app/controllers/application_controller.rb:25
+  Rendering users/new.html.erb within layouts/application
+  Rendered users/_form.html.erb (19.8ms)
+  Rendered users/new.html.erb within layouts/application (29.2ms)
+Completed 200 OK in 104ms (Views: 94.2ms | ActiveRecord: 5.2ms)
+
+
+Started GET "/users/new" for ::1 at 2020-10-16 17:03:47 -0700
+Processing by UsersController#new as HTML
+  [1m[36mUser Load (0.2ms)[0m  [1m[34mSELECT  "users".* FROM "users" WHERE "users"."session_token" IS NULL LIMIT $1[0m  [["LIMIT", 1]]
+  ↳ app/controllers/application_controller.rb:25
+  Rendering users/new.html.erb within layouts/application
+  Rendered users/_form.html.erb (5.7ms)
+  Rendered users/new.html.erb within layouts/application (7.1ms)
+Completed 500 Internal Server Error in 233ms (ActiveRecord: 5.9ms)
+
+
+
+NoMethodError - undefined method `signing_up?' for #<#<Class:0x00007fbab5a90f48>:0x00007fbab4e472c8>:
+  app/views/layouts/application.html.erb:18:in `_app_views_layouts_application_html_erb__2205172521446684692_57380'
+
+Started POST "/__better_errors/af2aedec645b7f96/variables" for ::1 at 2020-10-16 17:03:48 -0700
+Started GET "/users/new" for ::1 at 2020-10-16 17:03:58 -0700
+Processing by UsersController#new as HTML
+  [1m[36mUser Load (1.6ms)[0m  [1m[34mSELECT  "users".* FROM "users" WHERE "users"."session_token" IS NULL LIMIT $1[0m  [["LIMIT", 1]]
+  ↳ app/controllers/application_controller.rb:26
+  Rendering users/new.html.erb within layouts/application
+  Rendered users/_form.html.erb (3.6ms)
+  Rendered users/new.html.erb within layouts/application (6.0ms)
+Completed 200 OK in 63ms (Views: 39.6ms | ActiveRecord: 9.6ms)
+
+
+Started GET "/users/new" for ::1 at 2020-10-16 17:04:35 -0700
+Processing by UsersController#new as HTML
+  [1m[36mUser Load (0.5ms)[0m  [1m[34mSELECT  "users".* FROM "users" WHERE "users"."session_token" IS NULL LIMIT $1[0m  [["LIMIT", 1]]
+  ↳ app/controllers/application_controller.rb:26
+  Rendering users/new.html.erb within layouts/application
+  Rendered users/_form.html.erb (2.9ms)
+  Rendered users/new.html.erb within layouts/application (4.1ms)
+Completed 200 OK in 50ms (Views: 46.7ms | ActiveRecord: 0.5ms)
+
+
+Started GET "/users/new" for ::1 at 2020-10-16 17:05:55 -0700
+Processing by UsersController#new as HTML
+  [1m[36mUser Load (0.8ms)[0m  [1m[34mSELECT  "users".* FROM "users" WHERE "users"."session_token" IS NULL LIMIT $1[0m  [["LIMIT", 1]]
+  ↳ app/controllers/application_controller.rb:26
+  Rendering users/new.html.erb within layouts/application
+  Rendered users/_form.html.erb (2.9ms)
+  Rendered users/new.html.erb within layouts/application (3.9ms)
+Completed 200 OK in 68ms (Views: 63.7ms | ActiveRecord: 0.8ms)
+
+
+Started GET "/users/new" for ::1 at 2020-10-16 17:07:27 -0700
+Processing by UsersController#new as HTML
+  [1m[36mUser Load (0.2ms)[0m  [1m[34mSELECT  "users".* FROM "users" WHERE "users"."session_token" IS NULL LIMIT $1[0m  [["LIMIT", 1]]
+  ↳ app/controllers/application_controller.rb:26
+  Rendering users/new.html.erb within layouts/application
+  Rendered users/_form.html.erb (4.4ms)
+  Rendered users/new.html.erb within layouts/application (5.4ms)
+Completed 200 OK in 118ms (Views: 98.7ms | ActiveRecord: 6.9ms)
+
+
+Started POST "/users" for ::1 at 2020-10-16 17:07:31 -0700
+Processing by UsersController#create as HTML
+  Parameters: {"utf8"=>"✓", "authenticity_token"=>"K1sr6iThfn5LkouyCBfGpEQLk6FUiXmfMOsQ/A8A7UNMsqKLzmistt35EMdh7ogiydF6NowuuRCiIFHS/x4CLA==", "user"=>{"username"=>"", "email"=>"", "password"=>"[FILTERED]", "password_confirmation"=>"[FILTERED]"}, "commit"=>"Create User"}
+  [1m[36mUser Load (1.9ms)[0m  [1m[34mSELECT  "users".* FROM "users" WHERE "users"."session_token" IS NULL LIMIT $1[0m  [["LIMIT", 1]]
+  ↳ app/controllers/application_controller.rb:26
+  [1m[35m (0.2ms)[0m  [1m[35mBEGIN[0m
+  ↳ app/controllers/users_controller.rb:22
+  [1m[36mUser Exists (0.4ms)[0m  [1m[34mSELECT  1 AS one FROM "users" WHERE "users"."username" = $1 LIMIT $2[0m  [["username", ""], ["LIMIT", 1]]
+  ↳ app/controllers/users_controller.rb:22
+  [1m[36mUser Exists (0.5ms)[0m  [1m[34mSELECT  1 AS one FROM "users" WHERE "users"."email" = $1 LIMIT $2[0m  [["email", ""], ["LIMIT", 1]]
+  ↳ app/controllers/users_controller.rb:22
+  [1m[35m (0.2ms)[0m  [1m[31mROLLBACK[0m
+  ↳ app/controllers/users_controller.rb:22
+  Rendering users/new.html.erb within layouts/application
+  Rendered users/_form.html.erb (2.9ms)
+  Rendered users/new.html.erb within layouts/application (3.8ms)
+Completed 200 OK in 293ms (Views: 30.1ms | ActiveRecord: 3.3ms)
+
+
+Started POST "/users" for ::1 at 2020-10-16 17:07:46 -0700
+Processing by UsersController#create as HTML
+  Parameters: {"utf8"=>"✓", "authenticity_token"=>"aFvJrumViBY5hcn34EoQoDbWlqHqGU/8BlslrnI5BBcPskDPAxxa3q/uUoKJs14muwx/NjK+j3OUkGSAgifreA==", "user"=>{"username"=>"", "email"=>"", "password"=>"[FILTERED]", "password_confirmation"=>"[FILTERED]"}, "commit"=>"Create User"}
+  [1m[36mUser Load (0.8ms)[0m  [1m[34mSELECT  "users".* FROM "users" WHERE "users"."session_token" IS NULL LIMIT $1[0m  [["LIMIT", 1]]
+  ↳ app/controllers/application_controller.rb:26
+  [1m[35m (0.2ms)[0m  [1m[35mBEGIN[0m
+  ↳ app/controllers/users_controller.rb:22
+  [1m[36mUser Exists (0.4ms)[0m  [1m[34mSELECT  1 AS one FROM "users" WHERE "users"."username" = $1 LIMIT $2[0m  [["username", ""], ["LIMIT", 1]]
+  ↳ app/controllers/users_controller.rb:22
+  [1m[36mUser Exists (0.3ms)[0m  [1m[34mSELECT  1 AS one FROM "users" WHERE "users"."email" = $1 LIMIT $2[0m  [["email", ""], ["LIMIT", 1]]
+  ↳ app/controllers/users_controller.rb:22
+  [1m[35m (0.2ms)[0m  [1m[31mROLLBACK[0m
+  ↳ app/controllers/users_controller.rb:22
+  Rendering users/new.html.erb within layouts/application
+  Rendered users/_form.html.erb (3.0ms)
+  Rendered users/new.html.erb within layouts/application (4.0ms)
+Completed 200 OK in 293ms (Views: 30.6ms | ActiveRecord: 1.9ms)
+
+
+Started GET "/users/new" for ::1 at 2020-10-16 17:07:55 -0700
+Processing by UsersController#new as HTML
+  [1m[36mUser Load (4.2ms)[0m  [1m[34mSELECT  "users".* FROM "users" WHERE "users"."session_token" IS NULL LIMIT $1[0m  [["LIMIT", 1]]
+  ↳ app/controllers/application_controller.rb:26
+  Rendering users/new.html.erb within layouts/application
+  Rendered users/_form.html.erb (5.8ms)
+  Rendered users/new.html.erb within layouts/application (7.5ms)
+Completed 200 OK in 57ms (Views: 48.4ms | ActiveRecord: 4.2ms)
+
+
+Started GET "/users/new" for ::1 at 2020-10-16 17:08:17 -0700
+
+SyntaxError - syntax error, unexpected backslash, expecting ']'
+...gged_out, only: [:new, :create\]
+...                              ^:
+  app/controllers/users_controller.rb:5:in `'
+
+Started POST "/__better_errors/3269e28b7ad0496b/variables" for ::1 at 2020-10-16 17:08:17 -0700
+Started GET "/users/new" for ::1 at 2020-10-16 17:08:27 -0700
+Processing by UsersController#new as HTML
+  [1m[36mUser Load (0.4ms)[0m  [1m[34mSELECT  "users".* FROM "users" WHERE "users"."session_token" IS NULL LIMIT $1[0m  [["LIMIT", 1]]
+  ↳ app/controllers/application_controller.rb:26
+  Rendering users/new.html.erb within layouts/application
+  Rendered users/_form.html.erb (2.2ms)
+  Rendered users/new.html.erb within layouts/application (3.2ms)
+Completed 200 OK in 59ms (Views: 35.6ms | ActiveRecord: 6.8ms)
+
+
+Started POST "/users" for ::1 at 2020-10-16 17:08:30 -0700
+Processing by UsersController#create as HTML
+  Parameters: {"utf8"=>"✓", "authenticity_token"=>"IjaOnReueR7UnKp8BEfrwQoqAyUQ1MU7Y8Jzja5Pm4FF3wf8/Ser1kL3MQltvqVHh/DqsshzBbTxCTKjXlF07g==", "user"=>{"username"=>"", "email"=>"", "password"=>"[FILTERED]", "password_confirmation"=>"[FILTERED]"}, "commit"=>"Create User"}
+  [1m[36mUser Load (0.9ms)[0m  [1m[34mSELECT  "users".* FROM "users" WHERE "users"."session_token" IS NULL LIMIT $1[0m  [["LIMIT", 1]]
+  ↳ app/controllers/application_controller.rb:26
+  [1m[35m (0.1ms)[0m  [1m[35mBEGIN[0m
+  ↳ app/controllers/users_controller.rb:22
+  [1m[36mUser Exists (0.4ms)[0m  [1m[34mSELECT  1 AS one FROM "users" WHERE "users"."username" = $1 LIMIT $2[0m  [["username", ""], ["LIMIT", 1]]
+  ↳ app/controllers/users_controller.rb:22
+  [1m[36mUser Exists (0.3ms)[0m  [1m[34mSELECT  1 AS one FROM "users" WHERE "users"."email" = $1 LIMIT $2[0m  [["email", ""], ["LIMIT", 1]]
+  ↳ app/controllers/users_controller.rb:22
+  [1m[35m (0.2ms)[0m  [1m[31mROLLBACK[0m
+  ↳ app/controllers/users_controller.rb:22
+Redirected to http://localhost:3000/users/new
+Completed 302 Found in 261ms (ActiveRecord: 1.9ms)
+
+
+Started GET "/users/new" for ::1 at 2020-10-16 17:08:30 -0700
+Processing by UsersController#new as HTML
+  [1m[36mUser Load (0.4ms)[0m  [1m[34mSELECT  "users".* FROM "users" WHERE "users"."session_token" IS NULL LIMIT $1[0m  [["LIMIT", 1]]
+  ↳ app/controllers/application_controller.rb:26
+  Rendering users/new.html.erb within layouts/application
+  Rendered users/_form.html.erb (4.1ms)
+  Rendered users/new.html.erb within layouts/application (5.2ms)
+Completed 200 OK in 40ms (Views: 37.4ms | ActiveRecord: 0.4ms)
+
+
+Started POST "/users" for ::1 at 2020-10-16 17:08:32 -0700
+Processing by UsersController#create as HTML
+  Parameters: {"utf8"=>"✓", "authenticity_token"=>"gzETBFGuT0eIN8wSFhgwkb0mIGWgoiVRDVMdHWYq1bPk2Jpluyedjx5cV2d/4X4XMPzJ8ngF5d6fmFwzljQ63A==", "user"=>{"username"=>"", "email"=>"", "password"=>"[FILTERED]", "password_confirmation"=>"[FILTERED]"}, "commit"=>"Create User"}
+  [1m[36mUser Load (0.4ms)[0m  [1m[34mSELECT  "users".* FROM "users" WHERE "users"."session_token" IS NULL LIMIT $1[0m  [["LIMIT", 1]]
+  ↳ app/controllers/application_controller.rb:26
+  [1m[35m (0.1ms)[0m  [1m[35mBEGIN[0m
+  ↳ app/controllers/users_controller.rb:22
+  [1m[36mUser Exists (0.4ms)[0m  [1m[34mSELECT  1 AS one FROM "users" WHERE "users"."username" = $1 LIMIT $2[0m  [["username", ""], ["LIMIT", 1]]
+  ↳ app/controllers/users_controller.rb:22
+  [1m[36mUser Exists (0.3ms)[0m  [1m[34mSELECT  1 AS one FROM "users" WHERE "users"."email" = $1 LIMIT $2[0m  [["email", ""], ["LIMIT", 1]]
+  ↳ app/controllers/users_controller.rb:22
+  [1m[35m (0.2ms)[0m  [1m[31mROLLBACK[0m
+  ↳ app/controllers/users_controller.rb:22
+Redirected to http://localhost:3000/users/new
+Completed 302 Found in 310ms (ActiveRecord: 1.5ms)
+
+
+Started GET "/users/new" for ::1 at 2020-10-16 17:08:32 -0700
+Processing by UsersController#new as HTML
+  [1m[36mUser Load (0.4ms)[0m  [1m[34mSELECT  "users".* FROM "users" WHERE "users"."session_token" IS NULL LIMIT $1[0m  [["LIMIT", 1]]
+  ↳ app/controllers/application_controller.rb:26
+  Rendering users/new.html.erb within layouts/application
+  Rendered users/_form.html.erb (2.6ms)
+  Rendered users/new.html.erb within layouts/application (8.1ms)
+Completed 200 OK in 53ms (Views: 48.6ms | ActiveRecord: 0.4ms)
+
+
+Started GET "/users/new" for ::1 at 2020-10-16 17:09:42 -0700
+Processing by UsersController#new as HTML
+  [1m[36mUser Load (0.2ms)[0m  [1m[34mSELECT  "users".* FROM "users" WHERE "users"."session_token" IS NULL LIMIT $1[0m  [["LIMIT", 1]]
+  ↳ app/controllers/application_controller.rb:26
+  Rendering users/new.html.erb within layouts/application
+  Rendered users/_form.html.erb (1.0ms)
+  Rendered users/new.html.erb within layouts/application (1.9ms)
+Completed 500 Internal Server Error in 22ms (ActiveRecord: 6.9ms)
+
+
+
+SyntaxError - syntax error, unexpected tLABEL, expecting '='
+...uffer.append=( f.submit, class: "button", style: 'font-size:...
+...                         ^~~~~~
+/Users/aaronparisi/Desktop/CS/AppAcademy2020/Homeworks_aA/Rails/MusicApp/music_app/app/views/users/_form.html.erb:26: syntax error, unexpected ',', expecting ')'
+...nd=( f.submit, class: "button", style: 'font-size: 18px; fon...
+...                              ^:
+  app/views/users/_form.html.erb:26:in `'
+  app/views/users/new.html.erb:3:in `_app_views_users_new_html_erb__2455843399922698958_91160'
+
+Started POST "/__better_errors/81902ff4530dcb0d/variables" for ::1 at 2020-10-16 17:09:43 -0700
+Started GET "/users/new" for ::1 at 2020-10-16 17:09:59 -0700
+Processing by UsersController#new as HTML
+  [1m[36mUser Load (0.6ms)[0m  [1m[34mSELECT  "users".* FROM "users" WHERE "users"."session_token" IS NULL LIMIT $1[0m  [["LIMIT", 1]]
+  ↳ app/controllers/application_controller.rb:26
+  Rendering users/new.html.erb within layouts/application
+  Rendered users/_form.html.erb (2.5ms)
+  Rendered users/new.html.erb within layouts/application (4.6ms)
+Completed 500 Internal Server Error in 14ms (ActiveRecord: 0.6ms)
+
+
+
+SyntaxError - syntax error, unexpected tLABEL, expecting '='
+...uffer.append=( f.submit, class: "button", style: 'font-size:...
+...                         ^~~~~~
+/Users/aaronparisi/Desktop/CS/AppAcademy2020/Homeworks_aA/Rails/MusicApp/music_app/app/views/users/_form.html.erb:26: syntax error, unexpected ',', expecting ')'
+...nd=( f.submit, class: "button", style: 'font-size: 18px; fon...
+...                              ^:
+  app/views/users/_form.html.erb:26:in `'
+  app/views/users/new.html.erb:3:in `_app_views_users_new_html_erb__2455843399922698958_91260'
+
+Started POST "/__better_errors/a0eb121b1c29a5d5/variables" for ::1 at 2020-10-16 17:09:59 -0700
+Started GET "/users/new" for ::1 at 2020-10-16 17:11:08 -0700
+Processing by UsersController#new as HTML
+  [1m[36mUser Load (0.9ms)[0m  [1m[34mSELECT  "users".* FROM "users" WHERE "users"."session_token" IS NULL LIMIT $1[0m  [["LIMIT", 1]]
+  ↳ app/controllers/application_controller.rb:26
+  Rendering users/new.html.erb within layouts/application
+  Rendered users/_form.html.erb (1.1ms)
+  Rendered users/new.html.erb within layouts/application (1.9ms)
+Completed 500 Internal Server Error in 7ms (ActiveRecord: 0.9ms)
+
+
+
+SyntaxError - syntax error, unexpected tLABEL, expecting '='
+...uffer.append=( f.submit, class: "button", style: 'font-size:...
+...                         ^~~~~~
+/Users/aaronparisi/Desktop/CS/AppAcademy2020/Homeworks_aA/Rails/MusicApp/music_app/app/views/users/_form.html.erb:26: syntax error, unexpected ',', expecting ')'
+...nd=( f.submit, class: "button", style: 'font-size: 18px; fon...
+...                              ^:
+  app/views/users/_form.html.erb:26:in `'
+  app/views/users/new.html.erb:3:in `_app_views_users_new_html_erb__2455843399922698958_91340'
+
+Started POST "/__better_errors/b45d8f8440b87620/variables" for ::1 at 2020-10-16 17:11:09 -0700
+Started GET "/users/new" for ::1 at 2020-10-16 17:11:44 -0700
+Processing by UsersController#new as HTML
+  [1m[36mUser Load (0.4ms)[0m  [1m[34mSELECT  "users".* FROM "users" WHERE "users"."session_token" IS NULL LIMIT $1[0m  [["LIMIT", 1]]
+  ↳ app/controllers/application_controller.rb:26
+  Rendering users/new.html.erb within layouts/application
+  Rendered users/_form.html.erb (1.2ms)
+  Rendered users/new.html.erb within layouts/application (2.6ms)
+Completed 500 Internal Server Error in 10ms (ActiveRecord: 0.4ms)
+
+
+
+SyntaxError - syntax error, unexpected tLABEL, expecting '='
+...uffer.append=( f.submit, class: "button", style: 'font-size:...
+...                         ^~~~~~
+/Users/aaronparisi/Desktop/CS/AppAcademy2020/Homeworks_aA/Rails/MusicApp/music_app/app/views/users/_form.html.erb:26: syntax error, unexpected ',', expecting ')'
+...nd=( f.submit, class: "button", style: 'font-size: 18px; fon...
+...                              ^:
+  app/views/users/_form.html.erb:26:in `'
+  app/views/users/new.html.erb:3:in `_app_views_users_new_html_erb__2455843399922698958_91440'
+
+Started POST "/__better_errors/25a2a508059a1312/variables" for ::1 at 2020-10-16 17:11:44 -0700
+Started GET "/users/new" for ::1 at 2020-10-16 17:13:26 -0700
+Processing by UsersController#new as HTML
+  [1m[36mUser Load (0.7ms)[0m  [1m[34mSELECT  "users".* FROM "users" WHERE "users"."session_token" IS NULL LIMIT $1[0m  [["LIMIT", 1]]
+  ↳ app/controllers/application_controller.rb:26
+  Rendering users/new.html.erb within layouts/application
+  Rendered users/_form.html.erb (6.8ms)
+  Rendered users/new.html.erb within layouts/application (9.5ms)
+Completed 200 OK in 69ms (Views: 63.7ms | ActiveRecord: 0.7ms)
+
+
+Started GET "/users/new" for ::1 at 2020-10-16 17:14:54 -0700
+Processing by UsersController#new as HTML
+  [1m[36mUser Load (0.4ms)[0m  [1m[34mSELECT  "users".* FROM "users" WHERE "users"."session_token" IS NULL LIMIT $1[0m  [["LIMIT", 1]]
+  ↳ app/controllers/application_controller.rb:26
+  Rendering users/new.html.erb within layouts/application
+  Rendered users/_form.html.erb (3.9ms)
+  Rendered users/new.html.erb within layouts/application (6.8ms)
+Completed 200 OK in 66ms (Views: 60.3ms | ActiveRecord: 0.4ms)
+
+
+Started GET "/users/new" for ::1 at 2020-10-16 17:15:05 -0700
+Processing by UsersController#new as HTML
+  [1m[36mUser Load (0.3ms)[0m  [1m[34mSELECT  "users".* FROM "users" WHERE "users"."session_token" IS NULL LIMIT $1[0m  [["LIMIT", 1]]
+  ↳ app/controllers/application_controller.rb:26
+  Rendering users/new.html.erb within layouts/application
+  Rendered users/_form.html.erb (3.0ms)
+  Rendered users/new.html.erb within layouts/application (4.5ms)
+Completed 200 OK in 55ms (Views: 50.7ms | ActiveRecord: 0.3ms)
+
+
+Started GET "/users/new" for ::1 at 2020-10-16 17:15:46 -0700
+Processing by UsersController#new as HTML
+  [1m[36mUser Load (0.5ms)[0m  [1m[34mSELECT  "users".* FROM "users" WHERE "users"."session_token" IS NULL LIMIT $1[0m  [["LIMIT", 1]]
+  ↳ app/controllers/application_controller.rb:26
+  Rendering users/new.html.erb within layouts/application
+  Rendered users/_form.html.erb (3.3ms)
+  Rendered users/new.html.erb within layouts/application (4.6ms)
+Completed 200 OK in 72ms (Views: 67.3ms | ActiveRecord: 0.5ms)
+
+
+Started GET "/users/new" for ::1 at 2020-10-16 17:17:26 -0700
+Processing by UsersController#new as HTML
+  [1m[36mUser Load (0.4ms)[0m  [1m[34mSELECT  "users".* FROM "users" WHERE "users"."session_token" IS NULL LIMIT $1[0m  [["LIMIT", 1]]
+  ↳ app/controllers/application_controller.rb:26
+  Rendering users/new.html.erb within layouts/application
+  Rendered users/_form.html.erb (3.1ms)
+  Rendered users/new.html.erb within layouts/application (4.6ms)
+Completed 200 OK in 64ms (Views: 60.3ms | ActiveRecord: 0.4ms)
+
+

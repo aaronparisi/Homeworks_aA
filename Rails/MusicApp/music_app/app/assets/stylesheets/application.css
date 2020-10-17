@@ -30,6 +30,13 @@
    font-size: 40px;
  }
 
+ input[type="text"] {
+  padding: 5px;
+  -webkit-box-sizing: border-box; /* Safari/Chrome, other WebKit */
+  -moz-box-sizing: border-box;    /* Firefox, other Gecko */
+  box-sizing: border-box;         /* Opera/IE 8+ */
+}
+
  body {
    background-color: #0E0E0E;
    display: flex;

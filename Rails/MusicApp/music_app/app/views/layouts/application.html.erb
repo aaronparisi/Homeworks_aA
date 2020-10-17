@@ -15,7 +15,7 @@
     <div class="body-content">
       <div class="body-content-header">
         <h1 class="main-heading">Music App</h1>
-        <% unless logging_in? %>
+        <% unless logging_in? || signing_up? %>
           <div class="header-links">
             <div><%= link_to "Take me homeeee", root_path, class: "button home-button" %></div>
             <div class="session-info">
