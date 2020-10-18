@@ -52,5 +52,10 @@ class ApplicationController < ActionController::Base
     params[:controller] == 'users' && params[:action] == 'new'
   end
   
-  
+  def build_like_path
+    path_parts = URI.split(request.fullpath)[5].split("/")
+    
+    return URI.join(path_parts[0..2].join("/")).to_s
+  end
+    
 end

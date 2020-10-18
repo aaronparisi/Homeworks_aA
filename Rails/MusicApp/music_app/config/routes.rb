@@ -1,7 +1,5 @@
 Rails.application.routes.draw do
-  get 'band_membership/new'
-  get 'band_membership/create'
-  get 'band_membership/destroy'
+
   resources :users, except: [:index] do
     resources :bands, except: [:show]
   end
@@ -14,6 +12,10 @@ Rails.application.routes.draw do
 
   resources :bands, only: [:index, :show] do
     resources :albums, except: [:show, :destroy]
+    
+    post '/like', to: 'likes#create', as: 'like'
+    delete '/like', to: 'likes#destroy', as: 'unlike'
+
     get '/members', to: 'users#index', as: 'members'
     get '/add_members', to: 'band_memberships#new', as: 'member_add'
     post '/add_members', to: 'band_memberships#create'

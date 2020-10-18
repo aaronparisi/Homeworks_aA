@@ -27,6 +27,11 @@ class User < ApplicationRecord
   has_many :band_memberships, class_name: :BandMembership, foreign_key: :member_id
   has_many :bands, through: :band_memberships
 
+  has_many :made_likes, class_name: :Like, foreign_key: :liker_id
+  has_many :liked_bands, through: :made_likes, source: :likeable, source_type: :Band
+  has_many :liked_albums, through: :made_likes, source: :likeable, source_type: :Album
+  has_many :liked_tracks, through: :made_likes, source: :likeable, source_type: :Track
+
   def self.find_by_credentials(email, password)
     ret = User.find_by(email: email)
     return nil if ret.nil?
