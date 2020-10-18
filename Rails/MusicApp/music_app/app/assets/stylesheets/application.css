@@ -179,6 +179,11 @@
    justify-content: space-between;
  }
 
+ .list-links {
+   display: flex;
+   flex-wrap: nowrap;
+ }
+
  .content-list {
   width: 50%;
   display: flex;

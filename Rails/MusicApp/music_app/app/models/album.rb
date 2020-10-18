@@ -21,4 +21,7 @@ class Album < ApplicationRecord
 
   belongs_to :band
   has_many :tracks, dependent: :destroy
+
+  has_many :likes, as: :likeable, dependent: :destroy
+  has_many :fans, through: :likes, source: :liker
 end

@@ -1,6 +1,6 @@
 class AlbumsController < ApplicationController
-  before_action :find_album, except: [:index, :new, :create]
-  before_action :require_band_membership, except: [:index, :show]
+  before_action :find_album, only: [:show, :edit, :update, :destroy]
+  before_action :require_band_membership, only: [:new, :create, :edit, :update, :destroy]
 
   def index
     @album = Album.where(band_id: params[:band_id])
@@ -47,6 +47,29 @@ class AlbumsController < ApplicationController
     end
   end
   
+  def like
+    @album = Album.find(params[:album_id])
+    @like = @album.likes.build(likeable_type: "Album", liker_id: current_user.id)
+
+    if @like.save
+      redirect_to album_path(@album), notice: "successfully liked"
+    else
+      redirect_to album_path(@album), notice: "like failed"
+    end
+  end
+  
+  def unlike
+    @album = Album.find(params[:album_id])
+    @like = Like.where(likeable_type: "Album", likeable_id: @album.id, liker_id: current_user.id).first
+
+    redirect_to album_path(@album), notice: "something is wrong, such a like should have existed" if @like.nil?
+    if @like.destroy
+      redirect_to album_path(@album), notice: "successfully unliked"
+    else
+      redirect_to album_path(@album), notice: "unlike failed"
+    end
+  end
+
   private
 
   def find_album

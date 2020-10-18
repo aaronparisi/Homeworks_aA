@@ -20,6 +20,9 @@ class Band < ApplicationRecord
   has_many :band_memberships, class_name: :BandMembership, foreign_key: :band_id
   has_many :members, through: :band_memberships
 
+  has_many :likes, as: :likeable, dependent: :destroy
+  has_many :fans, through: :likes, source: :liker
+
   def has_member?(user)
     self.members.pluck(:id).include?(user.id)
   end

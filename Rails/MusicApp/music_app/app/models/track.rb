@@ -20,4 +20,7 @@ class Track < ApplicationRecord
   validates :name, presence: true
 
   belongs_to :album
+
+  has_many :likes, as: :likeable, dependent: :destroy
+  has_many :fans, through: :likes, source: :liker
 end
