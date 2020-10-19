@@ -21,7 +21,6 @@ class SessionsController < ApplicationController
       login!(@user)
       redirect_to root_path, notice: "Logged in!"
     else
-      # failure, no user found
       UserMailer.signed_up(@user).deliver_later
       redirect_to awaiting_auth_user_path(@user), notice: "must authenticate before signing in, check your e mail"
     end

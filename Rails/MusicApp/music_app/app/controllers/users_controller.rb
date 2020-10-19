@@ -1,5 +1,5 @@
 class UsersController < ApplicationController
-  before_action :find_user, only: [:show, :edit, :update, :destroy, :authenticate, :awaiting_auth, :resend_auth_email]
+  before_action :find_user, only: [:show, :edit, :update, :destroy, :confirm_auth, :awaiting_auth, :resend_auth_email]
   before_action :require_any_logged_in, only: [:show, :edit, :update, :destroy]
   before_action :require_this_logged_in, only: [:show, :edit, :update, :destroy]
   before_action :require_logged_out, only: [:new, :create]
@@ -41,6 +41,7 @@ class UsersController < ApplicationController
   end
 
   def awaiting_auth
+    
   end
   
   def resend_auth_email
@@ -49,11 +50,14 @@ class UsersController < ApplicationController
   end
   
   def authenticate
+
+  end
+
+  def confirm_auth
       @user.authenticated = true
       if @user.save
         login!(@user)
-        # session[:session_token] = @user.session_token <= done in login!()
-        redirect_to root_path, notice: "logged in!"
+        redirect_to root_path, notice: "Welcome!"
       else
         # something didn't work
         UserMailer.signed_up(@user).deliver_later

@@ -6,6 +6,7 @@ Rails.application.routes.draw do
       get '/awaiting_auth', to: 'users#awaiting_auth'
       get '/resend_auth', to: 'users#resend_auth_email'
       get '/authenticate', to: 'users#authenticate'
+      post '/authenticate', to: 'users#confirm_auth'
     end
   end
 
