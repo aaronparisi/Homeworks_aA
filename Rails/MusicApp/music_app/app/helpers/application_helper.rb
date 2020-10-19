@@ -14,7 +14,6 @@ module ApplicationHelper
       ret += "</ul>"
 
     end
-
     ret.html_safe
   end
   

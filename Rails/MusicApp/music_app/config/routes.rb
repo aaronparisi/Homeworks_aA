@@ -2,6 +2,11 @@ Rails.application.routes.draw do
 
   resources :users, except: [:index] do
     resources :bands, except: [:show]
+    member do
+      get '/awaiting_auth', to: 'users#awaiting_auth'
+      get '/resend_auth', to: 'users#resend_auth_email'
+      get '/authenticate', to: 'users#authenticate'
+    end
   end
 
   controller :sessions do

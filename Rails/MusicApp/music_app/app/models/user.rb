@@ -3,6 +3,7 @@
 # Table name: users
 #
 #  id              :bigint           not null, primary key
+#  authenticated   :boolean          default(FALSE)
 #  email           :string           not null
 #  password_digest :string           not null
 #  session_token   :string
@@ -16,12 +17,15 @@
 #  index_users_on_username  (username)
 #
 class User < ApplicationRecord
-  validates :username, :email, presence: true, uniqueness: true
+  validates :username, presence: true, uniqueness: true
   validates :password, length: { minimum: 4 }, allow_nil: true
+  validates :email, presence: true
+  validates :authenticated, inclusion: [true, false]
   # validates :session_token, presence: true
   validate :passwords_match
   has_secure_password
 
+  after_initialize :set_defaults
   after_initialize :ensure_session_token
 
   has_many :band_memberships, class_name: :BandMembership, foreign_key: :member_id
@@ -81,6 +85,10 @@ class User < ApplicationRecord
   
   def ensure_session_token
     self.session_token ||= self.class.generate_session_token
+  end
+  
+  def set_defaults
+    self.authenticated ||= false
   end
   
 end
