@@ -1,5 +1,5 @@
 class BandMembershipsController < ApplicationController
-  before_action :require_band_membership
+  before_action :require_band_membership, only: [:invite, :new, :destroy]
   # before_action :require_this_logged_in, only: [:destroy]
 
   def new
@@ -7,17 +7,24 @@ class BandMembershipsController < ApplicationController
     # @membership = BandMembership.new
   end
 
+  def invite
+    @band = Band.find(params[:band_id])
+    @user = User.find_by(email: params[:email])
+    BandMembershipMailer.invite(@band, @user).deliver_later
+    redirect_to band_path(@band), notice: 'invite sent'
+  end
+
   def create
-    @to_add = User.find_by(email: params[:email])
+    @to_add = User.find(params[:user_id])
     if @to_add.nil?
       # user does not exist
       redirect_to band_path(band_id: params[:band_id]), notice: "no user with that e mail"
     else
       @band_membership = BandMembership.new(
-        band_id: params[:band_id],
+        band_id: params[:id],
         member_id: @to_add.id
       )
-
+      
       if @band_membership.save
         redirect_to band_path(@band_membership.band), notice: "member added"
       else

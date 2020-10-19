@@ -1,15 +1,13 @@
 <div class="app-form" id="new-band-membership-form">
   <%= form_with do %>
 
-    <%= hidden_field_tag :band_id, value: @band.id %>
-
     <div class="fields">
       <%= label_tag :email %>
       <%= text_field_tag :email %>
     </div>
 
     <div class="actions">
-      <%= submit_tag "Add Member", class: "button", style: 'font-size: 18px; font-weight: 100' %>
+      <%= submit_tag "Invite Member", class: "button", style: 'font-size: 18px; font-weight: 100' %>
     </div>
   <% end %>
 </div>

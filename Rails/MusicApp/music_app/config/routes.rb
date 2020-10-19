@@ -18,9 +18,13 @@ Rails.application.routes.draw do
   resources :bands, only: [:index, :show] do
     resources :albums, except: [:show, :destroy]
 
+    member do
+      get '/users/:user_id/join', to: 'band_memberships#create', as: 'join', param: :band_id
+    end
+
     get '/members', to: 'users#index', as: 'members'
     get '/add_members', to: 'band_memberships#new', as: 'member_add'
-    post '/add_members', to: 'band_memberships#create'
+    post '/add_members', to: 'band_memberships#invite'
     delete '/member/:member_id', to: 'band_memberships#destroy', as: 'member_leave'
 
     post '/like', to: 'bands#like', as: 'like'
