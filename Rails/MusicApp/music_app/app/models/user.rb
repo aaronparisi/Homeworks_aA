@@ -28,7 +28,7 @@ class User < ApplicationRecord
   after_initialize :set_defaults
   after_initialize :ensure_session_token
 
-  has_many :band_memberships, class_name: :BandMembership, foreign_key: :member_id
+  has_many :band_memberships, class_name: :BandMembership, foreign_key: :member_id, dependent: :destroy
   has_many :bands, through: :band_memberships
 
   has_many :made_likes, class_name: :Like, foreign_key: :liker_id, dependent: :destroy
@@ -79,6 +79,10 @@ class User < ApplicationRecord
     end
 
     band.has_member?(self)
+  end
+  
+  def authenticated?
+    self.authenticated
   end
   
   private

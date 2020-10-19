@@ -17463,3 +17463,268 @@ Processing by UsersController#index as HTML
 Completed 200 OK in 119ms (Views: 103.3ms | ActiveRecord: 9.1ms)
 
 
+Started DELETE "/logout" for ::1 at 2020-10-19 10:36:35 -0700
+  [1m[35m (2.9ms)[0m  [1m[34mSELECT "schema_migrations"."version" FROM "schema_migrations" ORDER BY "schema_migrations"."version" ASC[0m
+  ↳ /Users/aaronparisi/.rbenv/versions/2.7.0/lib/ruby/gems/2.7.0/gems/activerecord-5.2.4.4/lib/active_record/log_subscriber.rb:98
+Processing by SessionsController#destroy as HTML
+  Parameters: {"authenticity_token"=>"jiczPXowWOcUx3pyU2c6eJYOgMIiIgAnK3Z2ACgvCLTpzrpckLmKL4Ks4Qc6nnT+G9RpVfqFwKi5vTcu2DHn2w=="}
+  [1m[36mUser Load (1.5ms)[0m  [1m[34mSELECT  "users".* FROM "users" WHERE "users"."session_token" = $1 LIMIT $2[0m  [["session_token", "3ztaEudJq5N7tJ1VpSfTCQ"], ["LIMIT", 1]]
+  ↳ app/controllers/application_controller.rb:26
+  [1m[35m (0.2ms)[0m  [1m[35mBEGIN[0m
+  ↳ app/models/user.rb:70
+  [1m[36mUser Exists (0.5ms)[0m  [1m[34mSELECT  1 AS one FROM "users" WHERE "users"."username" = $1 AND "users"."id" != $2 LIMIT $3[0m  [["username", "kelseyjones"], ["id", 3], ["LIMIT", 1]]
+  ↳ app/models/user.rb:70
+  [1m[36mUser Update (3.6ms)[0m  [1m[33mUPDATE "users" SET "session_token" = $1, "updated_at" = $2 WHERE "users"."id" = $3[0m  [["session_token", "xnO6ERZNRHEgqNMPm5iPaw"], ["updated_at", "2020-10-19 17:36:36.182431"], ["id", 3]]
+  ↳ app/models/user.rb:70
+  [1m[35m (0.9ms)[0m  [1m[35mCOMMIT[0m
+  ↳ app/models/user.rb:70
+Redirected to http://localhost:3000/login
+Completed 302 Found in 94ms (ActiveRecord: 24.1ms)
+
+
+Started GET "/login" for ::1 at 2020-10-19 10:36:36 -0700
+Processing by SessionsController#new as HTML
+  [1m[36mUser Load (0.3ms)[0m  [1m[34mSELECT  "users".* FROM "users" WHERE "users"."session_token" IS NULL LIMIT $1[0m  [["LIMIT", 1]]
+  ↳ app/controllers/application_controller.rb:26
+  [1m[36mUser Exists (0.3ms)[0m  [1m[34mSELECT  1 AS one FROM "users" LIMIT $1[0m  [["LIMIT", 1]]
+  ↳ app/controllers/sessions_controller.rb:4
+  [1m[36mCACHE User Load (0.0ms)[0m  [1m[34mSELECT  "users".* FROM "users" WHERE "users"."session_token" IS NULL LIMIT $1[0m  [["LIMIT", 1]]
+  ↳ app/controllers/application_controller.rb:26
+  Rendering sessions/new.html.erb within layouts/application
+  Rendered sessions/_form.html.erb (1.8ms)
+  Rendered sessions/new.html.erb within layouts/application (4.4ms)
+Completed 200 OK in 281ms (Views: 275.6ms | ActiveRecord: 0.6ms)
+
+
+Started GET "/users/new" for ::1 at 2020-10-19 10:36:39 -0700
+Processing by UsersController#new as HTML
+  [1m[36mUser Load (2.3ms)[0m  [1m[34mSELECT  "users".* FROM "users" WHERE "users"."session_token" IS NULL LIMIT $1[0m  [["LIMIT", 1]]
+  ↳ app/controllers/application_controller.rb:26
+  Rendering users/new.html.erb within layouts/application
+  Rendered users/_form.html.erb (55.3ms)
+  Rendered users/new.html.erb within layouts/application (57.5ms)
+Completed 200 OK in 165ms (Views: 154.4ms | ActiveRecord: 2.3ms)
+
+
+  [1m[36mUser Load (2.1ms)[0m  [1m[34mSELECT  "users".* FROM "users" WHERE "users"."email" = $1 LIMIT $2[0m  [["email", "parisi.aaron@gmail.com"], ["LIMIT", 11]]
+  [1m[36mUser Load (0.6ms)[0m  [1m[34mSELECT  "users".* FROM "users" WHERE "users"."id" = $1 LIMIT $2[0m  [["id", 2], ["LIMIT", 1]]
+  [1m[35m (0.4ms)[0m  [1m[35mBEGIN[0m
+  [1m[36mLike Load (0.6ms)[0m  [1m[34mSELECT "likes".* FROM "likes" WHERE "likes"."liker_id" = $1[0m  [["liker_id", 2]]
+  [1m[36mUser Destroy (6.8ms)[0m  [1m[31mDELETE FROM "users" WHERE "users"."id" = $1[0m  [["id", 2]]
+  [1m[35m (0.2ms)[0m  [1m[31mROLLBACK[0m
+  [1m[36mUser Load (0.5ms)[0m  [1m[34mSELECT  "users".* FROM "users" WHERE "users"."id" = $1 LIMIT $2[0m  [["id", 2], ["LIMIT", 1]]
+  [1m[35m (0.2ms)[0m  [1m[35mBEGIN[0m
+  [1m[36mBandMembership Load (0.3ms)[0m  [1m[34mSELECT "band_memberships".* FROM "band_memberships" WHERE "band_memberships"."member_id" = $1[0m  [["member_id", 2]]
+  [1m[36mBandMembership Destroy (0.6ms)[0m  [1m[31mDELETE FROM "band_memberships" WHERE "band_memberships"."id" = $1[0m  [["id", 8]]
+  [1m[36mLike Load (0.4ms)[0m  [1m[34mSELECT "likes".* FROM "likes" WHERE "likes"."liker_id" = $1[0m  [["liker_id", 2]]
+  [1m[36mUser Destroy (1.1ms)[0m  [1m[31mDELETE FROM "users" WHERE "users"."id" = $1[0m  [["id", 2]]
+  [1m[35m (0.7ms)[0m  [1m[35mCOMMIT[0m
+Started POST "/users" for ::1 at 2020-10-19 10:37:53 -0700
+Processing by UsersController#create as HTML
+  Parameters: {"utf8"=>"✓", "authenticity_token"=>"JiNQ+FMvB5hcB4s5pKXML4lIHahH80m67txC4yjOp431grISbM46KbjvkpXWC9M254bVVLB8TzLpwBTPFER4eQ==", "user"=>{"username"=>"aaronparisi", "email"=>"parisi.aaron@gmail.com", "password"=>"[FILTERED]", "password_confirmation"=>"[FILTERED]"}, "commit"=>"Sign Up"}
+  [1m[36mUser Load (0.3ms)[0m  [1m[34mSELECT  "users".* FROM "users" WHERE "users"."session_token" IS NULL LIMIT $1[0m  [["LIMIT", 1]]
+  ↳ app/controllers/application_controller.rb:26
+  [1m[35m (0.2ms)[0m  [1m[35mBEGIN[0m
+  ↳ app/controllers/users_controller.rb:35
+  [1m[36mUser Exists (0.4ms)[0m  [1m[34mSELECT  1 AS one FROM "users" WHERE "users"."username" = $1 LIMIT $2[0m  [["username", "aaronparisi"], ["LIMIT", 1]]
+  ↳ app/controllers/users_controller.rb:35
+  [1m[36mUser Create (2.5ms)[0m  [1m[32mINSERT INTO "users" ("username", "email", "password_digest", "created_at", "updated_at", "session_token") VALUES ($1, $2, $3, $4, $5, $6) RETURNING "id"[0m  [["username", "aaronparisi"], ["email", "parisi.aaron@gmail.com"], ["password_digest", "$2a$12$GABt68RNMFZ4hX5mfPmSHOcmunFVvf6ZEd88Hn8X0oeVwSaZcq3CG"], ["created_at", "2020-10-19 17:37:53.771155"], ["updated_at", "2020-10-19 17:37:53.771155"], ["session_token", "VMN2aDsl9BY0-ukMPzviFw"]]
+  ↳ app/controllers/users_controller.rb:35
+  [1m[35m (0.4ms)[0m  [1m[35mCOMMIT[0m
+  ↳ app/controllers/users_controller.rb:35
+[ActiveJob] Enqueued ActionMailer::DeliveryJob (Job ID: 22478bf1-004e-4ddc-a550-d47da16ebe2b) to Async(mailers) with arguments: "UserMailer", "signed_up", "deliver_now", #<GlobalID:0x00007f96e10b1830 @uri=#<URI::GID gid://music-app/User/9>>
+Redirected to http://localhost:3000/users/9/awaiting_auth
+Completed 302 Found in 385ms (ActiveRecord: 9.9ms)
+
+
+Started GET "/users/9/awaiting_auth" for ::1 at 2020-10-19 10:37:53 -0700
+  [1m[36mUser Load (0.3ms)[0m  [1m[34mSELECT  "users".* FROM "users" WHERE "users"."id" = $1 LIMIT $2[0m  [["id", 9], ["LIMIT", 1]]
+  ↳ /Users/aaronparisi/.rbenv/versions/2.7.0/lib/ruby/gems/2.7.0/gems/activerecord-5.2.4.4/lib/active_record/log_subscriber.rb:98
+[ActiveJob] [ActionMailer::DeliveryJob] [22478bf1-004e-4ddc-a550-d47da16ebe2b] Performing ActionMailer::DeliveryJob (Job ID: 22478bf1-004e-4ddc-a550-d47da16ebe2b) from Async(mailers) with arguments: "UserMailer", "signed_up", "deliver_now", #<GlobalID:0x00007f96dc6d88a8 @uri=#<URI::GID gid://music-app/User/9>>
+[ActiveJob] [ActionMailer::DeliveryJob] [22478bf1-004e-4ddc-a550-d47da16ebe2b]   Rendering user_mailer/signed_up.text.erb within layouts/mailer
+[ActiveJob] [ActionMailer::DeliveryJob] [22478bf1-004e-4ddc-a550-d47da16ebe2b]   Rendered user_mailer/signed_up.text.erb within layouts/mailer (0.5ms)
+[ActiveJob] [ActionMailer::DeliveryJob] [22478bf1-004e-4ddc-a550-d47da16ebe2b] UserMailer#signed_up: processed outbound mail in 34.8ms
+[ActiveJob] [ActionMailer::DeliveryJob] [22478bf1-004e-4ddc-a550-d47da16ebe2b] Sent mail to parisi.aaron@gmail.com (1743.6ms)
+[ActiveJob] [ActionMailer::DeliveryJob] [22478bf1-004e-4ddc-a550-d47da16ebe2b] Date: Mon, 19 Oct 2020 10:37:53 -0700
+From: Aaron Parisi <aarons_coding_stuff@gmail.com>
+To: parisi.aaron@gmail.com
+Message-ID: <5f8dcef1f10e9_87798318144f2@aarons-MacBook-Pro.local.mail>
+Subject: You signed up!
+Mime-Version: 1.0
+Content-Type: text/plain;
+ charset=UTF-8
+Content-Transfer-Encoding: 7bit
+
+User#signed_up
+
+Hi, find me in app/views/user_mailer/signed_up.text.erb
+
+click here to authenticate: http://localhost:3000/users/9/authenticate
+
+[ActiveJob] [ActionMailer::DeliveryJob] [22478bf1-004e-4ddc-a550-d47da16ebe2b] Performed ActionMailer::DeliveryJob (Job ID: 22478bf1-004e-4ddc-a550-d47da16ebe2b) from Async(mailers) in 1794.5ms
+Processing by UsersController#awaiting_auth as HTML
+  Parameters: {"id"=>"9"}
+  [1m[36mUser Load (0.6ms)[0m  [1m[34mSELECT  "users".* FROM "users" WHERE "users"."session_token" IS NULL LIMIT $1[0m  [["LIMIT", 1]]
+  ↳ app/controllers/application_controller.rb:26
+  [1m[36mUser Load (0.3ms)[0m  [1m[34mSELECT  "users".* FROM "users" WHERE "users"."id" = $1 LIMIT $2[0m  [["id", 9], ["LIMIT", 1]]
+  ↳ app/controllers/users_controller.rb:87
+  Rendering users/awaiting_auth.html.erb within layouts/application
+  Rendered users/awaiting_auth.html.erb within layouts/application (0.5ms)
+Completed 200 OK in 40ms (Views: 34.1ms | ActiveRecord: 1.2ms)
+
+
+Started GET "/login" for ::1 at 2020-10-19 10:38:14 -0700
+Processing by SessionsController#new as HTML
+  [1m[36mUser Load (2.2ms)[0m  [1m[34mSELECT  "users".* FROM "users" WHERE "users"."session_token" IS NULL LIMIT $1[0m  [["LIMIT", 1]]
+  ↳ app/controllers/application_controller.rb:26
+  [1m[36mUser Exists (7.2ms)[0m  [1m[34mSELECT  1 AS one FROM "users" LIMIT $1[0m  [["LIMIT", 1]]
+  ↳ app/controllers/sessions_controller.rb:4
+  [1m[36mCACHE User Load (0.0ms)[0m  [1m[34mSELECT  "users".* FROM "users" WHERE "users"."session_token" IS NULL LIMIT $1[0m  [["LIMIT", 1]]
+  ↳ app/controllers/application_controller.rb:26
+  Rendering sessions/new.html.erb within layouts/application
+  Rendered sessions/_form.html.erb (6.8ms)
+  Rendered sessions/new.html.erb within layouts/application (10.9ms)
+Completed 200 OK in 108ms (Views: 89.4ms | ActiveRecord: 9.4ms)
+
+
+Started POST "/login" for ::1 at 2020-10-19 10:38:24 -0700
+Processing by SessionsController#create as JS
+  Parameters: {"utf8"=>"✓", "authenticity_token"=>"j9TyhRQxlVmqUmCvvcnlLBp+gQeactjoTyxWbhmrlOBVw3+Ykb0dOqOTmTOiIS06spMJaI7635duB0VcXb1aIQ==", "email"=>"parisi.aaron@gmail.com", "password"=>"[FILTERED]", "commit"=>"Login"}
+  [1m[36mUser Load (0.7ms)[0m  [1m[34mSELECT  "users".* FROM "users" WHERE "users"."session_token" IS NULL LIMIT $1[0m  [["LIMIT", 1]]
+  ↳ app/controllers/application_controller.rb:26
+  [1m[36mUser Load (0.5ms)[0m  [1m[34mSELECT  "users".* FROM "users" WHERE "users"."email" = $1 LIMIT $2[0m  [["email", "parisi.aaron@gmail.com"], ["LIMIT", 1]]
+  ↳ app/models/user.rb:41
+[ActiveJob] Enqueued ActionMailer::DeliveryJob (Job ID: cb6f5135-388d-4ece-9fd1-2eaf1d4464a3) to Async(mailers) with arguments: "UserMailer", "signed_up", "deliver_now", #<GlobalID:0x00007f96db5b9ab8 @uri=#<URI::GID gid://music-app/User/9>>
+Redirected to http://localhost:3000/users/9/awaiting_auth
+Completed 200 OK in 255ms (ActiveRecord: 1.2ms)
+
+
+  [1m[36mUser Load (1.2ms)[0m  [1m[34mSELECT  "users".* FROM "users" WHERE "users"."id" = $1 LIMIT $2[0m  [["id", 9], ["LIMIT", 1]]
+  ↳ /Users/aaronparisi/.rbenv/versions/2.7.0/lib/ruby/gems/2.7.0/gems/activerecord-5.2.4.4/lib/active_record/log_subscriber.rb:98
+[ActiveJob] [ActionMailer::DeliveryJob] [cb6f5135-388d-4ece-9fd1-2eaf1d4464a3] Performing ActionMailer::DeliveryJob (Job ID: cb6f5135-388d-4ece-9fd1-2eaf1d4464a3) from Async(mailers) with arguments: "UserMailer", "signed_up", "deliver_now", #<GlobalID:0x00007f96db558128 @uri=#<URI::GID gid://music-app/User/9>>
+[ActiveJob] [ActionMailer::DeliveryJob] [cb6f5135-388d-4ece-9fd1-2eaf1d4464a3]   Rendering user_mailer/signed_up.text.erb within layouts/mailer
+[ActiveJob] [ActionMailer::DeliveryJob] [cb6f5135-388d-4ece-9fd1-2eaf1d4464a3]   Rendered user_mailer/signed_up.text.erb within layouts/mailer (0.6ms)
+[ActiveJob] [ActionMailer::DeliveryJob] [cb6f5135-388d-4ece-9fd1-2eaf1d4464a3] UserMailer#signed_up: processed outbound mail in 12.5ms
+Started GET "/users/9/awaiting_auth" for ::1 at 2020-10-19 10:38:24 -0700
+Processing by UsersController#awaiting_auth as HTML
+  Parameters: {"id"=>"9"}
+  [1m[36mUser Load (3.8ms)[0m  [1m[34mSELECT  "users".* FROM "users" WHERE "users"."session_token" IS NULL LIMIT $1[0m  [["LIMIT", 1]]
+  ↳ app/controllers/application_controller.rb:26
+  [1m[36mUser Load (8.4ms)[0m  [1m[34mSELECT  "users".* FROM "users" WHERE "users"."id" = $1 LIMIT $2[0m  [["id", 9], ["LIMIT", 1]]
+  ↳ app/controllers/users_controller.rb:87
+  Rendering users/awaiting_auth.html.erb within layouts/application
+  Rendered users/awaiting_auth.html.erb within layouts/application (1.0ms)
+Completed 200 OK in 120ms (Views: 101.7ms | ActiveRecord: 12.2ms)
+
+
+[ActiveJob] [ActionMailer::DeliveryJob] [cb6f5135-388d-4ece-9fd1-2eaf1d4464a3] Sent mail to parisi.aaron@gmail.com (1468.0ms)
+[ActiveJob] [ActionMailer::DeliveryJob] [cb6f5135-388d-4ece-9fd1-2eaf1d4464a3] Date: Mon, 19 Oct 2020 10:38:24 -0700
+From: Aaron Parisi <aarons_coding_stuff@gmail.com>
+To: parisi.aaron@gmail.com
+Message-ID: <5f8dcf10b3281_877983181459e@aarons-MacBook-Pro.local.mail>
+Subject: You signed up!
+Mime-Version: 1.0
+Content-Type: text/plain;
+ charset=UTF-8
+Content-Transfer-Encoding: 7bit
+
+User#signed_up
+
+Hi, find me in app/views/user_mailer/signed_up.text.erb
+
+click here to authenticate: http://localhost:3000/users/9/authenticate
+
+[ActiveJob] [ActionMailer::DeliveryJob] [cb6f5135-388d-4ece-9fd1-2eaf1d4464a3] Performed ActionMailer::DeliveryJob (Job ID: cb6f5135-388d-4ece-9fd1-2eaf1d4464a3) from Async(mailers) in 1481.86ms
+Started GET "/users/9/authenticate" for ::1 at 2020-10-19 10:38:36 -0700
+Processing by UsersController#authenticate as HTML
+  Parameters: {"id"=>"9"}
+  [1m[36mUser Load (3.1ms)[0m  [1m[34mSELECT  "users".* FROM "users" WHERE "users"."session_token" IS NULL LIMIT $1[0m  [["LIMIT", 1]]
+  ↳ app/controllers/application_controller.rb:26
+  [1m[36mUser Load (0.9ms)[0m  [1m[34mSELECT  "users".* FROM "users" WHERE "users"."id" = $1 LIMIT $2[0m  [["id", 9], ["LIMIT", 1]]
+  ↳ app/controllers/users_controller.rb:87
+  [1m[35m (1.9ms)[0m  [1m[35mBEGIN[0m
+  ↳ app/controllers/users_controller.rb:53
+  [1m[36mUser Exists (3.0ms)[0m  [1m[34mSELECT  1 AS one FROM "users" WHERE "users"."username" = $1 AND "users"."id" != $2 LIMIT $3[0m  [["username", "aaronparisi"], ["id", 9], ["LIMIT", 1]]
+  ↳ app/controllers/users_controller.rb:53
+  [1m[36mUser Update (0.7ms)[0m  [1m[33mUPDATE "users" SET "authenticated" = $1, "updated_at" = $2 WHERE "users"."id" = $3[0m  [["authenticated", true], ["updated_at", "2020-10-19 17:38:36.431382"], ["id", 9]]
+  ↳ app/controllers/users_controller.rb:53
+  [1m[35m (1.3ms)[0m  [1m[35mCOMMIT[0m
+  ↳ app/controllers/users_controller.rb:53
+Redirected to http://localhost:3000/
+Completed 302 Found in 26ms (ActiveRecord: 10.7ms)
+
+
+Started GET "/" for ::1 at 2020-10-19 10:38:36 -0700
+Processing by UsersController#welcome as HTML
+  [1m[36mUser Load (0.6ms)[0m  [1m[34mSELECT  "users".* FROM "users" WHERE "users"."session_token" = $1 LIMIT $2[0m  [["session_token", "VMN2aDsl9BY0-ukMPzviFw"], ["LIMIT", 1]]
+  ↳ app/controllers/application_controller.rb:26
+Redirected to http://localhost:3000/users/9
+Completed 302 Found in 3ms (ActiveRecord: 0.6ms)
+
+
+Started GET "/users/9" for ::1 at 2020-10-19 10:38:36 -0700
+Processing by UsersController#show as HTML
+  Parameters: {"id"=>"9"}
+  [1m[36mUser Load (0.5ms)[0m  [1m[34mSELECT  "users".* FROM "users" WHERE "users"."session_token" = $1 LIMIT $2[0m  [["session_token", "VMN2aDsl9BY0-ukMPzviFw"], ["LIMIT", 1]]
+  ↳ app/controllers/application_controller.rb:26
+  [1m[36mUser Load (0.6ms)[0m  [1m[34mSELECT  "users".* FROM "users" WHERE "users"."id" = $1 LIMIT $2[0m  [["id", 9], ["LIMIT", 1]]
+  ↳ app/controllers/users_controller.rb:87
+  Rendering users/show.html.erb within layouts/application
+  Rendered users/show.html.erb within layouts/application (0.7ms)
+Completed 200 OK in 128ms (Views: 122.3ms | ActiveRecord: 1.1ms)
+
+
+Started GET "/users/9/bands" for ::1 at 2020-10-19 10:38:40 -0700
+Processing by BandsController#index as HTML
+  Parameters: {"user_id"=>"9"}
+  [1m[36mUser Load (2.6ms)[0m  [1m[34mSELECT  "users".* FROM "users" WHERE "users"."session_token" = $1 LIMIT $2[0m  [["session_token", "VMN2aDsl9BY0-ukMPzviFw"], ["LIMIT", 1]]
+  ↳ app/controllers/application_controller.rb:26
+  [1m[36mUser Load (6.1ms)[0m  [1m[34mSELECT  "users".* FROM "users" WHERE "users"."id" = $1 LIMIT $2[0m  [["id", 9], ["LIMIT", 1]]
+  ↳ app/controllers/bands_controller.rb:9
+  Rendering bands/index.html.erb within layouts/application
+  [1m[36mBand Load (4.4ms)[0m  [1m[34mSELECT "bands".* FROM "bands" INNER JOIN "band_memberships" ON "bands"."id" = "band_memberships"."band_id" WHERE "band_memberships"."member_id" = $1[0m  [["member_id", 9]]
+  ↳ app/views/bands/index.html.erb:4
+  Rendered bands/index.html.erb within layouts/application (34.2ms)
+Completed 200 OK in 151ms (Views: 56.1ms | ActiveRecord: 23.2ms)
+
+
+Started GET "/" for ::1 at 2020-10-19 10:38:42 -0700
+Processing by UsersController#welcome as HTML
+  [1m[36mUser Load (1.5ms)[0m  [1m[34mSELECT  "users".* FROM "users" WHERE "users"."session_token" = $1 LIMIT $2[0m  [["session_token", "VMN2aDsl9BY0-ukMPzviFw"], ["LIMIT", 1]]
+  ↳ app/controllers/application_controller.rb:26
+Redirected to http://localhost:3000/users/9
+Completed 302 Found in 5ms (ActiveRecord: 1.5ms)
+
+
+Started GET "/users/9" for ::1 at 2020-10-19 10:38:42 -0700
+Processing by UsersController#show as HTML
+  Parameters: {"id"=>"9"}
+  [1m[36mUser Load (1.5ms)[0m  [1m[34mSELECT  "users".* FROM "users" WHERE "users"."session_token" = $1 LIMIT $2[0m  [["session_token", "VMN2aDsl9BY0-ukMPzviFw"], ["LIMIT", 1]]
+  ↳ app/controllers/application_controller.rb:26
+  [1m[36mUser Load (0.9ms)[0m  [1m[34mSELECT  "users".* FROM "users" WHERE "users"."id" = $1 LIMIT $2[0m  [["id", 9], ["LIMIT", 1]]
+  ↳ app/controllers/users_controller.rb:87
+  Rendering users/show.html.erb within layouts/application
+  Rendered users/show.html.erb within layouts/application (1.2ms)
+Completed 200 OK in 60ms (Views: 51.4ms | ActiveRecord: 2.4ms)
+
+
+Started GET "/" for ::1 at 2020-10-19 10:38:50 -0700
+Processing by UsersController#welcome as HTML
+  [1m[36mUser Load (0.4ms)[0m  [1m[34mSELECT  "users".* FROM "users" WHERE "users"."session_token" = $1 LIMIT $2[0m  [["session_token", "VMN2aDsl9BY0-ukMPzviFw"], ["LIMIT", 1]]
+  ↳ app/controllers/application_controller.rb:26
+Redirected to http://localhost:3000/users/9
+Completed 302 Found in 4ms (ActiveRecord: 0.4ms)
+
+
+Started GET "/users/9" for ::1 at 2020-10-19 10:38:50 -0700
+Processing by UsersController#show as HTML
+  Parameters: {"id"=>"9"}
+  [1m[36mUser Load (0.4ms)[0m  [1m[34mSELECT  "users".* FROM "users" WHERE "users"."session_token" = $1 LIMIT $2[0m  [["session_token", "VMN2aDsl9BY0-ukMPzviFw"], ["LIMIT", 1]]
+  ↳ app/controllers/application_controller.rb:26
+  [1m[36mUser Load (0.3ms)[0m  [1m[34mSELECT  "users".* FROM "users" WHERE "users"."id" = $1 LIMIT $2[0m  [["id", 9], ["LIMIT", 1]]
+  ↳ app/controllers/users_controller.rb:87
+  Rendering users/show.html.erb within layouts/application
+  Rendered users/show.html.erb within layouts/application (1.0ms)
+Completed 200 OK in 746ms (Views: 742.3ms | ActiveRecord: 0.7ms)
+
+

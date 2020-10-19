@@ -13,14 +13,17 @@ class SessionsController < ApplicationController
       params[:email],
       params[:password]
     )
+    
+    render :new, notice: "Bad credentials" if @user.nil?
 
-    if @user
+    if @user.authenticated?
       # success, log them in
       login!(@user)
       redirect_to root_path, notice: "Logged in!"
     else
       # failure, no user found
-      render :new, notice: "Bad credentials"
+      UserMailer.signed_up(@user).deliver_later
+      redirect_to awaiting_auth_user_path(@user), notice: "must authenticate before signing in, check your e mail"
     end
   end
 
